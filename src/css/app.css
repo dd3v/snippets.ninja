@@ -59,16 +59,6 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
-/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
-/*
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  @font-face {
-    font-family: 'fontello';
-    src: url('../font/fontello.svg?91852344#fontello') format('svg');
-  }
-}
-*/
 [class^='icon-']:before,
 [class*=' icon-']:before {
   font-family: 'fontello';
@@ -107,23 +97,31 @@
 
 .icon-heart:before {
   content: '\e800';
-} /* '' */
+}
 .icon-heart-empty:before {
   content: '\e801';
-} /* '' */
+}
 .icon-cloud:before {
   content: '\e802';
-} /* '' */
+}
 .icon-cloud-inv:before {
   content: '\e803';
-} /* '' */
+}
 .icon-menu:before {
   content: '\e804';
-} /* '' */
+}
 .icon-hashtag:before {
   content: '\f292';
-} /* '' */
-
+}
+.icon-tag:before {
+  content: '\e805';
+}
+.icon-box:before {
+  content: '\e806';
+}
+.icon-plus:before {
+  content: '\e807';
+}
 html,
 body {
   font-family: 'Poppins-Regular', sans-serif;
@@ -137,4 +135,30 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+
+
+.input-group {
+  display: flex;
+  margin-bottom: 1.5em;
+}
+
+.input-group button {
+
+  padding: 0.5em 0.75em;
+}
+
+.input-group input {
+
+  padding: 0.5em 0.75em;
+  width: 100%;
+}
+
+.input-group input:not(:last-child) {
+  border-right: 0;
+}
+
+.input-group input:not(:first-child) {
+  border-left: 0;
 }

@@ -1,87 +1,45 @@
 <template>
   <div class="snippet-list-wrapper">
-    <div class="snippet-tools">
-      <div class="collapse-main-sidebar">
-        <button type="button" id="hide-main-nav-button">x</button>
-      </div>
-      <div class="search-bar">
-        <label for="search">
-          <input type="search" id="search" name="search" />
-        </label>
-      </div>
-      <div class="add-new">
-        <button type="button" id="hide-main-nav-button">+</button>
-      </div>
+    <div class="input-group">
+      <button type="button" id="hide-main-nav-button">
+        <ui-icon icon="menu" />
+      </button>
+      <label for="search">
+        <input type="text" id="search" name="search" />
+      </label>
+      <button type="button" id="hide-main-nav-button">
+        <ui-icon icon="plus" />
+      </button>
     </div>
     <ul class="snippet-list">
-      <li class="snippet">
-        <div class="snippet-title">
-          <span>Snippet 1</span> <button type="button">x</button>
-        </div>
-        <div class="snippet-info">
-          <span class="snippet-language">PHP</span>
-          <span class="snippet-date">2 days ago</span>
-        </div>
-      </li>
-      <li class="snippet">
-        <div class="snippet-title">
-          <span>Snippet 1</span> <button type="button">x</button>
-        </div>
-        <div class="snippet-info">
-          <span class="snippet-language">PHP</span>
-          <span class="snippet-date">2 days ago</span>
-        </div>
-      </li>
-      <li class="snippet">
-        <div class="snippet-title">
-          <span>Snippet 1</span> <button type="button">x</button>
-        </div>
-        <div class="snippet-info">
-          <span class="snippet-language">PHP</span>
-          <span class="snippet-date">2 days ago</span>
-        </div>
+      <li v-for="(snippet, key) in snippets" :key="key">
+        <snippet-item :snippet="snippet" />
       </li>
     </ul>
   </div>
 </template>
 <script>
+import SnippetItem from './SnippetItem.vue';
+
 export default {
+  components: { SnippetItem },
   name: 'SnippetList',
   setup() {},
+  data: () => ({
+    snippets: [
+      {
+        title: 'Snippet 1',
+      },
+      {
+        title: 'Snippet 2',
+      },
+    ],
+  }),
 };
 </script>
 <style scoped>
 .snippet-list-wrapper {
   width: 400px;
-}
-.snippet-tools {
-  display: flex;
-}
-
-.search-bar {
-  width: 100%;
-}
-
-#search {
-  width: 100%;
-}
-
-.snippet {
-  margin: 10px 0px 10px 0px;
-  cursor: pointer;
-}
-
-.snippet:hover {
-  background-color: yellow;
-}
-
-.snippet-title {
-  display: flex;
-  justify-content: space-between;
-}
-
-.snippet-info {
-  display: flex;
-  justify-content: space-between;
+  padding: 3px 0px 3px 0px;
 }
 </style>

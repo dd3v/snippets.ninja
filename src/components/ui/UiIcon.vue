@@ -7,10 +7,5 @@ export default {
   props: {
     icon: String,
   },
-  data: () => ({
-    link: '',
-  }),
 };
 </script>
-<style scoped>
-</style>
