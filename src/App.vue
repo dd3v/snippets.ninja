@@ -1,26 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <tag-list />
+  <snippet-list />
+  <code-editor />
+  <ui-icon icon="cloud-inv" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import SnippetList from './components/app/SnippetList.vue';
+import CodeEditor from './components/app/CodeEditor.vue';
+import TagList from './components/app/TagList.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    TagList,
+    SnippetList,
+    CodeEditor,
   },
 };
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  height: 100%;
 }
 </style>

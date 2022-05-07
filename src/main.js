@@ -1,4 +1,8 @@
 import { createApp } from 'vue';
+import UiIcon from './components/ui/UiIcon.vue';
 import App from './App.vue';
+import './css/app.css';
 
-createApp(App).mount('#app');
+const app = createApp(App);
+app.component('ui-icon', UiIcon);
+app.mount('#app');
