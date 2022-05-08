@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "codeflask": "^1.4.1",
+    "codemirror": "^5.65.3",
     "core-js": "^3.8.3",
     "vue": "^3.2.13"
   },

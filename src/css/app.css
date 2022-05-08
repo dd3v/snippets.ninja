@@ -122,6 +122,13 @@
 .icon-plus:before {
   content: '\e807';
 }
+
+.CodeMirror {
+  height: -moz-calc(100vh - 40px);
+  height: -webkit-calc(100vh - 40px);
+  height: -o-calc(100vh - 40px);
+  height: calc(100vh - 40px);
+}
 html,
 body {
   font-family: 'Poppins-Regular', sans-serif;
@@ -156,14 +163,11 @@ ul {
 }
 
 .input-group button {
-
   padding: 0.5em 0.75em;
 }
 
 .input-group input {
-
   padding: 0.5em 0.75em;
-
 }
 
 .input-group input:not(:last-child) {

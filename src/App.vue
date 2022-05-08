@@ -2,7 +2,6 @@
   <tag-list />
   <snippet-list />
   <code-editor />
-  <ui-icon icon="cloud-inv" />
 </template>
 
 <script>

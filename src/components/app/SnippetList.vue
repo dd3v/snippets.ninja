@@ -50,6 +50,6 @@ export default {
 .snippet-list-wrapper {
   width: 400px;
   padding: 3px 0px 3px 0px;
-  box-shadow: 9px 0px 11px 1px #9c9c9c;
+  box-shadow: -1px 0px 2px 0px #eeecec;
 }
 </style>
