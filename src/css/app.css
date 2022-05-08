@@ -122,6 +122,9 @@
 .icon-plus:before {
   content: '\e807';
 }
+.icon-sliders:before {
+  content: '\f1de';
+}
 
 .CodeMirror {
   height: -moz-calc(100vh - 40px);
@@ -137,6 +140,7 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
+  color: #252525;
 }
 ul {
   list-style-type: none;
@@ -144,36 +148,46 @@ ul {
   margin: 0;
 }
 
-
 .btn {
   border: none;
   background-color: inherit;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   display: inline-block;
+  width: 32px;
+  height: 32px;
+  padding: 0;
 }
 
+.btn-circle {
+  border-radius: 50%;
+  border: 1px solid #f0eaea;
+}
 
+.btn-circle:hover {
+  border: 1px solid #b3afaf;
+}
 
+.btn:active {
+  transform: scale(0.98);
+  color: #000;
+}
 
+.input-inv {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.input-inv:focus-visible {
+  border: none;
+  outline: none;
+}
 
 .input-group {
   display: flex;
-  margin-bottom: 1.5em;
-}
-
-.input-group button {
-  padding: 0.5em 0.75em;
-}
-
-.input-group input {
-  padding: 0.5em 0.75em;
-}
-
-.input-group input:not(:last-child) {
-  border-right: 0;
-}
-
-.input-group input:not(:first-child) {
-  border-left: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 2px 0px 2px;
 }

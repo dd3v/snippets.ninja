@@ -1,13 +1,13 @@
 <template>
   <div class="snippet-list-wrapper">
     <div class="input-group">
-      <button type="button" class="btn">
+      <button type="button" class="btn btn-circle">
         <ui-icon icon="menu" />
       </button>
       <label for="search">
-        <input type="text" placeholder="Keywords.." id="search" name="search" />
+        <input type="text" class="input-inv" placeholder="Keywords.." id="search" name="search" />
       </label>
-      <button type="button" class="btn">
+      <button type="button" class="btn btn-circle">
         <ui-icon icon="plus" />
       </button>
     </div>
@@ -49,7 +49,9 @@ export default {
 <style scoped>
 .snippet-list-wrapper {
   width: 400px;
-  padding: 3px 0px 3px 0px;
-  box-shadow: -1px 0px 2px 0px #eeecec;
+  z-index: 1;
+  border-left: 1px solid #fafafa;
+  border-right: 1px solid #fafafa;
 }
+
 </style>

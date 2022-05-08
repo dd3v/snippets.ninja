@@ -1,8 +1,7 @@
 <template>
   <div class="snippet">
     <div class="snippet-title">
-      <span><ui-icon icon="cloud"/>{{ snippet.title }}</span>
-      <button type="button" class="btn"><ui-icon icon="heart-empty" /></button>
+      <span><ui-icon icon="heart-empty" /> {{ snippet.title }}</span>
     </div>
     <div class="snippet-info">
       <span class="snippet-language">PHP</span>
@@ -26,7 +25,7 @@ export default {
 }
 
 .snippet:hover {
-  background-color: yellow;
+  background-color: #FAFAFB;
 }
 
 .snippet-title {

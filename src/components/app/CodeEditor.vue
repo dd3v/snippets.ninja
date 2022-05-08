@@ -1,12 +1,14 @@
 <template>
   <div class="code-editor-wrapper">
-    <label for="name">
-      <input type="text" name="name">
-    </label>
-    <textarea id="editor">hello</textarea>
-    <div class="status-bar">
-      hello
+    <div class="editor-tools input-group">
+      <button class="btn btn-circle"><ui-icon icon="heart-empty" /></button>
+      <input type="text" name="name" value="Hello world" id="name" class="input-inv" />
+      <button class="btn btn-circle"><ui-icon icon="sliders" /></button>
     </div>
+    <label for="editor">
+      <textarea id="editor">hello</textarea>
+    </label>
+
   </div>
 </template>
 <script>
@@ -20,12 +22,21 @@ import 'codemirror/addon/scroll/simplescrollbars.css';
 
 export default {
   name: 'CodeEditor',
+  props: {
+    snippet: Object,
+  },
   setup() {},
   mounted() {
-    const codeMirror = CodeMirror.fromTextArea(document.getElementById('editor'), {
-      mode: 'javascript',
-      lineNumbers: true,
-    });
+    const codeMirror = CodeMirror.fromTextArea(
+      document.getElementById('editor'),
+      {
+        mode: 'javascript',
+        lineNumbers: true,
+        // styleActiveLine: true,
+        // matchBrackets: true,
+      },
+    );
+    codeMirror.setOption('theme', 'neo');
     // codeMirror.setSize('100%', '100%');
 
     console.log(codeMirror);
@@ -35,10 +46,23 @@ export default {
 <style scoped>
 .code-editor-wrapper {
   width: 100%;
-  border: 1px solid red;
 }
 .status-bar {
-  background: black;
+  background: #fafafa;
 }
 
+#name {
+flex-grow: 1;
+font-size: 18px;
+color: inherit;
+padding: 0px 5px 0px 5px;
+}
+
+.editor-tools {
+
+}
+
+.editor-tools input {
+
+}
 </style>
