@@ -1,13 +1,13 @@
 <template>
   <div class="snippet-list-wrapper">
     <div class="input-group">
-      <button type="button" id="hide-main-nav-button">
+      <button type="button" class="btn">
         <ui-icon icon="menu" />
       </button>
       <label for="search">
-        <input type="text" id="search" name="search" />
+        <input type="text" placeholder="Keywords.." id="search" name="search" />
       </label>
-      <button type="button" id="hide-main-nav-button">
+      <button type="button" class="btn">
         <ui-icon icon="plus" />
       </button>
     </div>
@@ -31,7 +31,16 @@ export default {
         title: 'Snippet 1',
       },
       {
+        title: 'Scope Resolution Operator (::)',
+      },
+      {
+        title: 'SQL AGGR',
+      },
+      {
         title: 'Snippet 2',
+      },
+      {
+        title: 'Quick flexbox input-group',
       },
     ],
   }),
@@ -41,5 +50,6 @@ export default {
 .snippet-list-wrapper {
   width: 400px;
   padding: 3px 0px 3px 0px;
+  box-shadow: 9px 0px 11px 1px #9c9c9c;
 }
 </style>

@@ -1,17 +1,20 @@
 <template>
   <div class="snippet">
     <div class="snippet-title">
-      <span>Snippet 1</span>
-      <button type="button"><ui-icon icon="heart-empty" /></button>
+      <span><ui-icon icon="cloud"/>{{ snippet.title }}</span>
+      <button type="button" class="btn"><ui-icon icon="heart-empty" /></button>
     </div>
     <div class="snippet-info">
       <span class="snippet-language">PHP</span>
-      <span class="snippet-date">2 days ago</span>
+      <span class="snippet-date">1/1/22</span>
     </div>
   </div>
 </template>
 <script>
 export default {
+  props: {
+    snippet: Object,
+  },
   setup() {},
 };
 </script>
@@ -19,6 +22,7 @@ export default {
 .snippet {
   margin: 10px 0px 10px 0px;
   cursor: pointer;
+  padding: 4px;
 }
 
 .snippet:hover {
@@ -33,5 +37,7 @@ export default {
 .snippet-info {
   display: flex;
   justify-content: space-between;
+  font-size: 12px;
+  color:#686669;
 }
 </style>
