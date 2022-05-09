@@ -1,18 +1,9 @@
 <template>
-  <ul class="tag-navigation">
-
+  <ul class="tags-navigation">
     <li v-for="(tag, key) in items" :key="key">
-      <label :for="tag">
-        <span>
-          <input
-            type="checkbox"
-            name="tag"
-            :id="tag"
-            v-model="selected"
-            :value="tag"
-          />
-          # {{ tag }}
-        </span>
+      <label :for="`tag-${key}`">
+        <input type="checkbox" name="tag" :id="`tag-${key}`" v-model="selected" :value="tag" />
+        <span> # {{ tag }}</span>
       </label>
     </li>
   </ul>
@@ -37,18 +28,28 @@ export default {
 };
 </script>
 <style scoped>
-ul.tag-navigation li {
+.tags-navigation {
+  overflow: scroll;
+}
+
+ul.tags-navigation li {
   padding: 5px 0px 5px 0px;
 }
-.tag-navigation label {
+ul.tags-navigation label {
   cursor: pointer;
 }
-.tag-navigation label [type='checkbox'] {
+
+ul.tags-navigation li label span {
+  padding: 5px;
+}
+
+.tags-navigation label [type='checkbox'] {
   display: none;
 }
 
- input[type='checkbox']:checked + span {
-  color: red;
+input[type='checkbox']:checked + span {
+  border-radius: 5px;
+  background: hsl(264deg 10% 14% / 12%);
+  color: #2b292e;
 }
-
 </style>

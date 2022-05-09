@@ -1,18 +1,8 @@
 <template>
   <ul class="main-navigation">
-    <li
-      v-for="(menu, key) in items"
-      :key="key"
-      :class="selected == menu.value ? 'active' : ''"
-    >
+    <li v-for="(menu, key) in items" :key="key" :class="selected == menu.value ? 'active' : ''">
       <label :for="menu.value">
-        <input
-          type="radio"
-          name="menu"
-          :id="menu.value"
-          :value="menu.value"
-          v-model="selected"
-        />
+        <input type="radio" name="menu" :id="menu.value" :value="menu.value" v-model="selected" />
         <span><ui-icon :icon="menu.icon" /> {{ menu.label }}</span>
       </label>
     </li>
@@ -37,22 +27,22 @@ export default {
 };
 </script>
 <style scoped>
-ul.main-navigation li.active {
-  border-radius: 5px;
-  background: hsla(264, 10%, 14%, 3%);
-  color: #2b292e;
-}
-
-.main-navigation label [type='radio'] {
-  display: none;
-}
-
 ul.main-navigation li {
   padding: 5px 0px 5px 0px;
 }
 
-label {
+ul.main-navigation li label {
   cursor: pointer;
-  width: 100%;
+}
+
+.main-navigation label [type='radio'] {
+  display: none;
+  cursor: pointer;
+}
+
+ul.main-navigation li.active {
+  border-radius: 5px;
+  background: hsl(264deg 10% 14% / 12%);
+  color: #2b292e;
 }
 </style>

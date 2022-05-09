@@ -1,7 +1,8 @@
 <template>
   <div class="left-block">
-    <main-navigation :items="menus" default="all" @update="handleMainMenuUpdate"/>
-    <tag-navigation :items="tags" @update="handleTagsUpdate"/>
+    <main-navigation :items="menus" default="all" @update="handleNavigationUpdate" />
+    <hr />
+    <tag-navigation :items="tags" @update="handleTagsUpdate" />
   </div>
   <snippet-list />
   <code-editor />
@@ -33,13 +34,26 @@ export default {
         value: 'recently',
       },
     ];
-    const tags = ['PHP', 'JS', 'Notes', 'Data', 'Fixes', 'Apps', 'Ideas', 'GO', 'MySQL'];
+    const tags = [
+      'PHP',
+      'JS',
+      'Notes',
+      'Data',
+      'Fixes',
+      'Apps',
+      'Ideas',
+      'GO',
+      'MySQL',
+    ];
 
     const handleTagsUpdate = (values) => console.log(values);
-    const handleMainMenuUpdate = (value) => console.log(value);
+    const handleNavigationUpdate = (value) => console.log(value);
 
     return {
-      menus, tags, handleTagsUpdate, handleMainMenuUpdate,
+      menus,
+      tags,
+      handleTagsUpdate,
+      handleNavigationUpdate,
     };
   },
   components: {
@@ -57,6 +71,8 @@ export default {
   height: 100%;
 }
 .left-block {
+  display: flex;
+  flex-direction: column;
   color: #6a686e;
   width: 300px;
   border-right: 1px solid #f1f1f1;
