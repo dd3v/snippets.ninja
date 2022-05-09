@@ -4,7 +4,9 @@
     <hr />
     <tag-navigation :items="tags" @update="handleTagsUpdate" />
   </div>
-  <snippet-list />
+  <div class="middle-block">
+    <snippet-list :items="snippets" />
+  </div>
   <code-editor />
 </template>
 
@@ -34,17 +36,29 @@ export default {
         value: 'recently',
       },
     ];
-    const tags = [
-      'PHP',
-      'JS',
-      'Notes',
-      'Data',
-      'Fixes',
-      'Apps',
-      'Ideas',
-      'GO',
-      'MySQL',
+    const snippets = [
+      {
+        title: 'Snippet 1',
+        favorite: true,
+      },
+      {
+        title: 'Scope Resolution Operator (::)',
+        favorite: false,
+      },
+      {
+        title: 'SQL AGGR',
+        favorite: false,
+      },
+      {
+        title: 'Snippet 2',
+        favorite: false,
+      },
+      {
+        title: 'Quick flexbox input-group',
+        favorite: false,
+      },
     ];
+    const tags = ['PHP', 'JS', 'Notes', 'Data', 'Fixes', 'Apps', 'Ideas', 'GO', 'MySQL'];
 
     const handleTagsUpdate = (values) => console.log(values);
     const handleNavigationUpdate = (value) => console.log(value);
@@ -52,6 +66,7 @@ export default {
     return {
       menus,
       tags,
+      snippets,
       handleTagsUpdate,
       handleNavigationUpdate,
     };
@@ -79,5 +94,11 @@ export default {
   padding: 5px;
   height: 100%;
   background: #fbfbfb;
+}
+.middle-block {
+  width: 400px;
+  z-index: 1;
+  padding: 5px;
+  color: #6a686e;
 }
 </style>

@@ -25,7 +25,9 @@ export default {
 }
 
 .snippet:hover {
-  background-color: #FAFAFB;
+  background: hsl(264deg 10% 14% / 12%);
+  color: #2b292e;
+  border-radius: 5px;
 }
 
 .snippet-title {
