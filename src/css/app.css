@@ -4,12 +4,7 @@
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-  font-family: 'Poppins-Thin';
-  src: url('~@/assets/fonts/poppins/Poppins-Thin.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
+
 
 @font-face {
   font-family: 'fontello';
@@ -125,7 +120,7 @@
 .icon-sliders:before {
   content: '\f1de';
 }
-
+.icon-back-in-time:before { content: '\e808'; }
 .CodeMirror {
   height: -moz-calc(100vh - 40px);
   height: -webkit-calc(100vh - 40px);
@@ -191,3 +186,6 @@ ul {
   align-items: center;
   padding: 0px 2px 0px 2px;
 }
+
+
+
