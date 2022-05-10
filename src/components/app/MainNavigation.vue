@@ -27,10 +27,6 @@ export default {
 };
 </script>
 <style scoped>
-ul.main-navigation li {
-  padding: 5px 0px 5px 0px;
-}
-
 ul.main-navigation li label {
   cursor: pointer;
 }

@@ -32,9 +32,7 @@ export default {
   overflow: scroll;
 }
 
-ul.tags-navigation li {
-  padding: 5px 0px 5px 0px;
-}
+
 ul.tags-navigation label {
   cursor: pointer;
 }

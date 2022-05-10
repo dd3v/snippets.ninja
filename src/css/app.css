@@ -6,12 +6,24 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
-  color: #252525;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+ul li {
+  line-height: 30px;
+}
+input:focus {
+  outline: none !important;
+}
+
+
+::placeholder {
+  color: #f0eaea;
+  font-size: 12px;
 }
 
 .btn {
@@ -20,12 +32,12 @@ ul {
   font-size: 14px;
   cursor: pointer;
   display: inline-block;
-  width: 24px;
-  height: 24px;
   padding: 0;
 }
 
 .btn-circle {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid #f0eaea;
 }
@@ -55,7 +67,6 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 2px 0px 2px;
 }
 
 .CodeMirror {

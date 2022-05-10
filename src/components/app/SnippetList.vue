@@ -29,4 +29,10 @@ export default {
 };
 </script>
 <style scoped>
+.snippet-list li {
+  border-bottom: 1px solid hsl(240deg 2% 88% / 44%);
+}
+.snippet-list li:last-child {
+  border-bottom: none;
+}
 </style>

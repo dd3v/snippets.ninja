@@ -19,10 +19,11 @@ export default {
 </script>
 <style scoped>
 .snippet {
-  margin: 10px 0px 10px 0px;
+  margin: 5px 0px 5px 0px;
   cursor: pointer;
   padding: 4px;
-}
+
+} 
 
 .snippet:hover {
   background: hsl(264deg 10% 14% / 12%);

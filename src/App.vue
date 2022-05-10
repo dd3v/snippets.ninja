@@ -7,7 +7,9 @@
   <div class="middle-block">
     <snippet-list :items="snippets" />
   </div>
-  <code-editor />
+  <div class="right-block">
+    <code-editor />
+  </div>
 </template>
 
 <script>
@@ -38,22 +40,27 @@ export default {
     ];
     const snippets = [
       {
+        local_id: 1,
         title: 'Snippet 1',
         favorite: true,
       },
       {
+        local_id: 2,
         title: 'Scope Resolution Operator (::)',
         favorite: false,
       },
       {
+        local_id: 3,
         title: 'SQL AGGR',
         favorite: false,
       },
       {
+        local_id: 4,
         title: 'Snippet 2',
         favorite: false,
       },
       {
+        local_id: 5,
         title: 'Quick flexbox input-group',
         favorite: false,
       },
@@ -84,21 +91,31 @@ export default {
 #app {
   display: flex;
   height: 100%;
+      position: relative;
 }
 .left-block {
   display: flex;
   flex-direction: column;
   color: #6a686e;
-  width: 300px;
-  border-right: 1px solid #f1f1f1;
+  min-width: 180px;
   padding: 5px;
   height: 100%;
   background: #fbfbfb;
 }
 .middle-block {
-  width: 400px;
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
   z-index: 1;
   padding: 5px;
   color: #6a686e;
+  border-right: 1px solid #f1f1f1;
+  border-left: 1px solid #f1f1f1;
+}
+.right-block {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 </style>
