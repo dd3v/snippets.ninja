@@ -1,6 +1,6 @@
 <template>
   <div class="editor-tools input-group">
-    <u-button><u-icon icon="heart-empty" color="var(--color-red)" fontSize="18px"/></u-button>
+    <u-button><u-icon icon="heart-empty" color="var(--color-red)" fontSize="18px" /></u-button>
     <input type="text" name="name" value="Hello world" id="name" class="input-inv" />
     <u-dropdown icon="sliders" dropleft circle>
       <ul class="dropdown-list">
@@ -13,6 +13,7 @@
       </ul>
     </u-dropdown>
   </div>
+  <u-tag-input />
   <label for="editor">
     <textarea id="editor">hello</textarea>
   </label>
@@ -27,9 +28,10 @@ import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/scroll/simplescrollbars.css';
 import UDropdown from '../ui/UDropdown.vue';
 import UButton from '../ui/UButton.vue';
+import UTagInput from '../ui/UTagInput.vue';
 
 export default {
-  components: { UDropdown, UButton },
+  components: { UDropdown, UButton, UTagInput },
   name: 'CodeEditor',
   props: {
     snippet: Object,
@@ -55,8 +57,7 @@ export default {
   color: inherit;
   padding: 0px 5px 0px 5px;
 }
-input[type="text"]
-{
-    font-size:16px;
+input[type='text'] {
+  font-size: 16px;
 }
 </style>
