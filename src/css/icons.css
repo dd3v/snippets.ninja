@@ -114,3 +114,9 @@
 .icon-back-in-time:before {
   content: '\e808';
 }
+.icon-trash-empty:before {
+  content: '\e809';
+}
+.icon-code:before {
+  content: '\f121';
+}

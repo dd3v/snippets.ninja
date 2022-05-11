@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown">
-    <u-button @click="this.isOpen = !this.isOpen" :circle="circle">
+    <u-button ref="dropdownButton" @click="toggleDropdown()" :circle="circle" class="dropdown-btn">
       <u-icon :icon="icon" />
     </u-button>
     <transition name="slide">
@@ -15,7 +15,7 @@ import { ref } from '@vue/reactivity';
 import UButton from './UButton.vue';
 
 export default {
-  name: 'UiDropdown',
+  name: 'UDropdown',
   components: { UButton },
   props: {
     icon: String,
@@ -24,8 +24,21 @@ export default {
   },
   setup() {
     const isOpen = ref(false);
+    const dropdownButton = ref(null);
 
-    return { isOpen };
+    const closeListerner = (event) => {
+      if (!event.target.parentNode.isSameNode(dropdownButton.value.$el)) {
+        isOpen.value = false;
+        window.removeEventListener('click', closeListerner)
+      }
+    };
+
+    const toggleDropdown = () => {
+      isOpen.value = !isOpen.value;
+      window.addEventListener('click', closeListerner);
+    };
+
+    return { isOpen, toggleDropdown, dropdownButton };
   },
 };
 </script>
@@ -46,10 +59,11 @@ export default {
   padding: 5px;
   border-radius: 5px;
   overflow: hidden;
+  margin: 2px;
 }
 
 .drop-left {
-  right: 100%;
+  right: 0%;
   left: auto;
 }
 

@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: 'UiIcon',
+  name: 'UIcon',
   props: {
     icon: String,
     color: String,

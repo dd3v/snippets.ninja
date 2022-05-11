@@ -1,3 +1,7 @@
+:root {
+  --color-red: #ff6363;
+}
+
 html,
 body {
   font-family: 'Poppins-Regular', sans-serif;
@@ -15,17 +19,16 @@ ul {
 }
 ul li {
   line-height: 30px;
+  padding: 0px 3px 0px 3px;
 }
 input:focus {
   outline: none !important;
 }
 
-
 ::placeholder {
   color: #f0eaea;
   font-size: 12px;
 }
-
 
 .input-inv {
   background: transparent;
@@ -50,4 +53,13 @@ input:focus {
   height: -webkit-calc(100vh - 40px);
   height: -o-calc(100vh - 40px);
   height: calc(100vh - 40px);
+}
+
+ul.dropdown-list li {
+  font-size: 13px;
+}
+
+ul.dropdown-list li:hover {
+  border-radius: 5px;
+  background-color: #f6f6f6;
 }

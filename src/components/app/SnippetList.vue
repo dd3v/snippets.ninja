@@ -6,7 +6,7 @@
     <label for="search">
       <input type="text" class="input-inv" placeholder="Keywords.." id="search" name="search" />
     </label>
-    <u-button>
+    <u-button circle>
       <u-icon icon="plus" />
     </u-button>
   </div>

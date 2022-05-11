@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'UiButton',
+  name: 'UButton',
   props: {
     circle: Boolean,
   },
@@ -16,10 +16,10 @@ export default {
 .btn {
   border: none;
   background-color: inherit;
-  font-size: 14px;
   cursor: pointer;
   display: inline-block;
   padding: 0;
+  font-size: inherit;
 }
 
 .btn-circle {
