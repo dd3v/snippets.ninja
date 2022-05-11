@@ -1,19 +1,17 @@
 <template>
   <div class="editor-tools input-group">
-    <u-dropdown icon="sliders">
+    <u-dropdown icon="sliders" circle>
       <ul>
         <li>1</li>
         <li>2</li>
       </ul>
     </u-dropdown>
-    <button class="btn btn-circle">
-      <u-icon icon="heart-empty" color="red" />
-    </button>
+    <u-button><u-icon icon="heart-empty" color="red" /></u-button>
     <input type="text" name="name" value="Hello world" id="name" class="input-inv" />
-    <u-dropdown icon="sliders" dropleft>
+    <u-dropdown icon="sliders" dropleft circle>
       <ul>
-        <li><button class="btn">Editor settings</button></li>
-        <li><button class="btn">Delete</button></li>
+        <li><u-button>Editor settings</u-button></li>
+        <li><u-button>Delete</u-button></li>
       </ul>
     </u-dropdown>
   </div>

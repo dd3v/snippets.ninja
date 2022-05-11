@@ -1,14 +1,14 @@
 <template>
   <div class="input-group">
-    <button type="button" class="btn btn-circle">
+    <u-button circle>
       <u-icon icon="menu" />
-    </button>
+    </u-button>
     <label for="search">
       <input type="text" class="input-inv" placeholder="Keywords.." id="search" name="search" />
     </label>
-    <button type="button" class="btn btn-circle">
+    <u-button>
       <u-icon icon="plus" />
-    </button>
+    </u-button>
   </div>
   <ul class="snippet-list">
     <li v-for="(snippet, key) in items" :key="key">
@@ -17,10 +17,11 @@
   </ul>
 </template>
 <script>
+import UButton from '../ui/UButton.vue';
 import SnippetItem from './SnippetItem.vue';
 
 export default {
-  components: { SnippetItem },
+  components: { SnippetItem, UButton },
   name: 'SnippetList',
   props: {
     items: Array,

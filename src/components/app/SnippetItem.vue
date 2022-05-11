@@ -1,7 +1,7 @@
 <template>
   <div class="snippet">
     <div class="snippet-title">
-      <span><ui-icon icon="heart-empty" /> {{ snippet.title }}</span>
+      <span><u-icon icon="heart-empty" /> {{ snippet.title }}</span>
     </div>
     <div class="snippet-info">
       <span class="snippet-language">PHP</span>

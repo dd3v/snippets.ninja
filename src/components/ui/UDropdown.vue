@@ -1,8 +1,8 @@
 <template>
   <div class="dropdown">
-    <button @click="this.isOpen = !this.isOpen" class="btn btn-circle">
+    <u-button @click="this.isOpen = !this.isOpen" :circle="circle">
       <u-icon :icon="icon" />
-    </button>
+    </u-button>
     <transition name="slide">
       <div class="dropdown-content" v-if="isOpen" :class="{ 'drop-left': dropleft }">
         <slot />
@@ -12,12 +12,15 @@
 </template>
 <script>
 import { ref } from '@vue/reactivity';
+import UButton from './UButton.vue';
 
 export default {
   name: 'UiDropdown',
+  components: { UButton },
   props: {
     icon: String,
     dropleft: Boolean,
+    circle: Boolean,
   },
   setup() {
     const isOpen = ref(false);
