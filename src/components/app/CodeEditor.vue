@@ -1,21 +1,21 @@
 <template>
   <div class="editor-tools input-group">
-    <ui-dropdown icon="sliders">
+    <u-dropdown icon="sliders">
       <ul>
         <li>1</li>
         <li>2</li>
       </ul>
-    </ui-dropdown>
+    </u-dropdown>
     <button class="btn btn-circle">
-      <ui-icon icon="heart-empty" color="red" />
+      <u-icon icon="heart-empty" color="red" />
     </button>
     <input type="text" name="name" value="Hello world" id="name" class="input-inv" />
-    <ui-dropdown icon="sliders" dropleft>
+    <u-dropdown icon="sliders" dropleft>
       <ul>
         <li><button class="btn">Editor settings</button></li>
         <li><button class="btn">Delete</button></li>
       </ul>
-    </ui-dropdown>
+    </u-dropdown>
   </div>
   <label for="editor">
     <textarea id="editor">hello</textarea>
@@ -29,10 +29,10 @@ import 'codemirror/theme/blackboard.css';
 import 'codemirror/addon/scroll/simplescrollbars';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/scroll/simplescrollbars.css';
-import UiDropdown from '../ui/UiDropdown.vue';
+import UDropdown from '../ui/UDropdown.vue';
 
 export default {
-  components: { UiDropdown },
+  components: { UDropdown },
   name: 'CodeEditor',
   props: {
     snippet: Object,

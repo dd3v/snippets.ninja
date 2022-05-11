@@ -1,13 +1,13 @@
 <template>
   <div class="input-group">
     <button type="button" class="btn btn-circle">
-      <ui-icon icon="menu" />
+      <u-icon icon="menu" />
     </button>
     <label for="search">
       <input type="text" class="input-inv" placeholder="Keywords.." id="search" name="search" />
     </label>
     <button type="button" class="btn btn-circle">
-      <ui-icon icon="plus" />
+      <u-icon icon="plus" />
     </button>
   </div>
   <ul class="snippet-list">

@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
     <button @click="this.isOpen = !this.isOpen" class="btn btn-circle">
-      <ui-icon :icon="icon" />
+      <u-icon :icon="icon" />
     </button>
     <transition name="slide">
       <div class="dropdown-content" v-if="isOpen" :class="{ 'drop-left': dropleft }">
@@ -12,10 +12,8 @@
 </template>
 <script>
 import { ref } from '@vue/reactivity';
-import UiIcon from './UiIcon.vue';
 
 export default {
-  components: { UiIcon },
   name: 'UiDropdown',
   props: {
     icon: String,
