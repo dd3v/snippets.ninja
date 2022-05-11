@@ -1,11 +1,6 @@
 <template>
   <div class="editor-tools input-group">
-    <u-dropdown icon="sliders" dropleft circle>
-      <ul class="dropdown-list">
-        sdfsdf
-      </ul>
-    </u-dropdown>
-    <u-button><u-icon icon="heart-empty" color="var(--color-red)" /></u-button>
+    <u-button><u-icon icon="heart-empty" color="var(--color-red)" fontSize="18px"/></u-button>
     <input type="text" name="name" value="Hello world" id="name" class="input-inv" />
     <u-dropdown icon="sliders" dropleft circle>
       <ul class="dropdown-list">
@@ -59,5 +54,9 @@ export default {
   flex-grow: 1;
   color: inherit;
   padding: 0px 5px 0px 5px;
+}
+input[type="text"]
+{
+    font-size:16px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <span :class="`icon-${icon}`" :style="`color:${color}`"></span>
+  <span :class="`icon-${icon}`" :style="`color:${color};font-size:${fontSize};`"></span>
 </template>
 <script>
 export default {
@@ -7,6 +7,7 @@ export default {
   props: {
     icon: String,
     color: String,
+    fontSize: String,
   },
 };
 </script>
