@@ -13,7 +13,7 @@
       </ul>
     </u-dropdown>
   </div>
-  <u-tag-input />
+  <u-tag-input max="5" placeholder="Enter a tag" />
   <label for="editor">
     <textarea id="editor">hello</textarea>
   </label>

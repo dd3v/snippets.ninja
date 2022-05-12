@@ -1,16 +1,20 @@
 <template>
   <div class="tag-input-wrapper">
-    <div v-for="(tag, key) in tags" :key="key" class="tag-input-tag">
-      <span>&times;</span>
-      {{ tag }}
-    </div>
+    <transition-group name="list" tag="ul">
+      <li v-for="(tag, key) in tags" :key="key" class="tag-input-tag">
+        <span @click="remove(key)" @keypress="remove(key)">&times;</span>{{ tag }}
+      </li>
+    </transition-group>
     <label for="t">
       <input
         type="text"
         v-model="tag"
-        placeholder="Tags"
+        :placeholder="placeholder"
         class="tag-input-text"
-        @keyup.enter="addTag"
+        @keydown.enter="add"
+        @keydown.,.prevent="add"
+        @keydown.tab.prevent="add"
+        @keydown.delete="removeLast"
       />
     </label>
   </div>
@@ -20,20 +24,34 @@ import { ref } from '@vue/reactivity';
 
 export default {
   props: {
-    max: Number,
-    placeholder: String,
+    max: {
+      type: Number,
+      default: 5,
+    },
+    placeholder: {
+      type: String,
+      default: 'Enter a tag',
+    },
   },
-  setup() {
-    const tags = ref(['js', 'PHP', 'SQL']);
+  setup(props) {
+    const tags = ref(['js']);
     const tag = ref('');
-    const addTag = () => {
-      if (tags.value.length < 5) {
-        tags.value.push(tag.value);
-        tag.value = '';
+    const remove = (index) => {
+      tags.value.splice(index, 1);
+    };
+    const removeLast = () => {
+      if (!tag.value.length) {
+        tags.value.pop();
       }
     };
+    const add = () => {
+      if (tag.value.length > 0 && tags.value.length < props.max) {
+        tags.value.push(tag.value);
+      }
+      tag.value = '';
+    };
 
-    return { tag, tags, addTag };
+    return { tag, tags, add, remove, removeLast };
   },
 };
 </script>
@@ -41,9 +59,11 @@ export default {
 .tag-input-wrapper {
   display: flex;
   margin: 10px 0px 10px 0px;
+  align-items: center;
 }
 
 .tag-input-tag {
+  float: left;
   padding: 1px 8px;
   font-size: 0;
   line-height: 1.5;
@@ -71,5 +91,15 @@ export default {
   outline: none;
   font-size: inherit;
   background: none;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.1s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
 }
 </style>
