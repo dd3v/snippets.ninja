@@ -30,17 +30,6 @@ input:focus {
   font-size: 12px;
 }
 
-.input-inv {
-  background: transparent;
-  border: none;
-  font-size: 14px;
-  font-family: inherit;
-}
-
-.input-inv:focus-visible {
-  border: none;
-  outline: none;
-}
 
 .input-group {
   display: flex;

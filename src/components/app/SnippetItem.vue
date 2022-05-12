@@ -1,16 +1,19 @@
 <template>
   <div class="snippet">
-    <div class="snippet-title">
+    <div class="title">
       <span><u-icon icon="heart-empty" /> {{ snippet.title }}</span>
     </div>
-    <div class="snippet-info">
-      <span class="snippet-language">PHP</span>
+    <div class="info">
+      <span class="snippet-language"><u-icon icon="code" /> PHP</span>
       <span class="snippet-date">1/1/22</span>
     </div>
   </div>
 </template>
 <script>
+import UIcon from '../ui/UIcon.vue';
+
 export default {
+  components: { UIcon },
   props: {
     snippet: Object,
   },
@@ -19,27 +22,21 @@ export default {
 </script>
 <style scoped>
 .snippet {
-  margin: 5px 0px 5px 0px;
   cursor: pointer;
-  padding: 4px;
-
-} 
-
-.snippet:hover {
-  background: hsl(264deg 10% 14% / 12%);
-  color: #2b292e;
-  border-radius: 5px;
+  color: inherit;
+  margin: 5px 0px 5px 0px;
+  padding: 1px 5px 1px 5px;
 }
 
-.snippet-title {
+.snippet .title {
   display: flex;
   justify-content: space-between;
 }
 
-.snippet-info {
+.snippet .info {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color:#686669;
+  color: #686669;
 }
 </style>

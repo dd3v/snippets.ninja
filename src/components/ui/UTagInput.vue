@@ -21,8 +21,10 @@
 </template>
 <script>
 import { ref } from '@vue/reactivity';
+import { computed } from 'vue';
 
 export default {
+  emits: ['update:modelValue'],
   props: {
     max: {
       type: Number,
@@ -32,10 +34,17 @@ export default {
       type: String,
       default: 'Enter a tag',
     },
+    modelValue: {
+      type: Array,
+    },
   },
-  setup(props) {
-    const tags = ref(['js']);
+  setup(props, { emit }) {
+    console.warn(props);
     const tag = ref('');
+    const tags = computed({
+      get: () => props.modelValue,
+      set: () => emit('update:modelValue', tags.value),
+    });
     const remove = (index) => {
       tags.value.splice(index, 1);
     };

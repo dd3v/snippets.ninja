@@ -5,14 +5,16 @@
     <tag-navigation :items="tags" @update="handleTagsUpdate" />
   </div>
   <div class="middle-block">
-    <snippet-list :items="snippets" />
+    <snippet-list :items="snippets" @selected="handleSelectSnippet" />
   </div>
   <div class="right-block">
-    <code-editor />
+    <code-editor v-model="snippet" />
   </div>
 </template>
 
 <script>
+import { ref } from '@vue/reactivity';
+import { watch } from '@vue/runtime-core';
 import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
@@ -21,6 +23,8 @@ import MainNavigation from './components/app/MainNavigation.vue';
 export default {
   name: 'App',
   setup() {
+    const snippet = ref({});
+
     const menus = [
       {
         icon: 'box',
@@ -40,35 +44,64 @@ export default {
     ];
     const snippets = [
       {
+        id: '1',
         local_id: 1,
-        title: 'Snippet 1',
+        title: 'Snippet 1 ❤️',
         favorite: true,
+        tags: ['PHP', 'JS'],
       },
       {
+        id: '2',
         local_id: 2,
         title: 'Scope Resolution Operator (::)',
         favorite: false,
+        tags: ['PHP'],
       },
       {
+        id: '3',
         local_id: 3,
         title: 'SQL AGGR',
         favorite: false,
+        tags: ['PHP'],
       },
       {
+        id: '4',
         local_id: 4,
         title: 'Snippet 2',
         favorite: false,
+        tags: ['PHP'],
       },
       {
+        id: '5',
         local_id: 5,
         title: 'Quick flexbox input-group',
         favorite: false,
+        tags: ['PHP'],
       },
     ];
     const tags = ['PHP', 'JS', 'Notes', 'Data', 'Fixes', 'Apps', 'Ideas', 'GO', 'MySQL'];
 
     const handleTagsUpdate = (values) => console.log(values);
     const handleNavigationUpdate = (value) => console.log(value);
+    const handleSelectSnippet = (value) => {
+      snippet.value = value;
+    };
+
+    watch(
+      snippet,
+      () => {
+        console.warn('FUUUUCK!!!');
+        console.warn(snippet.value.title);
+         console.warn(snippet.value.tags);
+      },
+      {
+        deep: true,
+      }
+    );
+
+    setInterval(() => {
+      // console.warn(snippet.value.title);
+    }, 3000);
 
     return {
       menus,
@@ -76,6 +109,8 @@ export default {
       snippets,
       handleTagsUpdate,
       handleNavigationUpdate,
+      handleSelectSnippet,
+      snippet,
     };
   },
   components: {
@@ -91,7 +126,7 @@ export default {
 #app {
   display: flex;
   height: 100%;
-      position: relative;
+  position: relative;
 }
 .left-block {
   display: flex;
