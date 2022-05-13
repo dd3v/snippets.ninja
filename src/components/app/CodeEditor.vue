@@ -1,7 +1,9 @@
 <template>
   <div class="editor-tools input-group">
     <u-button><u-icon icon="heart-empty" color="var(--color-red)" fontSize="18px" /></u-button>
-    <input type="text" name="name" v-model="snippet.title" />
+    <label for="t">
+      <input type="text" name="name" v-model="snippet.title" />
+    </label>
     <u-dropdown icon="sliders" dropleft circle>
       <ul class="dropdown-list">
         <li>
@@ -14,28 +16,34 @@
     </u-dropdown>
   </div>
   <u-tag-input :max="5" placeholder="Enter a tag" v-model="snippet.tags" />
-  <label for="editor">
-    <textarea id="editor">hello</textarea>
-  </label>
+  <codemirror
+    v-model="snippet.code"
+    :extensions="extensions"
+    placeholder="Code gose here..."
+    :style="{ height: '100%' }"
+    theme="cobalt"
+    @update="handleStateUpdate"
+  />
+  <code-editor-state
+    :length="state.length"
+    :lines="state.lines"
+    :cursor="state.cursor"
+    :selected="state.selected"
+  />
 </template>
 <script>
-import CodeMirror from 'codemirror';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/neo.css';
-import 'codemirror/theme/blackboard.css';
-import 'codemirror/addon/scroll/simplescrollbars';
-import 'codemirror/addon/selection/active-line';
-import 'codemirror/addon/scroll/simplescrollbars.css';
-import { computed } from 'vue';
+import { Codemirror } from 'vue-codemirror';
+import { computed, ref } from 'vue';
 
 import UDropdown from '../ui/UDropdown.vue';
 import UButton from '../ui/UButton.vue';
 import UTagInput from '../ui/UTagInput.vue';
+import CodeEditorState from './CodeEditorState.vue';
 
 export default {
   name: 'CodeEditor',
   emits: ['update:modelValue'],
-  components: { UDropdown, UButton, UTagInput },
+  components: { Codemirror, UDropdown, UButton, UTagInput, CodeEditorState },
   props: {
     modelValue: {
       type: Object,
@@ -45,24 +53,24 @@ export default {
   setup(props, { emit }) {
     // const snippet = ref({title: ''});
 
+    const state = ref({});
+
+    const handleStateUpdate = (e) => {
+      const { ranges } = e.state.selection;
+      state.value.selected = ranges.reduce((plus, range) => plus + range.to - range.from, 0);
+      state.value.cursor = ranges[0].anchor;
+      state.value.length = e.state.doc.length;
+      state.value.lines = e.state.doc.lines;
+    };
+
+    const extensions = [];
+
     const snippet = computed({
       get: () => props.modelValue,
       set: (value) => emit('update:modelValue', value),
     });
 
-    return { snippet };
-  },
-  mounted() {
-    const codeMirror = CodeMirror.fromTextArea(document.getElementById('editor'), {
-      mode: 'javascript',
-      lineNumbers: true,
-      // styleActiveLine: true,
-      // matchBrackets: true,
-    });
-    codeMirror.setOption('theme', 'neo');
-    // codeMirror.setSize('100%', '100%');
-
-    console.log(codeMirror);
+    return { snippet, extensions, state, handleStateUpdate };
   },
 };
 </script>

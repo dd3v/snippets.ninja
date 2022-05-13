@@ -49,6 +49,7 @@ export default {
         title: 'Snippet 1 ❤️',
         favorite: true,
         tags: ['PHP', 'JS'],
+        code: 'hello'
       },
       {
         id: '2',
