@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import UIcon from '../ui/UIcon.vue';
+import UIcon from '../core/UIcon.vue';
 
 export default {
   components: { UIcon },

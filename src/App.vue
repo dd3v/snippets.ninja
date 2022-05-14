@@ -96,9 +96,9 @@ export default {
     watch(
       snippet,
       () => {
-        console.warn('FUUUUCK!!!');
         console.warn(snippet.value.title);
         console.warn(snippet.value.tags);
+        console.warn(snippet.value.language);
       },
       {
         deep: true,

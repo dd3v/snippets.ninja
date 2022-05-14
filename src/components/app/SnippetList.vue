@@ -3,9 +3,7 @@
     <u-button circle>
       <u-icon icon="menu" />
     </u-button>
-    <label for="search">
-      <input type="text" placeholder="Keywords" name="search" />
-    </label>
+    <u-input type="text" style="invisible" placeholder="Search term"/>
     <u-button circle>
       <u-icon icon="plus" />
     </u-button>
@@ -18,13 +16,14 @@
 </template>
 <script>
 import { ref } from '@vue/reactivity';
-import UButton from '../ui/UButton.vue';
+import UButton from '../core/UButton.vue';
 import SnippetItem from './SnippetItem.vue';
+import UInput from '../core/UInput.vue';
 
 export default {
   name: 'SnippetList',
   emits: ['selected'],
-  components: { SnippetItem, UButton },
+  components: { SnippetItem, UButton, UInput },
   props: {
     items: Array,
   },
@@ -66,14 +65,5 @@ export default {
   border-bottom: none;
 }
 
-input[type='text'] {
-  background: transparent;
-  border: none;
-  font-family: inherit;
-}
 
-input[type='text']:focus-visible {
-  border: none;
-  outline: none;
-}
 </style>

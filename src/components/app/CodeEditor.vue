@@ -45,11 +45,11 @@
 import { Codemirror } from 'vue-codemirror';
 import { computed, ref } from 'vue';
 import { languages } from '@codemirror/language-data';
-import UDropdown from '../ui/UDropdown.vue';
-import UButton from '../ui/UButton.vue';
-import UTagInput from '../ui/UTagInput.vue';
+import UDropdown from '../core/UDropdown.vue';
+import UButton from '../core/UButton.vue';
+import UTagInput from '../core/UTagInput.vue';
 import CodeEditorState from './CodeEditorState.vue';
-import UModal from '../ui/UModal.vue';
+import UModal from '../core/UModal.vue';
 import LanguageSelector from './LanguageSelector.vue';
 
 export default {
