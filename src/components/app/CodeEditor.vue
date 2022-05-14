@@ -1,6 +1,8 @@
 <template>
   <div class="editor-tools input-group">
-    <u-button><u-icon icon="heart-empty" color="var(--color-red)" fontSize="18px" /></u-button>
+    <u-button>
+      <u-icon icon="heart-empty" color="var(--color-red)" fontSize="18px" />
+    </u-button>
     <label for="t">
       <input type="text" name="name" v-model="snippet.title" />
     </label>
@@ -24,12 +26,38 @@
     theme="cobalt"
     @update="handleStateUpdate"
   />
-  <code-editor-state
-    :length="state.length"
-    :lines="state.lines"
-    :cursor="state.cursor"
-    :selected="state.selected"
-  />
+  <div class="status-bar">
+    <u-button @click="lang">
+      {{ snippet.language }}
+    </u-button>
+    <code-editor-state
+      :length="state.length"
+      :lines="state.lines"
+      :cursor="state.cursor"
+      :selected="state.selected"
+    />
+  </div>
+  <u-modal ref="language">
+    <label for="t">
+      <input type="text" placeholder="Language" />
+    </label>
+    <ul>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+      <li>PHP</li>
+    </ul>
+  </u-modal>
 </template>
 <script>
 import { Codemirror } from 'vue-codemirror';
@@ -39,11 +67,12 @@ import UDropdown from '../ui/UDropdown.vue';
 import UButton from '../ui/UButton.vue';
 import UTagInput from '../ui/UTagInput.vue';
 import CodeEditorState from './CodeEditorState.vue';
+import UModal from '../ui/UModal.vue';
 
 export default {
   name: 'CodeEditor',
   emits: ['update:modelValue'],
-  components: { Codemirror, UDropdown, UButton, UTagInput, CodeEditorState },
+  components: { Codemirror, UDropdown, UButton, UTagInput, UModal, CodeEditorState },
   props: {
     modelValue: {
       type: Object,
@@ -54,6 +83,7 @@ export default {
     // const snippet = ref({title: ''});
 
     const state = ref({});
+    const language = ref(null);
 
     const handleStateUpdate = (e) => {
       const { ranges } = e.state.selection;
@@ -70,7 +100,12 @@ export default {
       set: (value) => emit('update:modelValue', value),
     });
 
-    return { snippet, extensions, state, handleStateUpdate };
+    const lang = () => {
+      language.value.open();
+      console.log(language.value);
+    };
+
+    return { snippet, extensions, state, handleStateUpdate, language, lang };
   },
 };
 </script>
@@ -86,5 +121,10 @@ input[type='text'] {
 input[type='text']:focus-visible {
   border: none;
   outline: none;
+}
+
+.status-bar {
+  display: inline-flex;
+  justify-content: space-between;
 }
 </style>

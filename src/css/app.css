@@ -29,7 +29,9 @@ input:focus {
   color: #f0eaea;
   font-size: 12px;
 }
-
+:focus-visible {
+  outline: none;
+}
 
 .input-group {
   display: flex;

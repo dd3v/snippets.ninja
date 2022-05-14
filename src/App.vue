@@ -49,7 +49,8 @@ export default {
         title: 'Snippet 1 ❤️',
         favorite: true,
         tags: ['PHP', 'JS'],
-        code: 'hello'
+        code: 'hello',
+        language: 'php',
       },
       {
         id: '2',
@@ -57,6 +58,7 @@ export default {
         title: 'Scope Resolution Operator (::)',
         favorite: false,
         tags: ['PHP'],
+        language: 'php',
       },
       {
         id: '3',
@@ -64,6 +66,7 @@ export default {
         title: 'SQL AGGR',
         favorite: false,
         tags: ['PHP'],
+        language: 'php',
       },
       {
         id: '4',
@@ -71,6 +74,7 @@ export default {
         title: 'Snippet 2',
         favorite: false,
         tags: ['PHP'],
+        language: 'php',
       },
       {
         id: '5',
@@ -78,6 +82,7 @@ export default {
         title: 'Quick flexbox input-group',
         favorite: false,
         tags: ['PHP'],
+        language: 'php',
       },
     ];
     const tags = ['PHP', 'JS', 'Notes', 'Data', 'Fixes', 'Apps', 'Ideas', 'GO', 'MySQL'];
@@ -93,7 +98,7 @@ export default {
       () => {
         console.warn('FUUUUCK!!!');
         console.warn(snippet.value.title);
-         console.warn(snippet.value.tags);
+        console.warn(snippet.value.tags);
       },
       {
         deep: true,
