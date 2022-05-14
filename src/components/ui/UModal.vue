@@ -3,7 +3,7 @@
     <div class="modal-backdrop" v-show="show" @click.self="close" @keydown.self="close">
       <div class="modal">
         <header class="modal-header">
-          <div>Modal header</div>
+          <div>{{ header }}</div>
           <div><button class="close-btn" @click="close">&#x2715;</button></div>
         </header>
         <section class="modal-body">
@@ -14,13 +14,17 @@
   </transition>
 </template>
 <script>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 export default {
   name: 'UModal',
+  props: {
+    header: {
+      type: String,
+    },
+  },
   setup() {
     const show = ref(false);
-    const backdrop = ref(null);
 
     const close = () => {
       show.value = false;
@@ -38,9 +42,7 @@ export default {
       window.addEventListener('keyup', closeEventListener);
     };
 
-    onMounted(() => {});
-
-    return { open, close, show, backdrop };
+    return { open, close, show };
   },
 };
 </script>
@@ -62,14 +64,18 @@ export default {
 .modal {
   color: inherit;
   font-size: inherit;
-  width: 300px;
-  margin: 10px auto;
+  width: 400px;
+  margin: 30px auto;
   padding: 5px 10px;
   box-shadow: 0px 8px 25px rgb(43 41 46 / 10%);
   background: hsl(264, 7%, 100%);
   border: 1px solid hsla(264, 15%, 10%, 9%);
   border-radius: 5px;
   transition: all 0.3s ease;
+}
+
+.modal-body {
+  padding: 15px 0px 15px 0px;
 }
 
 .modal-header {
@@ -96,15 +102,13 @@ export default {
   transition: 0.5s all ease;
 }
 
-
 .close-btn {
-  	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
-
 </style>

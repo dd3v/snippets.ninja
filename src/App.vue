@@ -50,7 +50,7 @@ export default {
         favorite: true,
         tags: ['PHP', 'JS'],
         code: 'hello',
-        language: 'php',
+        language: 'PHP',
       },
       {
         id: '2',
@@ -58,7 +58,7 @@ export default {
         title: 'Scope Resolution Operator (::)',
         favorite: false,
         tags: ['PHP'],
-        language: 'php',
+        language: 'PHP',
       },
       {
         id: '3',
@@ -66,7 +66,7 @@ export default {
         title: 'SQL AGGR',
         favorite: false,
         tags: ['PHP'],
-        language: 'php',
+        language: 'PHP',
       },
       {
         id: '4',
@@ -74,7 +74,7 @@ export default {
         title: 'Snippet 2',
         favorite: false,
         tags: ['PHP'],
-        language: 'php',
+        language: 'PHP',
       },
       {
         id: '5',
@@ -82,11 +82,11 @@ export default {
         title: 'Quick flexbox input-group',
         favorite: false,
         tags: ['PHP'],
-        language: 'php',
+        language: 'PHP',
       },
     ];
     const tags = ['PHP', 'JS', 'Notes', 'Data', 'Fixes', 'Apps', 'Ideas', 'GO', 'MySQL'];
-
+    snippet.value = snippets.shift();
     const handleTagsUpdate = (values) => console.log(values);
     const handleNavigationUpdate = (value) => console.log(value);
     const handleSelectSnippet = (value) => {
@@ -139,7 +139,6 @@ export default {
   flex-direction: column;
   color: #6a686e;
   min-width: 180px;
-  padding: 5px;
   height: 100%;
   background: #fbfbfb;
 }
@@ -148,15 +147,15 @@ export default {
   flex-direction: column;
   min-width: 250px;
   z-index: 1;
-  padding: 5px;
+  height: 100%;
   color: #6a686e;
   border-right: 1px solid #f1f1f1;
   border-left: 1px solid #f1f1f1;
 }
 .right-block {
-  padding: 5px;
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 }
 </style>

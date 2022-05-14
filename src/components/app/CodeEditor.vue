@@ -37,42 +37,33 @@
       :selected="state.selected"
     />
   </div>
-  <u-modal ref="language">
-    <label for="t">
-      <input type="text" placeholder="Language" />
-    </label>
-    <ul>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-      <li>PHP</li>
-    </ul>
+  <u-modal header="Language mode" ref="language">
+    <language-selector :languages="languages" v-model="snippet.language" />
   </u-modal>
 </template>
 <script>
 import { Codemirror } from 'vue-codemirror';
 import { computed, ref } from 'vue';
-
+import { languages } from '@codemirror/language-data';
 import UDropdown from '../ui/UDropdown.vue';
 import UButton from '../ui/UButton.vue';
 import UTagInput from '../ui/UTagInput.vue';
 import CodeEditorState from './CodeEditorState.vue';
 import UModal from '../ui/UModal.vue';
+import LanguageSelector from './LanguageSelector.vue';
 
 export default {
   name: 'CodeEditor',
   emits: ['update:modelValue'],
-  components: { Codemirror, UDropdown, UButton, UTagInput, UModal, CodeEditorState },
+  components: {
+    Codemirror,
+    UDropdown,
+    UButton,
+    UTagInput,
+    UModal,
+    CodeEditorState,
+    LanguageSelector,
+  },
   props: {
     modelValue: {
       type: Object,
@@ -92,8 +83,9 @@ export default {
       state.value.length = e.state.doc.length;
       state.value.lines = e.state.doc.lines;
     };
-
     const extensions = [];
+
+    console.log(languages);
 
     const snippet = computed({
       get: () => props.modelValue,
@@ -105,7 +97,7 @@ export default {
       console.log(language.value);
     };
 
-    return { snippet, extensions, state, handleStateUpdate, language, lang };
+    return { snippet, extensions, state, handleStateUpdate, language, lang, languages };
   },
 };
 </script>
@@ -126,5 +118,6 @@ input[type='text']:focus-visible {
 .status-bar {
   display: inline-flex;
   justify-content: space-between;
+  
 }
 </style>
