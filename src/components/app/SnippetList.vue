@@ -1,26 +1,5 @@
 <template>
   <div class="snippet-list-wrapper">
-    <div class="snippet-list-tools">
-      <div>
-        <u-button circle>
-          <u-icon icon="menu" />
-        </u-button>
-      </div>
-      <div>
-        <u-input
-          type="text"
-          v-model="a"
-          variant="invisible"
-          name="filter"
-          placeholder="Search term"
-        />
-      </div>
-      <div>
-        <u-button circle>
-          <u-icon icon="plus" />
-        </u-button>
-      </div>
-    </div>
     <ul class="snippet-list">
       <li
         v-for="(snippet, key) in items"
@@ -34,14 +13,12 @@
 </template>
 <script>
 import { ref } from '@vue/reactivity';
-import UButton from '../core/UButton.vue';
 import SnippetItem from './SnippetItem.vue';
-import UInput from '../core/UInput.vue';
 
 export default {
   name: 'SnippetList',
   emits: ['selected'],
-  components: { SnippetItem, UButton, UInput },
+  components: { SnippetItem },
   props: {
     items: {
       type: Array,
@@ -63,16 +40,10 @@ export default {
 </script>
 <style scoped>
 .snippet-list-wrapper {
-  padding: 5px;
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-.snippet-list-tools {
-  justify-content: space-between;
-  align-items: center;
-  display: inline-flex;
-  width: 100%;
+  padding: 5px;
 }
 
 .snippet-list {

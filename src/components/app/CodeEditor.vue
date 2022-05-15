@@ -1,8 +1,12 @@
 <template>
   <div class="editor-tools-container">
     <div class="item">
-      <u-button>
-        <u-icon icon="heart-empty" color="var(--color-red)" fontSize="20px" />
+      <u-button @click="toggleFavorite">
+        <u-icon
+          :icon="snippet.favorite ? 'heart' : 'heart-empty'"
+          color="var(--color-red)"
+          fontSize="20px"
+        />
       </u-button>
     </div>
     <div class="item-center">
@@ -15,21 +19,12 @@
       />
     </div>
     <div class="item">
-      <u-dropdown icon="cloud" dropleft circle>
-        it's coming soon 🚀
-      </u-dropdown>
+      <u-dropdown icon="cloud" dropleft circle> ... it's coming soon 🚀 </u-dropdown>
     </div>
     <div class="item">
-      <u-dropdown icon="sliders" dropleft circle>
-        <ul class="dropdown-list">
-          <li>
-            <u-button><u-icon icon="code" /> Editor settings</u-button>
-          </li>
-          <li>
-            <u-button><u-icon icon="trash-empty" color="var(--color-red)" /> Delete</u-button>
-          </li>
-        </ul>
-      </u-dropdown>
+      <u-button circle>
+        <u-icon icon="trash-empty" color="var(--color-red)" />
+      </u-button>
     </div>
   </div>
   <div class="tag-list-container">
@@ -69,6 +64,7 @@ import CodeEditorState from './CodeEditorState.vue';
 import UModal from '../core/UModal.vue';
 import LanguageSelector from './LanguageSelector.vue';
 import UInput from '../core/UInput.vue';
+import UIcon from '../core/UIcon.vue';
 
 export default {
   name: 'CodeEditor',
@@ -82,6 +78,7 @@ export default {
     CodeEditorState,
     LanguageSelector,
     UInput,
+    UIcon,
   },
   props: {
     modelValue: {
@@ -102,21 +99,33 @@ export default {
       state.value.length = e.state.doc.length;
       state.value.lines = e.state.doc.lines;
     };
-    const extensions = [];
-
-    console.log(languages);
-
     const snippet = computed({
       get: () => props.modelValue,
       set: (value) => emit('update:modelValue', value),
     });
+    const toggleFavorite = () => {
+      snippet.value.favorite = !snippet.value.favorite;
+    };
+
+    const extensions = [];
+
+    console.log(languages);
 
     const lang = () => {
       language.value.open();
       console.log(language.value);
     };
 
-    return { snippet, extensions, state, handleStateUpdate, language, lang, languages };
+    return {
+      snippet,
+      extensions,
+      state,
+      handleStateUpdate,
+      language,
+      lang,
+      languages,
+      toggleFavorite,
+    };
   },
 };
 </script>
@@ -134,17 +143,16 @@ export default {
   padding: 5px;
 }
 
-.editor-tools-container .item-center { 
-  flex-grow: 1; 
+.editor-tools-container .item-center {
+  flex-grow: 1;
   margin: 0px 2px 0px 2px;
 }
 
-.editor-tools-container .item-center input[type="text"] {
-    font-size: 16px;
+.editor-tools-container .item-center input[type='text'] {
+  font-size: 16px;
 }
 
-.editor-tools-container .item + .item { 
-
+.editor-tools-container .item + .item {
 }
 
 .status-bar {
@@ -152,6 +160,4 @@ export default {
   justify-content: space-between;
   padding: 0px 2px 0px 2px;
 }
-
-
 </style>

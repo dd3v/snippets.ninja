@@ -5,6 +5,7 @@
     <tag-navigation :items="tagList" v-model="tags" />
   </div>
   <div class="middle-block">
+    <snippet-list-toolbar />
     <snippet-list :items="snippets" @selected="handleSelectSnippet" />
   </div>
   <div class="right-block">
@@ -19,9 +20,17 @@ import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
 import MainNavigation from './components/app/MainNavigation.vue';
+import SnippetListToolbar from './components/app/SnippetListToolbar.vue';
 
 export default {
   name: 'App',
+  components: {
+    MainNavigation,
+    TagNavigation,
+    SnippetList,
+    SnippetListToolbar,
+    CodeEditor,
+  },
   setup() {
     const snippet = ref({});
     const navigation = ref('all');
@@ -121,12 +130,6 @@ export default {
       navigation,
       tags,
     };
-  },
-  components: {
-    MainNavigation,
-    TagNavigation,
-    SnippetList,
-    CodeEditor,
   },
 };
 </script>
