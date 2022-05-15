@@ -1,28 +1,33 @@
 <template>
   <div class="main-navigation-wrapper">
     <ul class="main-navigation">
-    <li v-for="(menu, key) in items" :key="key" :class="selected == menu.value ? 'active' : ''">
-      <label :for="menu.value">
-        <input type="radio" name="menu" :id="menu.value" :value="menu.value" v-model="selected" />
-        <span><u-icon :icon="menu.icon" /> {{ menu.label }}</span>
-      </label>
-    </li>
-  </ul>
+      <li v-for="(menu, key) in items" :key="key" :class="selected == menu.value ? 'active' : ''">
+        <label :for="menu.value">
+          <input type="radio" name="menu" :id="menu.value" :value="menu.value" v-model="selected" />
+          <span><u-icon :icon="menu.icon" /> {{ menu.label }}</span>
+        </label>
+      </li>
+    </ul>
   </div>
 </template>
 <script>
-import { ref } from '@vue/reactivity';
-import { watch } from '@vue/runtime-core';
+import { computed } from '@vue/reactivity';
 
 export default {
   name: 'MainNavigation',
   props: {
-    items: Object,
-    default: String,
+    modelValue: {
+      type: String,
+    },
+    items: {
+      type: Array,
+    },
   },
-  setup(props, context) {
-    const selected = ref(props.default);
-    watch(selected, () => context.emit('update', selected.value));
+  setup(props, { emit }) {
+    const selected = computed({
+      get: () => props.modelValue,
+      set: (value) => emit('update:modelValue', value),
+    });
 
     return { selected };
   },

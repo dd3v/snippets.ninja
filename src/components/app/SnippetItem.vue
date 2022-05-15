@@ -15,7 +15,9 @@ import UIcon from '../core/UIcon.vue';
 export default {
   components: { UIcon },
   props: {
-    snippet: Object,
+    snippet: {
+      type: Object,
+    },
   },
   setup() {},
 };

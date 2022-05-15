@@ -18,9 +18,15 @@ export default {
   name: 'UDropdown',
   components: { UButton },
   props: {
-    icon: String,
-    dropleft: Boolean,
-    circle: Boolean,
+    icon: {
+      type: String,
+    },
+    dropleft: {
+      type: Boolean,
+    },
+    circle: {
+      type: Boolean,
+    },
   },
   setup() {
     const isOpen = ref(false);
@@ -29,7 +35,7 @@ export default {
     const closeListerner = (event) => {
       if (!event.target.parentNode.isSameNode(dropdownButton.value.$el)) {
         isOpen.value = false;
-        window.removeEventListener('click', closeListerner)
+        window.removeEventListener('click', closeListerner);
       }
     };
 

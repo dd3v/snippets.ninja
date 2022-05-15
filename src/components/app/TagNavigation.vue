@@ -1,28 +1,32 @@
 <template>
-<div class="tag-navigation-wrapper">
-   <ul class="tags-navigation">
-    <li v-for="(tag, key) in items" :key="key">
-      <label :for="`tag-${key}`">
-        <input type="checkbox" name="tag" :id="`tag-${key}`" v-model="selected" :value="tag" />
-        <span> # {{ tag }}</span>
-      </label>
-    </li>
-  </ul>
-</div>
+  <div class="tag-navigation-wrapper">
+    <ul class="tags-navigation">
+      <li v-for="(tag, key) in items" :key="key">
+        <label :for="`tag-${key}`">
+          <input type="checkbox" name="tag" :id="`tag-${key}`" v-model="selected" :value="tag" />
+          <span> # {{ tag }}</span>
+        </label>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
-import { ref } from '@vue/reactivity';
-import { watch } from '@vue/runtime-core';
+import { computed } from '@vue/reactivity';
 
 export default {
   name: 'TagNavigation',
   props: {
-    items: Array,
+    modelValue: {
+      type: Array,
+    },
+    items: {
+      type: Array,
+    },
   },
-  setup(_, context) {
-    const selected = ref([]);
-    watch(selected, () => {
-      context.emit('update', selected.value);
+  setup(props, { emit }) {
+    const selected = computed({
+      get: () => props.modelValue,
+      set: (value) => emit('update:modelValue', value),
     });
 
     return { selected };
@@ -36,7 +40,6 @@ export default {
 .tags-navigation {
   overflow: scroll;
 }
-
 
 ul.tags-navigation label {
   cursor: pointer;

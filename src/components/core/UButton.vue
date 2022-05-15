@@ -7,7 +7,9 @@
 export default {
   name: 'UButton',
   props: {
-    circle: Boolean,
+    circle: {
+      type: Boolean,
+    },
   },
   setup() {},
 };

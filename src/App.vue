@@ -1,8 +1,8 @@
 <template>
   <div class="left-block">
-    <main-navigation :items="menus" default="all" @update="handleNavigationUpdate" />
+    <main-navigation :items="menus" v-model="navigation" />
     <hr />
-    <tag-navigation :items="tags" @update="handleTagsUpdate" />
+    <tag-navigation :items="tagList" v-model="tags" />
   </div>
   <div class="middle-block">
     <snippet-list :items="snippets" @selected="handleSelectSnippet" />
@@ -24,6 +24,8 @@ export default {
   name: 'App',
   setup() {
     const snippet = ref({});
+    const navigation = ref('all');
+    const tags = ref(['PHP']);
 
     const menus = [
       {
@@ -85,10 +87,8 @@ export default {
         language: 'PHP',
       },
     ];
-    const tags = ['PHP', 'JS', 'Notes', 'Data', 'Fixes', 'Apps', 'Ideas', 'GO', 'MySQL'];
+    const tagList = ['PHP', 'JS', 'Notes', 'Data', 'Fixes', 'Apps', 'Ideas', 'GO', 'MySQL'];
     snippet.value = snippets.shift();
-    const handleTagsUpdate = (values) => console.log(values);
-    const handleNavigationUpdate = (value) => console.log(value);
     const handleSelectSnippet = (value) => {
       snippet.value = value;
     };
@@ -104,19 +104,22 @@ export default {
         deep: true,
       }
     );
+    watch(navigation, () => {
+      console.warn(navigation);
+    });
 
-    setInterval(() => {
-      // console.warn(snippet.value.title);
-    }, 3000);
+    watch(tags, () => {
+      console.warn(tags);
+    });
 
     return {
       menus,
-      tags,
+      tagList,
       snippets,
-      handleTagsUpdate,
-      handleNavigationUpdate,
       handleSelectSnippet,
       snippet,
+      navigation,
+      tags,
     };
   },
   components: {

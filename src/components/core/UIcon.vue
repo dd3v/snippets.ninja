@@ -5,9 +5,16 @@
 export default {
   name: 'UIcon',
   props: {
-    icon: String,
-    color: String,
-    fontSize: String,
+    icon: {
+      type: String,
+      required: true,
+    },
+    color: {
+      type: String,
+    },
+    fontSize: {
+      type: String,
+    },
   },
 };
 </script>

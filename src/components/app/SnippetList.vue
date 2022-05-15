@@ -7,7 +7,13 @@
         </u-button>
       </div>
       <div>
-        <u-input type="text" v-model="a" variant="invisible" name="filter" placeholder="Search term" />
+        <u-input
+          type="text"
+          v-model="a"
+          variant="invisible"
+          name="filter"
+          placeholder="Search term"
+        />
       </div>
       <div>
         <u-button circle>
@@ -37,7 +43,9 @@ export default {
   emits: ['selected'],
   components: { SnippetItem, UButton, UInput },
   props: {
-    items: Array,
+    items: {
+      type: Array,
+    },
   },
   setup(props, { emit }) {
     const current = ref(null);
