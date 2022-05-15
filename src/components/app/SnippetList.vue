@@ -1,18 +1,30 @@
 <template>
-  <div class="input-group">
-    <u-button circle>
-      <u-icon icon="menu" />
-    </u-button>
-    <u-input type="text" style="invisible" placeholder="Search term"/>
-    <u-button circle>
-      <u-icon icon="plus" />
-    </u-button>
+  <div class="snippet-list-wrapper">
+    <div class="snippet-list-tools">
+      <div>
+        <u-button circle>
+          <u-icon icon="menu" />
+        </u-button>
+      </div>
+      <div>
+        <u-input type="text" v-model="a" variant="invisible" name="filter" placeholder="Search term" />
+      </div>
+      <div>
+        <u-button circle>
+          <u-icon icon="plus" />
+        </u-button>
+      </div>
+    </div>
+    <ul class="snippet-list">
+      <li
+        v-for="(snippet, key) in items"
+        :key="key"
+        :class="{ active: current?.id === snippet.id }"
+      >
+        <snippet-item :snippet="snippet" @click="handleSelect(key)" />
+      </li>
+    </ul>
   </div>
-  <ul class="snippet-list">
-    <li v-for="(snippet, key) in items" :key="key" :class="{ active: current?.id === snippet.id }">
-      <snippet-item :snippet="snippet" @click="handleSelect(key)" />
-    </li>
-  </ul>
 </template>
 <script>
 import { ref } from '@vue/reactivity';
@@ -30,16 +42,31 @@ export default {
   setup(props, { emit }) {
     const current = ref(null);
 
+    const a = ref('');
+
     const handleSelect = (index) => {
       current.value = props.items[index];
       emit('selected', current.value);
     };
 
-    return { handleSelect, current };
+    return { handleSelect, current, a };
   },
 };
 </script>
 <style scoped>
+.snippet-list-wrapper {
+  padding: 5px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.snippet-list-tools {
+  justify-content: space-between;
+  align-items: center;
+  display: inline-flex;
+  width: 100%;
+}
+
 .snippet-list {
   overflow-y: scroll;
   margin: 10px 0;
@@ -64,6 +91,4 @@ export default {
 .snippet-list li:last-child {
   border-bottom: none;
 }
-
-
 </style>

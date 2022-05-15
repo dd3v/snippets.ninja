@@ -1,5 +1,6 @@
 <template>
-  <ul class="tags-navigation">
+<div class="tag-navigation-wrapper">
+   <ul class="tags-navigation">
     <li v-for="(tag, key) in items" :key="key">
       <label :for="`tag-${key}`">
         <input type="checkbox" name="tag" :id="`tag-${key}`" v-model="selected" :value="tag" />
@@ -7,6 +8,7 @@
       </label>
     </li>
   </ul>
+</div>
 </template>
 <script>
 import { ref } from '@vue/reactivity';
@@ -28,6 +30,9 @@ export default {
 };
 </script>
 <style scoped>
+.tag-navigation-wrapper {
+  padding: 5px;
+}
 .tags-navigation {
   overflow: scroll;
 }

@@ -67,7 +67,6 @@ export default {
 <style scoped>
 .tag-input-wrapper {
   display: flex;
-  margin: 10px 0px 10px 0px;
   align-items: center;
 }
 

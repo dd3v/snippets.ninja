@@ -1,23 +1,40 @@
 <template>
-  <div class="editor-tools input-group">
-    <u-button>
-      <u-icon icon="heart-empty" color="var(--color-red)" fontSize="18px" />
-    </u-button>
-    <label for="t">
-      <input type="text" name="name" v-model="snippet.title" />
-    </label>
-    <u-dropdown icon="sliders" dropleft circle>
-      <ul class="dropdown-list">
-        <li>
-          <u-button><u-icon icon="code" /> Editor settings</u-button>
-        </li>
-        <li>
-          <u-button><u-icon icon="trash-empty" color="var(--color-red)" /> Delete</u-button>
-        </li>
-      </ul>
-    </u-dropdown>
+  <div class="editor-tools-container">
+    <div class="item">
+      <u-button>
+        <u-icon icon="heart-empty" color="var(--color-red)" fontSize="20px" />
+      </u-button>
+    </div>
+    <div class="item-center">
+      <u-input
+        type="text"
+        v-model="snippet.title"
+        variant="invisible"
+        name="snippet-title"
+        placeholder="Snippet title"
+      />
+    </div>
+    <div class="item">
+      <u-dropdown icon="cloud" dropleft circle>
+        it's coming soon 🚀
+      </u-dropdown>
+    </div>
+    <div class="item">
+      <u-dropdown icon="sliders" dropleft circle>
+        <ul class="dropdown-list">
+          <li>
+            <u-button><u-icon icon="code" /> Editor settings</u-button>
+          </li>
+          <li>
+            <u-button><u-icon icon="trash-empty" color="var(--color-red)" /> Delete</u-button>
+          </li>
+        </ul>
+      </u-dropdown>
+    </div>
   </div>
-  <u-tag-input :max="5" placeholder="Enter a tag" v-model="snippet.tags" />
+  <div class="tag-list-container">
+    <u-tag-input :max="5" placeholder="Enter a tag" v-model="snippet.tags" />
+  </div>
   <codemirror
     v-model="snippet.code"
     :extensions="extensions"
@@ -28,7 +45,7 @@
   />
   <div class="status-bar">
     <u-button @click="lang">
-      {{ snippet.language }}
+      <strong>{{ snippet.language }}</strong>
     </u-button>
     <code-editor-state
       :length="state.length"
@@ -51,6 +68,7 @@ import UTagInput from '../core/UTagInput.vue';
 import CodeEditorState from './CodeEditorState.vue';
 import UModal from '../core/UModal.vue';
 import LanguageSelector from './LanguageSelector.vue';
+import UInput from '../core/UInput.vue';
 
 export default {
   name: 'CodeEditor',
@@ -63,6 +81,7 @@ export default {
     UModal,
     CodeEditorState,
     LanguageSelector,
+    UInput,
   },
   props: {
     modelValue: {
@@ -102,22 +121,37 @@ export default {
 };
 </script>
 <style scoped>
-input[type='text'] {
-  background: transparent;
-  border: none;
-  font-family: inherit;
-  font-size: 16px;
-  flex-grow: 1;
+.editor-tools-container {
+  display: flex;
+  align-items: center;
 }
 
-input[type='text']:focus-visible {
-  border: none;
-  outline: none;
+.tag-list-container {
+  padding: 5px;
+}
+
+.editor-tools-container .item {
+  padding: 5px;
+}
+
+.editor-tools-container .item-center { 
+  flex-grow: 1; 
+  margin: 0px 2px 0px 2px;
+}
+
+.editor-tools-container .item-center input[type="text"] {
+    font-size: 16px;
+}
+
+.editor-tools-container .item + .item { 
+
 }
 
 .status-bar {
   display: inline-flex;
   justify-content: space-between;
-  
+  padding: 0px 2px 0px 2px;
 }
+
+
 </style>

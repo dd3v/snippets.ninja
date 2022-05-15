@@ -22,14 +22,12 @@ ul li {
   line-height: 30px;
   padding: 0px 3px 0px 3px;
 }
-input:focus {
-  outline: none !important;
-}
 
 ::placeholder {
-  color: #f0eaea;
+  color: #ede7e7;
   font-size: 12px;
 }
+
 :focus-visible {
   outline: none;
 }
@@ -40,8 +38,6 @@ input:focus {
   align-items: center;
 }
 
-
-
 ul.dropdown-list li {
   font-size: 13px;
 }
@@ -49,20 +45,4 @@ ul.dropdown-list li {
 ul.dropdown-list li:hover {
   border-radius: 5px;
   background-color: #f6f6f6;
-}
-
-
-input[type='text'],
-input[type='password'],
-input[type='search'] {
-  background: transparent;
-  border: none;
-  font-family: inherit;
-}
-
-input[type='text'],
-input[type='password'],
-input[type='search']:focus-visible {
-  border: none;
-  outline: none;
 }

@@ -1,5 +1,6 @@
 <template>
-  <ul class="main-navigation">
+  <div class="main-navigation-wrapper">
+    <ul class="main-navigation">
     <li v-for="(menu, key) in items" :key="key" :class="selected == menu.value ? 'active' : ''">
       <label :for="menu.value">
         <input type="radio" name="menu" :id="menu.value" :value="menu.value" v-model="selected" />
@@ -7,6 +8,7 @@
       </label>
     </li>
   </ul>
+  </div>
 </template>
 <script>
 import { ref } from '@vue/reactivity';
@@ -27,6 +29,9 @@ export default {
 };
 </script>
 <style scoped>
+.main-navigation-wrapper {
+  padding: 5px;
+}
 ul.main-navigation li label {
   cursor: pointer;
 }

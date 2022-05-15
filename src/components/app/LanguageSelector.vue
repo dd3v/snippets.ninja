@@ -1,8 +1,12 @@
 <template>
   <div class="language-selector">
-    <label for="language-selector">
-      <input type="text" id="language-selector" placeholder="Language" v-model="keyword" />
-    </label>
+    <u-input
+      type="text"
+      name="language-selector"
+      variant="default"
+      placeholder="Language"
+      v-model="keyword"
+    />
     <div class="language-list">
       <ul>
         <li
@@ -27,8 +31,10 @@
 </template>
 <script>
 import { computed, ref } from '@vue/reactivity';
+import UInput from '../core/UInput.vue';
 
 export default {
+  components: { UInput },
   props: {
     modelValue: {
       type: String,
