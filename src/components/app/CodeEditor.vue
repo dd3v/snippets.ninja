@@ -39,7 +39,7 @@
     @update="handleStateUpdate"
   />
   <div class="status-bar">
-    <u-button @click="lang">
+    <u-button @click="languageModal.open()">
       <strong>{{ snippet.language }}</strong>
     </u-button>
     <code-editor-state
@@ -49,13 +49,13 @@
       :selected="state.selected"
     />
   </div>
-  <u-modal header="Language mode" ref="language">
+  <u-modal header="Language mode" ref="languageModal">
     <language-selector :languages="languages" v-model="snippet.language" />
   </u-modal>
 </template>
 <script>
 import { Codemirror } from 'vue-codemirror';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { languages } from '@codemirror/language-data';
 import UDropdown from '../core/UDropdown.vue';
 import UButton from '../core/UButton.vue';
@@ -87,10 +87,9 @@ export default {
     },
   },
   setup(props, { emit }) {
-    // const snippet = ref({title: ''});
-
     const state = ref({});
-    const language = ref(null);
+    const languageModal = ref(null);
+    const extensions = ref([]);
 
     const handleStateUpdate = (e) => {
       const { ranges } = e.state.selection;
@@ -107,22 +106,29 @@ export default {
       snippet.value.favorite = !snippet.value.favorite;
     };
 
-    const extensions = [];
-
-    console.log(languages);
-
-    const lang = () => {
-      language.value.open();
-      console.log(language.value);
+    const searchEditorMode = (language) => {
+      const mode =
+        languages.find((item) => item.name === language) ??
+        languages.find((item) => item.name === 'Markdown');
+      mode.load().then((extension) => {
+        extensions.value = extension;
+      });
+      snippet.value.language = mode.name;
+      console.log(extensions.value);
     };
+
+    watch(
+      () => snippet.value.language,
+      (value) => searchEditorMode(value),
+      { immediate: true }
+    );
 
     return {
       snippet,
       extensions,
       state,
       handleStateUpdate,
-      language,
-      lang,
+      languageModal,
       languages,
       toggleFavorite,
     };

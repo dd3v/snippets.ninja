@@ -61,7 +61,7 @@ export default {
         favorite: true,
         tags: ['PHP', 'JS'],
         code: 'hello',
-        language: 'PHP',
+        language: 'test',
       },
       {
         id: '2',
@@ -69,7 +69,7 @@ export default {
         title: 'Scope Resolution Operator (::)',
         favorite: false,
         tags: ['PHP'],
-        language: 'PHP',
+        language: 'SQL',
       },
       {
         id: '3',

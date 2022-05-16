@@ -10,8 +10,8 @@
     <div class="language-list">
       <ul>
         <li
-          v-for="(lang, index) in filteredLanguages"
-          :key="index"
+          v-for="lang in filteredLanguages"
+          :key="lang.name"
           :class="language == lang.name ? 'active' : ''"
         >
           <label :for="lang.name">
@@ -22,6 +22,7 @@
               :value="lang.name"
               v-model="language"
             />
+
             <span>{{ lang.name }}</span>
           </label>
         </li>
@@ -51,13 +52,11 @@ export default {
     });
 
     const filteredLanguages = computed(() =>
-      keyword.value
-        ? props.languages.filter(
-            (item) =>
-              item.name.toLowerCase().includes(keyword.value.toLowerCase()) ||
-              item.extensions.includes(keyword.value.toLowerCase())
-          )
-        : props.languages
+      props.languages.filter(
+        (item) =>
+          item.name.toLowerCase().includes(keyword.value.toLowerCase()) ||
+          item.extensions.includes(keyword.value.toLowerCase())
+      )
     );
 
     return { language, keyword, filteredLanguages };
