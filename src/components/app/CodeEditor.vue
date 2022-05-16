@@ -33,13 +33,12 @@
   <codemirror
     v-model="snippet.code"
     :extensions="extensions"
-    placeholder="Code gose here..."
     :style="{ height: '100%' }"
     theme="cobalt"
     @update="handleStateUpdate"
   />
   <div class="status-bar">
-    <u-button @click="languageModal.open()">
+    <u-button @click="modal.open()">
       <strong>{{ snippet.language }}</strong>
     </u-button>
     <code-editor-state
@@ -49,13 +48,13 @@
       :selected="state.selected"
     />
   </div>
-  <u-modal header="Language mode" ref="languageModal">
+  <u-modal header="Language mode" ref="modal">
     <language-selector :languages="languages" v-model="snippet.language" />
   </u-modal>
 </template>
 <script>
 import { Codemirror } from 'vue-codemirror';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, shallowRef } from 'vue';
 import { languages } from '@codemirror/language-data';
 import UDropdown from '../core/UDropdown.vue';
 import UButton from '../core/UButton.vue';
@@ -88,8 +87,8 @@ export default {
   },
   setup(props, { emit }) {
     const state = ref({});
-    const languageModal = ref(null);
-    const extensions = ref([]);
+    const modal = ref(null);
+    const extensions = shallowRef([]);
 
     const handleStateUpdate = (e) => {
       const { ranges } = e.state.selection;
@@ -106,20 +105,23 @@ export default {
       snippet.value.favorite = !snippet.value.favorite;
     };
 
-    const searchEditorMode = (language) => {
-      const mode =
-        languages.find((item) => item.name === language) ??
-        languages.find((item) => item.name === 'Markdown');
+    const handleLanguageUpdate = (language) => {
+      let mode = languages.find((item) => item.name === language) ?? false;
+      if (mode === false) {
+        mode = languages.find((item) => item.name === 'Markdown');
+      }
       mode.load().then((extension) => {
-        extensions.value = extension;
+        extensions.value = [extension];
       });
       snippet.value.language = mode.name;
-      console.log(extensions.value);
+      modal.value?.close();
     };
 
     watch(
       () => snippet.value.language,
-      (value) => searchEditorMode(value),
+      (value) => {
+        handleLanguageUpdate(value);
+      },
       { immediate: true }
     );
 
@@ -128,7 +130,7 @@ export default {
       extensions,
       state,
       handleStateUpdate,
-      languageModal,
+      modal,
       languages,
       toggleFavorite,
     };

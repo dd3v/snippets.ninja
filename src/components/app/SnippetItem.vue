@@ -4,7 +4,7 @@
       <span><u-icon icon="heart-empty" /> {{ snippet.title }}</span>
     </div>
     <div class="info">
-      <span class="snippet-language"><u-icon icon="code" /> PHP</span>
+      <span class="snippet-language"><u-icon icon="code" /> {{ snippet.language }}</span>
       <span class="snippet-date">1/1/22</span>
     </div>
   </div>

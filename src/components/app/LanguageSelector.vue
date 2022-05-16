@@ -22,7 +22,6 @@
               :value="lang.name"
               v-model="language"
             />
-
             <span>{{ lang.name }}</span>
           </label>
         </li>
@@ -48,7 +47,10 @@ export default {
     const keyword = ref('');
     const language = computed({
       get: () => props.modelValue,
-      set: (value) => emit('update:modelValue', value),
+      set: (value) => {
+        emit('update:modelValue', value);
+        keyword.value = '';
+      },
     });
 
     const filteredLanguages = computed(() =>
