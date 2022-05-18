@@ -2,7 +2,7 @@
   <div class="snippet-list-toolbar-wrapper">
     <div>
       <u-button circle>
-        <u-icon icon="menu" />
+        <u-icon icon="menu" @click="toggle" />
       </u-button>
     </div>
     <div>
@@ -27,8 +27,14 @@ import UInput from '../core/UInput.vue';
 
 export default {
   name: 'SnippetListToolbar',
-  setup() {},
   components: { UButton, UInput },
+  setup(_, { emit }) {
+    const toggle = () => {
+      emit('navigation', 'aa');
+    };
+
+    return { toggle };
+  },
 };
 </script>
 <style scoped>

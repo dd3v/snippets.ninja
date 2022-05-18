@@ -1,5 +1,5 @@
 <template>
-  <div class="main-navigation-wrapper">
+  <div class="main-navigation-wrapper" v-show="show">
     <ul class="main-navigation">
       <li v-for="(menu, key) in items" :key="key" :class="selected == menu.value ? 'active' : ''">
         <label :for="menu.value">
@@ -16,6 +16,10 @@ import { computed } from '@vue/reactivity';
 export default {
   name: 'MainNavigation',
   props: {
+    show: {
+      type: Boolean,
+      default: true,
+    },
     modelValue: {
       type: String,
     },

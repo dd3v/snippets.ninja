@@ -1,6 +1,9 @@
 <template>
   <div class="editor-tools-container">
     <div class="item">
+      <u-button @click="goBack">Go back</u-button>
+    </div>
+    <div class="item">
       <u-button @click="toggleFavorite">
         <u-icon
           :icon="snippet.favorite ? 'heart' : 'heart-empty'"
@@ -67,7 +70,7 @@ import UIcon from '../core/UIcon.vue';
 
 export default {
   name: 'CodeEditor',
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'close'],
   components: {
     Codemirror,
     UDropdown,
@@ -125,6 +128,10 @@ export default {
       { immediate: true }
     );
 
+    const goBack = () => {
+      emit('close', true);
+    };
+
     return {
       snippet,
       extensions,
@@ -133,6 +140,7 @@ export default {
       modal,
       languages,
       toggleFavorite,
+      goBack,
     };
   },
 };

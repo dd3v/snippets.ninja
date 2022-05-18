@@ -1,15 +1,15 @@
 <template>
-  <div class="left-block">
+  <div class="left-block v" v-if="navigationStatus">
     <main-navigation :items="menus" v-model="navigation" />
     <hr />
     <tag-navigation :items="tagList" v-model="tags" />
   </div>
-  <div class="middle-block">
-    <snippet-list-toolbar />
+  <div class="middle-block" :class="{'c': snippet}">
+    <snippet-list-toolbar @navigation="navigationStatus = !navigationStatus" />
     <snippet-list :items="snippets" @selected="handleSelectSnippet" />
   </div>
   <div class="right-block">
-    <code-editor v-model="snippet" />
+    <code-editor v-model="snippet" @close="snippet = false" v-if="snippet" />
   </div>
 </template>
 
@@ -32,7 +32,9 @@ export default {
     CodeEditor,
   },
   setup() {
-    const snippet = ref({});
+    const navigationStatus = ref(true);
+
+    const snippet = ref(false);
     const navigation = ref('all');
     const tags = ref(['PHP']);
 
@@ -69,7 +71,7 @@ export default {
         title: 'Scope Resolution Operator (::)',
         favorite: false,
         tags: ['PHP'],
-        language: 'SQL',
+        language: 'PHP',
       },
       {
         id: '3',
@@ -97,7 +99,7 @@ export default {
       },
     ];
     const tagList = ['PHP', 'JS', 'Notes', 'Data', 'Fixes', 'Apps', 'Ideas', 'GO', 'MySQL'];
-    snippet.value = snippets.shift();
+    // snippet.value = snippets.shift();
     const handleSelectSnippet = (value) => {
       snippet.value = value;
     };
@@ -129,6 +131,7 @@ export default {
       snippet,
       navigation,
       tags,
+      navigationStatus,
     };
   },
 };
