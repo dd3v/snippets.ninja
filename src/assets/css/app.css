@@ -47,14 +47,3 @@ ul.dropdown-list li:hover {
   background-color: #f6f6f6;
 }
 
-@media (max-width: 500px) {
-  body {
-    border: 1px solid red;
-  }
-
-  
-  .c {
-  
-    display: none;
-  }
-}

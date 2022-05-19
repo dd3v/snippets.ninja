@@ -1,16 +1,15 @@
 <template>
-  <div class="left-block v" v-if="navigationStatus">
+  <aside class="left-block" :class="{ hide: sidebar }">
     <main-navigation :items="menus" v-model="navigation" />
-    <hr />
     <tag-navigation :items="tagList" v-model="tags" />
-  </div>
-  <div class="middle-block" :class="{'c': snippet}">
-    <snippet-list-toolbar @navigation="navigationStatus = !navigationStatus" />
+  </aside>
+  <section class="middle-block" :class="{ hide: snippet }">
+    <snippet-list-toolbar @navigation="sidebar = !sidebar" />
     <snippet-list :items="snippets" @selected="handleSelectSnippet" />
-  </div>
-  <div class="right-block">
+  </section>
+  <section class="right-block" :class="{ hide: !snippet, flex: snippet }">
     <code-editor v-model="snippet" @close="snippet = false" v-if="snippet" />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -32,7 +31,7 @@ export default {
     CodeEditor,
   },
   setup() {
-    const navigationStatus = ref(true);
+    const sidebar = ref(false);
 
     const snippet = ref(false);
     const navigation = ref('all');
@@ -131,7 +130,7 @@ export default {
       snippet,
       navigation,
       tags,
-      navigationStatus,
+      sidebar,
     };
   },
 };
@@ -143,14 +142,22 @@ export default {
   height: 100%;
   position: relative;
 }
+
 .left-block {
   display: flex;
   flex-direction: column;
   color: #6a686e;
-  min-width: 180px;
+  max-width: 210px;
+  min-width: 210px;
   height: 100%;
   background: #fbfbfb;
+  transition: all 0.3s;
 }
+
+.left-block.hide {
+  margin-left: -210px;
+}
+
 .middle-block {
   display: flex;
   flex-direction: column;
@@ -166,5 +173,32 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
+}
+
+.m-button {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  .left-block {
+    margin-left: -210px;
+  }
+  .left-block.hide {
+    margin-left: 0;
+  }
+
+  body {
+    border: 1px solid red;
+  }
+
+  .hide {
+    display: none;
+  }
+  .middle-block {
+    width: 100%;
+  }
+  .m-button {
+    display: inline-flex;
+  }
 }
 </style>

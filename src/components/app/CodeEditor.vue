@@ -1,15 +1,8 @@
 <template>
   <div class="editor-tools-container">
-    <div class="item">
-      <u-button @click="goBack">Go back</u-button>
-    </div>
-    <div class="item">
-      <u-button @click="toggleFavorite">
-        <u-icon
-          :icon="snippet.favorite ? 'heart' : 'heart-empty'"
-          color="var(--color-red)"
-          fontSize="20px"
-        />
+    <div class="item m-button">
+      <u-button circle @click="goBack">
+        <u-icon icon="left-small" />
       </u-button>
     </div>
     <div class="item-center">
@@ -20,6 +13,11 @@
         name="snippet-title"
         placeholder="Snippet title"
       />
+    </div>
+    <div class="item">
+      <u-button circle @click="toggleFavorite">
+        <u-icon :icon="snippet.favorite ? 'heart' : 'heart-empty'" color="var(--color-red)" />
+      </u-button>
     </div>
     <div class="item">
       <u-dropdown icon="cloud" dropleft circle> ... it's coming soon 🚀 </u-dropdown>
