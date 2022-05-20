@@ -2,11 +2,11 @@
   <div class="snippet-list-wrapper">
     <ul class="snippet-list">
       <li
-        v-for="(snippet, key) in items"
-        :key="key"
+        v-for="snippet in items"
+        :key="snippet.id"
         :class="{ active: current?.id === snippet.id }"
       >
-        <snippet-item :snippet="snippet" @click="handleSelect(key)" />
+        <snippet-item :snippet="snippet" @click="handleSelect(snippet.id)" />
       </li>
     </ul>
   </div>
@@ -17,7 +17,7 @@ import SnippetItem from './SnippetItem.vue';
 
 export default {
   name: 'SnippetList',
-  emits: ['selected'],
+  emits: ['snippet:select'],
   components: { SnippetItem },
   props: {
     items: {
@@ -26,15 +26,11 @@ export default {
   },
   setup(props, { emit }) {
     const current = ref(null);
-
-    const a = ref('');
-
-    const handleSelect = (index) => {
-      current.value = props.items[index];
-      emit('selected', current.value);
+    const handleSelect = (id) => {
+      current.value = props.items.find((item) => item.id === id);
+      emit('snippet:select', current.value);
     };
-
-    return { handleSelect, current, a };
+    return { handleSelect, current };
   },
 };
 </script>

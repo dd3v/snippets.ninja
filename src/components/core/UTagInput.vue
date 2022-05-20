@@ -5,18 +5,17 @@
         <span @click="remove(key)" @keypress="remove(key)">&times;</span>{{ tag }}
       </li>
     </transition-group>
-    <label for="t">
-      <input
-        type="text"
-        v-model="tag"
-        :placeholder="placeholder"
-        class="tag-input-text"
-        @keydown.enter="add"
-        @keydown.,.prevent="add"
-        @keydown.tab.prevent="add"
-        @keydown.delete="removeLast"
-      />
-    </label>
+    <input
+      type="text"
+      v-model="tag"
+      :placeholder="placeholder"
+      class="tag-input-text"
+      aria-label="Tag input"
+      @keydown.enter="add"
+      @keydown.,.prevent="add"
+      @keydown.tab.prevent="add"
+      @keydown.delete="removeLast"
+    />
   </div>
 </template>
 <script>
@@ -68,6 +67,7 @@ export default {
 .tag-input-wrapper {
   display: flex;
   align-items: center;
+  height: 23px;
 }
 
 .tag-input-tag {

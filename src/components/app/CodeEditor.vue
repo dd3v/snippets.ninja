@@ -1,7 +1,7 @@
 <template>
   <div class="editor-tools-container">
     <div class="item m-button">
-      <u-button circle @click="goBack">
+      <u-button circle @click="$emit('snippet:close')">
         <u-icon icon="left-small" />
       </u-button>
     </div>
@@ -15,7 +15,7 @@
       />
     </div>
     <div class="item">
-      <u-button circle @click="toggleFavorite">
+      <u-button circle @click="snippet.favorite = !snippet.favorite">
         <u-icon :icon="snippet.favorite ? 'heart' : 'heart-empty'" color="var(--color-red)" />
       </u-button>
     </div>
@@ -23,7 +23,7 @@
       <u-dropdown icon="cloud" dropleft circle> ... it's coming soon 🚀 </u-dropdown>
     </div>
     <div class="item">
-      <u-button circle>
+      <u-button circle @click="$emit('snippet:delete', snippet)">
         <u-icon icon="trash-empty" color="var(--color-red)" />
       </u-button>
     </div>
@@ -36,7 +36,7 @@
     :extensions="extensions"
     :style="{ height: '100%', overflow: 'scroll' }"
     theme="cobalt"
-    @update="handleStateUpdate"
+    @update="handleState"
   />
   <div class="status-bar">
     <u-button @click="modal.open()">
@@ -68,7 +68,7 @@ import UIcon from '../core/UIcon.vue';
 
 export default {
   name: 'CodeEditor',
-  emits: ['update:modelValue', 'close'],
+  emits: ['update:modelValue', 'snippet:close', 'snippet:delete'],
   components: {
     Codemirror,
     UDropdown,
@@ -91,7 +91,7 @@ export default {
     const modal = ref(null);
     const extensions = shallowRef([]);
 
-    const handleStateUpdate = (e) => {
+    const handleState = (e) => {
       const { ranges } = e.state.selection;
       state.value.selected = ranges.reduce((plus, range) => plus + range.to - range.from, 0);
       state.value.cursor = ranges[0].anchor;
@@ -102,9 +102,6 @@ export default {
       get: () => props.modelValue,
       set: (value) => emit('update:modelValue', value),
     });
-    const toggleFavorite = () => {
-      snippet.value.favorite = !snippet.value.favorite;
-    };
 
     const handleLanguageUpdate = (language) => {
       let mode = languages.find((item) => item.name === language) ?? false;
@@ -126,19 +123,13 @@ export default {
       { immediate: true }
     );
 
-    const goBack = () => {
-      emit('close', true);
-    };
-
     return {
       snippet,
       extensions,
       state,
-      handleStateUpdate,
+      handleState,
       modal,
       languages,
-      toggleFavorite,
-      goBack,
     };
   },
 };
@@ -166,13 +157,9 @@ export default {
   font-size: 16px;
 }
 
-.editor-tools-container .item + .item {
-}
-
 .status-bar {
   display: inline-flex;
   justify-content: space-between;
   padding: 0px 2px 0px 2px;
-  margin-top: auto;
 }
 </style>

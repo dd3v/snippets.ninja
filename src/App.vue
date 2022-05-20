@@ -1,14 +1,24 @@
 <template>
   <aside class="left-block" :class="{ active: sidebar }">
-    <main-navigation :items="menuItems" v-model="conditions.snippets" />
-    <tag-navigation :items="tagList" v-model="conditions.tags" />
+    <main-navigation :items="menu" v-model="conditions.snippets" />
+    <tag-navigation :items="tags" v-model="conditions.tags" />
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">
-    <snippet-list-toolbar @snippet="handleAddSnippet" @navigation="sidebar = !sidebar" />
-    <snippet-list :items="snippets" @selected="handleSelectSnippet" />
+    <snippet-list-toolbar
+      v-model:sort="conditions.sort"
+      v-model:term="conditions.term"
+      @snippet:create="createSnippet"
+      @navigation:toggle="sidebar = !sidebar"
+    />
+    <snippet-list :items="snippets" @snippet:select="loadSnippet" />
   </section>
   <section class="right-block" :class="{ hide: !snippet }">
-    <code-editor v-model="snippet" @close="snippet = false" v-if="snippet" />
+    <code-editor
+      v-model="snippet"
+      @snippet:delete="deleteSnippet"
+      @snippet:close="snippet = false"
+      v-if="snippet"
+    />
   </section>
 </template>
 
@@ -19,7 +29,7 @@ import { watch } from '@vue/runtime-core';
 // import { liveQuery } from 'dexie';
 import db from './db/db';
 
-import menuItems from './data/menu';
+import menu from './data/menu';
 import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
@@ -40,13 +50,12 @@ export default {
     const conditions = ref({
       snippets: 'all',
       tags: [],
+      sort: 'desc',
+      term: '',
     });
 
-    console.log(conditions);
-
     const snippet = ref(false);
-    const navigation = ref('all');
-    const tagList = ref(['PHP']);
+    const tags = ref(['PHP']);
     const snippets = ref([]);
 
     snippets.value = [
@@ -58,7 +67,6 @@ export default {
         tags: ['PHP', 'JS'],
         code: 'hello',
         language: 'PHP',
-    
       },
       {
         id: '2',
@@ -95,14 +103,14 @@ export default {
     ];
 
     db.snippets.orderBy('tags').uniqueKeys((response) => {
-      tagList.value = response;
+      tags.value = response;
     });
-    // snippet.value = snippets.shift();
-    const handleSelectSnippet = (value) => {
+    const loadSnippet = (value) => {
       snippet.value = value;
     };
 
-    const handleAddSnippet = () => {
+    const createSnippet = () => {
+      console.log('create snippet');
       db.snippets.add({
         cloud_id: null,
         title: 'Snippet NEW',
@@ -113,35 +121,27 @@ export default {
       });
     };
 
-    watch(
-      snippet,
-      () => {
-        console.warn(snippet.value);
-      },
-      {
-        deep: true,
-      }
-    );
-    watch(
-      conditions,
-      () => {
-        console.warn(conditions);
-      },
-      {
-        deep: true,
-      }
-    );
+    const deleteSnippet = (value) => {
+      console.log(value);
+    };
+
+    watch(snippet, () => console.warn(snippet.value), {
+      deep: true,
+    });
+    watch(conditions, () => console.warn(conditions.value), {
+      deep: true,
+    });
 
     return {
+      sidebar,
       conditions,
-      menuItems,
-      tagList,
+      menu,
+      tags,
       snippets,
       snippet,
-      navigation,
-      sidebar,
-      handleSelectSnippet,
-      handleAddSnippet,
+      deleteSnippet,
+      loadSnippet,
+      createSnippet,
     };
   },
 };

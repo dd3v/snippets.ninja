@@ -1,4 +1,4 @@
-const menuItems = [
+const menu = [
   {
     icon: 'box',
     label: 'All Snippets',
@@ -11,4 +11,4 @@ const menuItems = [
   },
 ];
 
-export default menuItems;
+export default menu;
