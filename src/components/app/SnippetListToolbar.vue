@@ -5,14 +5,11 @@
         <u-icon icon="menu" />
       </u-button>
     </div>
-    <div>
-      <u-input
-        type="text"
-        v-model="a"
-        variant="invisible"
-        name="filter"
-        placeholder="Search term"
-      />
+    <div class="filter-group">
+      <u-input type="text" v-model="a" name="filter" placeholder="Search term" />
+      <u-button>
+        <u-icon icon="sort-number-down" />
+      </u-button>
     </div>
     <div>
       <u-button circle @click="add">
@@ -47,5 +44,13 @@ export default {
   align-items: center;
   display: inline-flex;
   padding: 5px;
+}
+
+.filter-group {
+  width: 70%;
+}
+
+.filter-group button {
+  margin-left: -25px;
 }
 </style>

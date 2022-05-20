@@ -34,7 +34,7 @@
   <codemirror
     v-model="snippet.code"
     :extensions="extensions"
-    :style="{ height: '100%' }"
+    :style="{ height: '100%', overflow: 'scroll' }"
     theme="cobalt"
     @update="handleStateUpdate"
   />
@@ -173,5 +173,6 @@ export default {
   display: inline-flex;
   justify-content: space-between;
   padding: 0px 2px 0px 2px;
+  margin-top: auto;
 }
 </style>

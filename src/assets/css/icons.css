@@ -126,3 +126,9 @@
 .icon-left-small:before {
   content: '\e80b';
 }
+.icon-sort-number-up:before {
+  content: '\f162';
+}
+.icon-sort-number-down:before {
+  content: '\f163';
+}

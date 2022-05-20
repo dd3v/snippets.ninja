@@ -7,7 +7,7 @@
     <snippet-list-toolbar @snippet="handleAddSnippet" @navigation="sidebar = !sidebar" />
     <snippet-list :items="snippets" @selected="handleSelectSnippet" />
   </section>
-  <section class="right-block" :class="{ hide: !snippet, flex: snippet }">
+  <section class="right-block" :class="{ hide: !snippet }">
     <code-editor v-model="snippet" @close="snippet = false" v-if="snippet" />
   </section>
 </template>
@@ -49,7 +49,50 @@ export default {
     const tagList = ref(['PHP']);
     const snippets = ref([]);
 
-    snippets.value = []; 
+    snippets.value = [
+      {
+        id: '1',
+        local_id: 1,
+        title: 'Snippet 1 ❤️',
+        favorite: true,
+        tags: ['PHP', 'JS'],
+        code: 'hello',
+        language: 'PHP',
+    
+      },
+      {
+        id: '2',
+        local_id: 2,
+        title: 'Scope Resolution Operator (::)',
+        favorite: false,
+        tags: ['PHP'],
+        language: 'PHP',
+      },
+      {
+        id: '3',
+        local_id: 3,
+        title: 'SQL AGGR',
+        favorite: false,
+        tags: ['PHP'],
+        language: 'PHP',
+      },
+      {
+        id: '4',
+        local_id: 4,
+        title: 'Snippet 2',
+        favorite: false,
+        tags: ['PHP'],
+        language: 'PHP',
+      },
+      {
+        id: '5',
+        local_id: 5,
+        title: 'Quick flexbox input-group',
+        favorite: false,
+        tags: ['PHP'],
+        language: 'PHP',
+      },
+    ];
 
     db.snippets.orderBy('tags').uniqueKeys((response) => {
       tagList.value = response;
