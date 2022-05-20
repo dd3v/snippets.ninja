@@ -1,8 +1,8 @@
 <template>
   <div class="snippet-list-toolbar-wrapper">
     <div>
-      <u-button circle>
-        <u-icon icon="menu" @click="toggle" />
+      <u-button circle @click="toggle">
+        <u-icon icon="menu" />
       </u-button>
     </div>
     <div>
@@ -15,7 +15,7 @@
       />
     </div>
     <div>
-      <u-button circle>
+      <u-button circle @click="add">
         <u-icon icon="plus" />
       </u-button>
     </div>
@@ -30,10 +30,14 @@ export default {
   components: { UButton, UInput },
   setup(_, { emit }) {
     const toggle = () => {
-      emit('navigation', 'aa');
+      emit('navigation');
     };
 
-    return { toggle };
+    const add = () => {
+      emit('snippet');
+    };
+
+    return { toggle, add };
   },
 };
 </script>
