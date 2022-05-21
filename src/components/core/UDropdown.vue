@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { ref } from '@vue/reactivity';
+import { ref } from 'vue';
 import UButton from './UButton.vue';
 
 export default {

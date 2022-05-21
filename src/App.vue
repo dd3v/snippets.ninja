@@ -91,7 +91,7 @@ export default {
 
     console.warn(tags);
 
-    const snippets = observableSnippets(db.snippets, conditions);
+    const snippets = observableSnippets(db.snippets, conditions.value);
 
     //  console.log(snippets);
     // const snippets = useObservable(

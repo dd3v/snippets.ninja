@@ -19,8 +19,7 @@
   </div>
 </template>
 <script>
-import { ref } from '@vue/reactivity';
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
 export default {
   emits: ['update:modelValue'],

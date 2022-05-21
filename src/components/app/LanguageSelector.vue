@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { computed, ref } from '@vue/reactivity';
+import { computed, ref } from 'vue';
 import UInput from '../core/UInput.vue';
 
 export default {

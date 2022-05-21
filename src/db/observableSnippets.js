@@ -4,14 +4,14 @@ import { liveQuery } from 'dexie';
 const buildQuery = (collection, conditions) => {
   let snippets = collection;
 
-  if (conditions.value.tags.length) {
-    snippets = collection.where('tags').anyOf(conditions.value.tags);
-  }
-  if (conditions.value.snippets === 'favorite') {
-    snippets = collection.where('favorite').equal(true);
-  }
-  if (conditions.value.sort === 'desc') {
+  if (conditions.sort === 'desc') {
     snippets = collection.reverse();
+  }
+  if (conditions.tags.length) {
+    snippets = collection.where('tags').anyOf(conditions.tags);
+  }
+  if (conditions.snippets === 'favorite') {
+    snippets = collection.where('favorite').equal(true);
   }
 
   return snippets.toArray();
@@ -38,7 +38,6 @@ const observableSnippets = (collection, conditions) => {
       subscription.unsubscribe();
       subscription = observable.subscribe({
         next: (val) => {
-          console.log(val);
           value.value = val;
         },
         error: null,

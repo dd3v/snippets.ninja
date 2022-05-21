@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { ref } from '@vue/reactivity';
+import { ref } from 'vue';
 import SnippetItem from './SnippetItem.vue';
 
 export default {
