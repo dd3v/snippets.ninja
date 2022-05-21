@@ -70,11 +70,11 @@ export default {
     const createSnippet = () => {
       db.snippets.add({
         title: faker.hacker.phrase(),
-        favorite: true,
-        tags: [`${new Date().getTime()}`],
+        favorite: 0,
+        tags: [faker.git.branch()],
         code: 'hello',
         language: 'test',
-        deleted: false,
+        deleted: 0,
         remote_id: null,
         last_sync: null,
         created: new Date().getTime(),

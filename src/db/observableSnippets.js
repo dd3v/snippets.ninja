@@ -2,7 +2,7 @@ import { ref, watch } from 'vue';
 import { liveQuery } from 'dexie';
 
 const buildQuery = (collection, conditions) => {
-  let snippets = collection;
+  let snippets = collection.where('deleted').equals(0);
 
   if (conditions.sort === 'desc') {
     snippets = collection.reverse();
@@ -11,7 +11,7 @@ const buildQuery = (collection, conditions) => {
     snippets = collection.where('tags').anyOf(conditions.tags);
   }
   if (conditions.snippets === 'favorite') {
-    snippets = collection.where('favorite').equal(true);
+    snippets = collection.where('favorite').equals(1);
   }
 
   return snippets.toArray();
