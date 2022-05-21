@@ -23,11 +23,13 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
-import { watch } from '@vue/runtime-core';
-// import { useObservable } from '@vueuse/rxjs';
-// import { liveQuery } from 'dexie';
+import { ref, watch } from 'vue';
+import { useObservable } from '@vueuse/rxjs';
+import { liveQuery } from 'dexie';
+import { faker } from '@faker-js/faker';
 import db from './db/db';
+
+import observableSnippets from './db/observableSnippets';
 
 import menu from './data/menu';
 import SnippetList from './components/app/SnippetList.vue';
@@ -52,74 +54,52 @@ export default {
       tags: [],
       sort: 'desc',
       term: '',
+      limit: 1,
     });
 
     const snippet = ref(false);
-    const tags = ref(['PHP']);
-    const snippets = ref([]);
 
-    snippets.value = [
-      {
-        id: '1',
-        local_id: 1,
-        title: 'Snippet 1 ❤️',
-        favorite: true,
-        tags: ['PHP', 'JS'],
-        code: 'hello',
-        language: 'PHP',
-      },
-      {
-        id: '2',
-        local_id: 2,
-        title: 'Scope Resolution Operator (::)',
-        favorite: false,
-        tags: ['PHP'],
-        language: 'PHP',
-      },
-      {
-        id: '3',
-        local_id: 3,
-        title: 'SQL AGGR',
-        favorite: false,
-        tags: ['PHP'],
-        language: 'PHP',
-      },
-      {
-        id: '4',
-        local_id: 4,
-        title: 'Snippet 2',
-        favorite: false,
-        tags: ['PHP'],
-        language: 'PHP',
-      },
-      {
-        id: '5',
-        local_id: 5,
-        title: 'Quick flexbox input-group',
-        favorite: false,
-        tags: ['PHP'],
-        language: 'PHP',
-      },
-    ];
+    // const snippets = ref([]);
 
-    db.snippets.orderBy('tags').uniqueKeys((response) => {
-      tags.value = response;
-    });
+    // query();
+
     const loadSnippet = (value) => {
       snippet.value = value;
     };
 
     const createSnippet = () => {
-      console.log('create snippet');
       db.snippets.add({
-        cloud_id: null,
-        title: 'Snippet NEW',
+        title: faker.hacker.phrase(),
         favorite: true,
-        tags: ['a'],
+        tags: [`${new Date().getTime()}`],
         code: 'hello',
         language: 'test',
+        deleted: false,
+        remote_id: null,
+        last_sync: null,
+        created: new Date().getTime(),
+        updated: new Date().getTime(),
       });
     };
+
+    const tags = useObservable(
+      liveQuery(async () => {
+        const response = await db.snippets.orderBy('tags').uniqueKeys();
+        return response;
+      })
+    );
+
+    console.warn(tags);
+
+    const snippets = observableSnippets(db.snippets, conditions);
+
+    //  console.log(snippets);
+    // const snippets = useObservable(
+    //   liveQuery(async () => {
+    //     const a = await query().toArray();
+    //     return a;
+    //   })`
+    // );
 
     const deleteSnippet = (value) => {
       console.log(value);
@@ -128,9 +108,13 @@ export default {
     watch(snippet, () => console.warn(snippet.value), {
       deep: true,
     });
-    watch(conditions, () => console.warn(conditions.value), {
-      deep: true,
-    });
+    // watch(
+    //   conditions,
+    //   () => console.log(conditions.value),
+    //   {
+    //     deep: true,
+    //   }
+    // );
 
     return {
       sidebar,
