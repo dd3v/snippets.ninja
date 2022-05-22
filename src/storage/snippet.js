@@ -8,6 +8,13 @@ export default class SnippetStorage {
   get() {
     return connection.select({
       from: this.tableName,
+      distinct: true,
+      limit: 100,
+      skip: 0,
+      order: {
+        by: 'id',
+        type: 'desc',
+      },
     });
   }
 
@@ -36,6 +43,8 @@ export default class SnippetStorage {
     return connection.select({
       from: this.tableName,
       distinct: true,
+      limit: 100,
+      skip: 0,
       order: {
         by: 'id',
         type: conditions.sort,
@@ -49,6 +58,13 @@ export default class SnippetStorage {
       into: this.tableName,
       values: [entity],
       return: true,
+    });
+  }
+
+  tags() {
+    return connection.select({
+      from: this.tableName,
+      groupBy: 'tags',
     });
   }
 }

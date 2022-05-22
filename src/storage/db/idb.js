@@ -20,6 +20,7 @@ const getDb = () => {
       },
       code: {
         dataType: DATA_TYPE.String,
+        enableSearch: false,
       },
       tags: {
         dataType: DATA_TYPE.Array,

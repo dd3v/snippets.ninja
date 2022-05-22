@@ -10,7 +10,7 @@
       @snippet:create="createSnippet"
       @navigation:toggle="sidebar = !sidebar"
     />
-    <snippet-list :items="snippets" @snippet:select="loadSnippet" />
+    <snippet-list :items="snippets" @snippets:more="loadMore" @snippet:select="loadSnippet" />
   </section>
   <section class="right-block" :class="{ hide: !snippet }">
     <code-editor
@@ -24,8 +24,8 @@
 
 <script>
 import { onMounted, ref, watch } from 'vue';
+import faker from '@faker-js/faker';
 import initStorage from './storage/db/idb';
-
 import menu from './data/menu';
 import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/CodeEditor.vue';
@@ -50,7 +50,6 @@ export default {
       tags: [],
       sort: 'desc',
       term: '',
-      limit: 1,
     });
 
     const snippet = ref(false);
@@ -69,27 +68,37 @@ export default {
       // snippets.value = response;
     });
 
+    snippetStorage.tags().then((response) => {
+      tags.value = response.flatMap((a) => a.tags);
+    });
+
     const createSnippet = () => {
-      snippetStorage
-        .create({
-          title: 'hello',
-          favorite: 1,
-          tags: ['go'],
-          code: 'hello',
-          language: 'test',
-          deleted: 0,
-          remote_id: null,
-          last_sync: null,
-          created: new Date().toISOString(),
-          updated: new Date().toISOString(),
-        })
-        .then((response) => {
-          console.log(response);
-        });
+      for (let i = 0; i < 1000; i += 1) {
+        snippetStorage
+          .create({
+            title: faker.git.branch(),
+            favorite: 1,
+            tags: [faker.company.companyName()],
+            code: 'hello',
+            language: 'test',
+            deleted: 0,
+            remote_id: null,
+            last_sync: null,
+            created: new Date().toISOString(),
+            updated: new Date().toISOString(),
+          })
+          .then((response) => {
+            console.log(response);
+          });
+      }
     };
 
     const deleteSnippet = (value) => {
       console.log(value);
+    };
+
+    const loadMore = () => {
+      console.log('MOREEE');
     };
 
     watch(snippet, () => console.warn(snippet.value), {
@@ -99,7 +108,7 @@ export default {
       conditions,
       () => {
         snippetStorage.search(conditions.value).then((response) => {
-          snippets.value = response
+          snippets.value = response;
         });
       },
       {
@@ -125,6 +134,7 @@ export default {
       deleteSnippet,
       loadSnippet,
       createSnippet,
+      loadMore,
     };
   },
 };

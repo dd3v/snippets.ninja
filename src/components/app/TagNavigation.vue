@@ -36,9 +36,12 @@ export default {
 <style scoped>
 .tag-navigation-wrapper {
   padding: 5px;
+  height: 100%;
 }
 .tags-navigation {
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-y: auto;
+  height: 80%;
 }
 
 ul.tags-navigation label {

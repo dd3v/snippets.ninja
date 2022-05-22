@@ -47,3 +47,16 @@ ul.dropdown-list li:hover {
   background-color: #f6f6f6;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0e0e1;
+  border-right: 0px white solid;
+  background-clip: padding-box;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
