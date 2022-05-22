@@ -23,13 +23,8 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
-import { useObservable } from '@vueuse/rxjs';
-import { liveQuery } from 'dexie';
-import { faker } from '@faker-js/faker';
-import db from './db/db';
-
-import observableSnippets from './db/observableSnippets';
+import { onMounted, ref, watch } from 'vue';
+import initStorage from './storage/db/idb';
 
 import menu from './data/menu';
 import SnippetList from './components/app/SnippetList.vue';
@@ -37,6 +32,7 @@ import CodeEditor from './components/app/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
 import MainNavigation from './components/app/MainNavigation.vue';
 import SnippetListToolbar from './components/app/SnippetListToolbar.vue';
+import SnippetStorage from './storage/snippet';
 
 export default {
   name: 'App',
@@ -59,47 +55,38 @@ export default {
 
     const snippet = ref(false);
 
-    // const snippets = ref([]);
-
-    // query();
-
     const loadSnippet = (value) => {
       snippet.value = value;
     };
 
+    const tags = ref(['php', 'test', 'go', 'a', 'b', 'c']);
+    const snippets = ref([]);
+
+    const snippetStorage = new SnippetStorage();
+
+    snippetStorage.get().then(() => {
+      //  console.log(response);
+      // snippets.value = response;
+    });
+
     const createSnippet = () => {
-      db.snippets.add({
-        title: faker.hacker.phrase(),
-        favorite: 0,
-        tags: [faker.git.branch()],
-        code: 'hello',
-        language: 'test',
-        deleted: 0,
-        remote_id: null,
-        last_sync: null,
-        created: new Date().getTime(),
-        updated: new Date().getTime(),
-      });
+      snippetStorage
+        .create({
+          title: 'hello',
+          favorite: 1,
+          tags: ['go'],
+          code: 'hello',
+          language: 'test',
+          deleted: 0,
+          remote_id: null,
+          last_sync: null,
+          created: new Date().toISOString(),
+          updated: new Date().toISOString(),
+        })
+        .then((response) => {
+          console.log(response);
+        });
     };
-
-    const tags = useObservable(
-      liveQuery(async () => {
-        const response = await db.snippets.orderBy('tags').uniqueKeys();
-        return response;
-      })
-    );
-
-    console.warn(tags);
-
-    const snippets = observableSnippets(db.snippets, conditions.value);
-
-    //  console.log(snippets);
-    // const snippets = useObservable(
-    //   liveQuery(async () => {
-    //     const a = await query().toArray();
-    //     return a;
-    //   })`
-    // );
 
     const deleteSnippet = (value) => {
       console.log(value);
@@ -108,13 +95,25 @@ export default {
     watch(snippet, () => console.warn(snippet.value), {
       deep: true,
     });
-    // watch(
-    //   conditions,
-    //   () => console.log(conditions.value),
-    //   {
-    //     deep: true,
-    //   }
-    // );
+    watch(
+      conditions,
+      () => {
+        snippetStorage.search(conditions.value).then((response) => {
+          snippets.value = response
+        });
+      },
+      {
+        deep: true,
+      }
+    );
+
+    onMounted(async () => {
+      try {
+        await initStorage();
+      } catch (e) {
+        console.error(e);
+      }
+    });
 
     return {
       sidebar,
