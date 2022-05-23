@@ -25,6 +25,7 @@ const getDb = () => {
       tags: {
         dataType: DATA_TYPE.Array,
         multiEntry: true,
+        default: [],
       },
       favorite: {
         notNull: true,

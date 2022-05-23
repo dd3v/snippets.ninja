@@ -10,7 +10,12 @@
       @snippet:create="createSnippet"
       @navigation:toggle="sidebar = !sidebar"
     />
-    <snippet-list :items="snippets" @snippets:more="loadMore" @snippet:select="snippet = $event" />
+    <snippet-list
+      ref="snippetList"
+      :items="snippets"
+      @snippets:more="loadMore"
+      v-model:selected="snippet"
+    />
   </section>
   <section class="right-block" :class="{ hide: !snippet }">
     <code-editor
@@ -45,6 +50,7 @@ export default {
   },
   setup() {
     const sidebar = ref(false);
+    const snippetList = ref('');
     const defaultConditions = {
       snippets: 'all',
       tags: [],
@@ -60,7 +66,8 @@ export default {
     const conditions = reactive({ ...defaultConditions });
     const snippetStorage = new SnippetStorage();
     snippetStorage.tags().then((response) => {
-      tags.value = response.map((a) => a.tags);
+      tags.value = response.map((item) => item.tags);
+      tags.value.sort();
     });
 
     const createSnippet = () => {
@@ -80,15 +87,19 @@ export default {
         .then((response) => {
           Object.assign(conditions, defaultConditions);
           snippets.value.unshift(...response);
-
-
-          // snippet.value = snippets.value[snippet.value.length - 1];
+          // eslint-disable-next-line prefer-destructuring
+          snippet.value = snippets.value[0] ?? null;
+          snippetList.value.scroll.scrollTo({
+            top: 1,
+            behavior: 'smooth',
+          });
         });
     };
 
     const deleteSnippet = (value) => {
       snippetStorage.softDelete(value).then(() => {
         snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
+        snippet.value = null;
       });
     };
 
@@ -102,7 +113,9 @@ export default {
     watch(
       snippet,
       (current, previous) => {
-        if (current.id === previous.id) {
+        console.warn(current);
+        console.warn(previous);
+        if (current && previous && current.id === previous.id) {
           snippet.value.title = snippet.value.title.length ? snippet.value.title : 'Untitled';
           snippetStorage.update(snippet.value).then(() => {
             tags.value.push(...snippet.value.tags.filter((item) => !tags.value.includes(item)));
@@ -137,6 +150,7 @@ export default {
     });
 
     return {
+      snippetList,
       sidebar,
       conditions,
       menu,
@@ -188,7 +202,7 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .m-button {
@@ -201,9 +215,6 @@ export default {
   }
   .left-block {
     margin-left: -210px;
-  }
-  body {
-    border: 1px solid red;
   }
 
   .hide {

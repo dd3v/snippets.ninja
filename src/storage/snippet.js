@@ -84,10 +84,6 @@ export default class SnippetStorage {
       from: this.tableName,
       flatten: ['tags'],
       groupBy: 'tags',
-      order: {
-        by: 'tags',
-        type: 'asc',
-      },
     });
   }
 }

@@ -10,10 +10,11 @@
       >
         <li
           v-for="snippet in items"
+          :id="`snippet-${snippet.id}`"
           :key="snippet.id"
-          :class="{ active: current?.id === snippet.id }"
+          :class="{ active: selected?.id === snippet.id }"
         >
-          <snippet-item :snippet="snippet" @click="handleSelect(snippet.id)" />
+          <snippet-item :snippet="snippet" @click="handleSelect(snippet)" />
         </li>
       </TransitionGroup>
     </div>
@@ -26,21 +27,19 @@ import SnippetItem from './SnippetItem.vue';
 
 export default {
   name: 'SnippetList',
-  emits: ['snippet:select', 'snippets:more'],
+  emits: ['update:selected', 'snippets:more'],
   components: { SnippetItem },
   props: {
     items: {
       type: Array,
     },
+    selected: {},
   },
   setup(props, { emit }) {
-    const current = ref(null);
     const scroll = ref(null);
-    const handleSelect = (id) => {
-      current.value = props.items.find((item) => item.id === id);
-      emit('snippet:select', current.value);
+    const handleSelect = (snippet) => {
+      emit('update:selected', snippet);
     };
-
     // gsap animation stuff
     const onBeforeEnter = (el) => {
       // eslint-disable-next-line no-param-reassign
@@ -85,7 +84,7 @@ export default {
       // scroll.value.removeEventListener('scroll', handleScroll);
     });
 
-    return { handleSelect, current, scroll, onBeforeEnter, onEnter, onLeave };
+    return { handleSelect, scroll, onBeforeEnter, onEnter, onLeave };
   },
 };
 </script>
