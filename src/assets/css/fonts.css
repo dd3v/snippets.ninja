@@ -1,6 +1,8 @@
 @font-face {
-  font-family: 'Poppins-Regular';
-  src: url('~@/assets/fonts/poppins/Poppins-Regular.woff2') format('woff2');
+  font-family: 'Rubik';
+  src: url('~@/assets/fonts/rubik/Rubik-Regular.woff2') format('woff2'),
+    url('~@/assets/fonts/rubik/Rubik-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
