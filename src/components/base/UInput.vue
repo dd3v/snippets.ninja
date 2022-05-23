@@ -78,7 +78,7 @@ input[type='search'] {
   overflow: hidden;
   height: 32px;
   border-radius: 10px;
-  border: 1px solid hsl(260deg 3% 42% / 13%);
+  border: var(--default-input-border);
   transition: box-shadow 0.2s ease 0s;
   padding-left: 10px;
 }

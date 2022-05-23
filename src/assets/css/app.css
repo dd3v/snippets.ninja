@@ -1,5 +1,8 @@
-:root {
-  --color-red: #ff6363cf;
+@import url('themes/light.css');
+@import url('themes/dark.css');
+
+.cm-focused {
+  outline: none !important;
 }
 
 html,
@@ -23,41 +26,7 @@ ul li {
   padding: 0px 3px 0px 3px;
 }
 
-::placeholder {
-  color: #ede7e7;
-  font-size: 12px;
-}
-
 :focus-visible {
   outline: none;
 }
 
-.input-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-ul.dropdown-list li {
-  font-size: 13px;
-}
-
-ul.dropdown-list li:hover {
-  border-radius: 5px;
-  background-color: #f6f6f6;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #e0e0e1;
-  border-right: 0px white solid;
-  background-clip: padding-box;
-  border-radius: 5px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}

@@ -16,10 +16,8 @@ import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 
 import { computed } from 'vue';
-import UIcon from '../core/UIcon.vue';
 
 export default {
-  components: { UIcon },
   props: {
     snippet: {
       type: Object,
@@ -57,6 +55,5 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: #686669;
 }
 </style>

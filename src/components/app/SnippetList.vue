@@ -104,20 +104,18 @@ export default {
   margin: 10px 0;
 }
 
-.snippet-list li {
-  border-bottom: 1px solid hsl(240deg 2% 88% / 44%);
-}
-
 .snippet-list li:hover {
   border-radius: 5px;
-  background: hsl(264deg 10% 14% / 12%);
-  color: #2b292e;
+  background: var(--snippet-list-active-bg-color);
+  color: var(--snippet-list-active-color);
 }
 
 .active {
   border-radius: 5px;
-  background: hsl(264deg 10% 14% / 12%);
-  color: #2b292e;
+  background: var(--snippet-list-active-bg-color);
+  color: var(--snippet-list-active-color);
+
+  box-shadow: var(--snippet-list-active-box-shadow)
 }
 
 .snippet-list li:last-child {

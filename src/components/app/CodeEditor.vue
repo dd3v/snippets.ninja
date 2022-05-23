@@ -57,14 +57,15 @@
 import { Codemirror } from 'vue-codemirror';
 import { computed, ref, watch, shallowRef } from 'vue';
 import { languages } from '@codemirror/language-data';
-import UDropdown from '../core/UDropdown.vue';
-import UButton from '../core/UButton.vue';
-import UTagInput from '../core/UTagInput.vue';
+import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
+
+import UDropdown from '../base/UDropdown.vue';
+import UButton from '../base/UButton.vue';
+import UTagInput from '../base/UTagInput.vue';
 import CodeEditorState from './CodeEditorState.vue';
-import UModal from '../core/UModal.vue';
+import UModal from '../base/UModal.vue';
 import LanguageSelector from './LanguageSelector.vue';
-import UInput from '../core/UInput.vue';
-import UIcon from '../core/UIcon.vue';
+import UInput from '../base/UInput.vue';
 
 export default {
   name: 'CodeEditor',
@@ -78,7 +79,6 @@ export default {
     CodeEditorState,
     LanguageSelector,
     UInput,
-    UIcon,
   },
   props: {
     modelValue: {
@@ -109,7 +109,7 @@ export default {
         mode = languages.find((item) => item.name === 'Markdown');
       }
       mode.load().then((extension) => {
-        extensions.value = [extension];
+        extensions.value = [githubLight, extension];
       });
       snippet.value.language = mode.name;
       modal.value?.close();
@@ -162,6 +162,6 @@ export default {
   justify-content: space-between;
   padding: 0px 2px 0px 2px;
   align-items: center;
-  height: 15px;
+  height: 20px;
 }
 </style>

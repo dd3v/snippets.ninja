@@ -25,8 +25,8 @@
   </div>
 </template>
 <script>
-import UButton from '../core/UButton.vue';
-import UInput from '../core/UInput.vue';
+import UButton from '../base/UButton.vue';
+import UInput from '../base/UInput.vue';
 
 export default {
   name: 'SnippetListToolbar',

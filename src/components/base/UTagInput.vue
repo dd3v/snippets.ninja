@@ -72,18 +72,15 @@ export default {
 .tag-input-tag {
   float: left;
   padding: 1px 8px;
-  font-size: 0;
   line-height: 1.5;
   text-align: center;
   white-space: nowrap;
-  border: 1px solid #dfdfdf;
   border-radius: 4px;
   outline: 0;
-  color: #3f536e;
-  border-color: #dfdfdf;
-  background-color: #fbfbfb;
   font-size: 12px;
   margin-right: 5px;
+  border: var(--tag-input-tag-border);
+  background-color: var(--tag-input-tag-background-color);
 }
 
 .tag-input-tag > span {

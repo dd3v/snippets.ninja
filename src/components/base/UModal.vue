@@ -56,8 +56,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-
+  background-color: var(--modal-backdrop-background-color);
   transition: opacity 0.3s ease;
 }
 
@@ -67,9 +66,9 @@ export default {
   width: 400px;
   margin: 30px auto;
   padding: 5px 10px;
-  box-shadow: 0px 8px 25px rgb(43 41 46 / 10%);
-  background: hsl(264, 7%, 100%);
-  border: 1px solid hsla(264, 15%, 10%, 9%);
+  box-shadow: var(--modal-box-shadow);
+  background: var(--modal-background);
+  border: var(--modal-border);
   border-radius: 5px;
   transition: all 0.3s ease;
 }

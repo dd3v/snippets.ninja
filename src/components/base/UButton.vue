@@ -22,23 +22,23 @@ export default {
   display: inline-block;
   padding: 0;
   font-size: inherit;
+  color: var(--btn-color);
 }
-
-
 
 .btn-circle {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 1px solid #f0eaea;
+  border: var(--btn-circle-border);
+  /* box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%); */
 }
 
 .btn-circle:hover {
-  border: 1px solid #b3afaf;
+  border: var(--btn-circle-hover-border);
 }
 
 .btn:active {
   transform: scale(0.98);
-  color: #000;
+  color: var(--btn-active-color);
 }
 </style>

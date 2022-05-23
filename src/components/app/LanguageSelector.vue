@@ -31,7 +31,7 @@
 </template>
 <script>
 import { computed, ref } from 'vue';
-import UInput from '../core/UInput.vue';
+import UInput from '../base/UInput.vue';
 
 export default {
   components: { UInput },
@@ -81,12 +81,11 @@ ul li label {
 
 ul li:hover {
   border-radius: 5px;
-  background: hsl(264deg 10% 14% / 12%);
-  color: #2b292e;
+  background: var(--language-selector-li-hover-background);
 }
 
 .language-selector {
-  height: 80vh;
+  height: 80%;
 }
 
 .language-list {
@@ -101,7 +100,7 @@ ul li:hover {
 
 .language-list li.active {
   border-radius: 5px;
-  background: hsl(264deg 10% 14% / 12%);
+  background: var(--language-list-li-active-background);
   color: #2b292e;
 }
 </style>

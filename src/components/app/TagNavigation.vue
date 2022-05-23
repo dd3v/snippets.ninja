@@ -58,7 +58,7 @@ ul.tags-navigation li label span {
 
 input[type='checkbox']:checked + span {
   border-radius: 5px;
-  background: hsl(264deg 10% 14% / 12%);
-  color: #2b292e;
+  background: var(--aside-active-bg-color);
+  color: var(--aside-active-color);
 }
 </style>

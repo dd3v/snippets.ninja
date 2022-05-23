@@ -11,6 +11,7 @@
     "@codemirror/language": "^0.20.0",
     "@codemirror/language-data": "^0.20.0",
     "@codemirror/legacy-modes": "^0.20.0",
+    "@ddietr/codemirror-themes": "^1.1.0",
     "@faker-js/faker": "^6.3.1",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.2",

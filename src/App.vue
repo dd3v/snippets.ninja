@@ -50,6 +50,7 @@ export default {
     CodeEditor,
   },
   setup() {
+    document.documentElement.setAttribute('data-theme', 'light');
     const sidebar = ref(false);
     const snippetList = ref('');
     const defaultConditions = {
@@ -170,18 +171,17 @@ export default {
 #app {
   display: flex;
   height: 100%;
-  position: relative;
 }
 
 .left-block {
   display: flex;
   flex-direction: column;
-  color: #6a686e;
   max-width: 210px;
   min-width: 210px;
   height: 100%;
-  background: #fbfbfb;
   transition: all 0.3s;
+  color: var(--aside-color);
+  background: var(--aside-bg-color);
 }
 
 .left-block.active {
@@ -194,7 +194,8 @@ export default {
   min-width: 300px;
   z-index: 1;
   height: 100%;
-  color: #6a686e;
+  color: var(--aside-color);
+  background: var(--snippets-bg-color);
   border-right: 1px solid #f1f1f1;
   border-left: 1px solid #f1f1f1;
 }
@@ -204,6 +205,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: var(--code-editor-db-color);
 }
 
 .m-button {

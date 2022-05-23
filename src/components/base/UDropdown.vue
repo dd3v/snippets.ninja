@@ -59,9 +59,9 @@ export default {
   height: auto;
   z-index: 2;
   flex-direction: column;
-  box-shadow: 0px 8px 25px rgba(43, 41, 46, 0.1);
-  background: hsl(264, 7%, 100%);
-  border: 1px solid hsla(264, 15%, 10%, 9%);
+  box-shadow: var(--dropdown-content-box-shadow);
+  background: var(--dropdown-content-background);
+  border: var(--dropdown-content-border);
   padding: 5px;
   border-radius: 5px;
   overflow: hidden;

@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import UIcon from './components/core/UIcon.vue';
+import UIcon from './components/base/UIcon.vue';
 import App from './App.vue';
 import './assets/css/app.css';
 import './assets/css/fonts.css';
