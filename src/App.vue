@@ -10,7 +10,7 @@
       @snippet:create="createSnippet"
       @navigation:toggle="sidebar = !sidebar"
     />
-    <snippet-list :items="snippets" @snippets:more="loadMore" @snippet:select="loadSnippet" />
+    <snippet-list :items="snippets" @snippets:more="loadMore" @snippet:select="snippet = $event" />
   </section>
   <section class="right-block" :class="{ hide: !snippet }">
     <code-editor
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import { onMounted, ref, watch } from 'vue';
-import faker from '@faker-js/faker';
+import { onMounted, reactive, ref, watch } from 'vue';
+// import faker from '@faker-js/faker';
 import initStorage from './storage/db/idb';
 import menu from './data/menu';
 import SnippetList from './components/app/SnippetList.vue';
@@ -45,76 +45,80 @@ export default {
   },
   setup() {
     const sidebar = ref(false);
-    const conditions = ref({
+    const defaultConditions = {
       snippets: 'all',
       tags: [],
       sort: 'desc',
       term: '',
-    });
-
+    };
+    const tags = ref([]);
+    const snippet = ref(false);
+    const snippets = ref([]);
     const limit = 100;
     let skip = 0;
 
-    const snippet = ref(false);
-
-    const tags = ref([]);
-    const snippets = ref([]);
-
+    const conditions = reactive({ ...defaultConditions });
     const snippetStorage = new SnippetStorage();
-
     snippetStorage.tags().then((response) => {
-      tags.value = response.flatMap((a) => a.tags);
+      tags.value = response.map((a) => a.tags);
     });
 
-    const loadSnippet = (value) => {
-      snippet.value = value;
-    };
-
     const createSnippet = () => {
-      for (let i = 0; i < 1000; i += 1) {
-        snippetStorage
-          .create({
-            title: `${i} -- ${faker.git.branch()}`,
-            favorite: 1,
-            tags: [faker.company.companyName()],
-            code: 'hello',
-            language: 'test',
-            deleted: 0,
-            remote_id: null,
-            last_sync: null,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          })
-          .then((response) => {
-            console.log(response);
-          });
-      }
+      snippetStorage
+        .create({
+          title: 'Untitled',
+          favorite: 0,
+          tags: [],
+          code: '',
+          language: 'Markdown',
+          deleted: 0,
+          remote_id: null,
+          last_sync: null,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .then((response) => {
+          Object.assign(conditions, defaultConditions);
+          snippets.value.unshift(...response);
+
+
+          // snippet.value = snippets.value[snippet.value.length - 1];
+        });
     };
 
     const deleteSnippet = (value) => {
-      console.log(value);
+      snippetStorage.softDelete(value).then(() => {
+        snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
+      });
     };
 
     const loadMore = () => {
-      console.log('MOREEE');
-      console.log(limit);
-      console.log(skip);
-
       skip += limit;
-
-      snippetStorage.search(conditions.value, limit, skip).then((response) => {
+      snippetStorage.search(conditions, limit, skip).then((response) => {
         snippets.value.push(...response);
       });
     };
 
-    watch(snippet, () => console.warn(snippet.value), {
-      deep: true,
-    });
+    watch(
+      snippet,
+      (current, previous) => {
+        if (current.id === previous.id) {
+          snippet.value.title = snippet.value.title.length ? snippet.value.title : 'Untitled';
+          snippetStorage.update(snippet.value).then(() => {
+            tags.value.push(...snippet.value.tags.filter((item) => !tags.value.includes(item)));
+            tags.value.sort();
+          });
+        }
+      },
+      {
+        deep: true,
+      }
+    );
     watch(
       conditions,
       () => {
         skip = 0;
-        snippetStorage.search(conditions.value).then((response) => {
+        snippetStorage.search(conditions).then((response) => {
           snippets.value = response;
         });
       },
@@ -140,7 +144,6 @@ export default {
       snippets,
       snippet,
       deleteSnippet,
-      loadSnippet,
       createSnippet,
       loadMore,
     };
@@ -185,6 +188,7 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  overflow: scroll;
 }
 
 .m-button {

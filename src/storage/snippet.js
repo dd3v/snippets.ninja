@@ -6,9 +6,8 @@ export default class SnippetStorage {
     this.tableName = 'snippets';
   }
 
-
   search(conditions, limit = 100, skip = 0) {
-    console.log(conditions.tags);
+    console.log(conditions);
 
     const whereConditions = {};
 
@@ -50,10 +49,45 @@ export default class SnippetStorage {
     });
   }
 
+  softDelete(entity) {
+    return connection.update({
+      in: this.tableName,
+      set: {
+        deleted: 1,
+        updated_at: new Date().toISOString(),
+      },
+      where: {
+        id: entity.id,
+      },
+    });
+  }
+
+  update(entity) {
+    return connection.update({
+      in: this.tableName,
+      set: {
+        title: entity.title,
+        code: entity.code,
+        language: entity.language,
+        favorite: entity.favorite,
+        tags: [...entity.tags],
+        updated_at: new Date().toISOString(),
+      },
+      where: {
+        id: entity.id,
+      },
+    });
+  }
+
   tags() {
     return connection.select({
       from: this.tableName,
+      flatten: ['tags'],
       groupBy: 'tags',
+      order: {
+        by: 'tags',
+        type: 'asc',
+      },
     });
   }
 }

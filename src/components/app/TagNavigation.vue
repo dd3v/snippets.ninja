@@ -40,8 +40,8 @@ export default {
 }
 .tags-navigation {
   overflow-y: auto;
-  overflow-y: auto;
   height: 80%;
+  scroll-behavior: smooth;
 }
 
 ul.tags-navigation label {

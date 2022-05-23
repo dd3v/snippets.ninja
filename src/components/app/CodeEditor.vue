@@ -15,7 +15,7 @@
       />
     </div>
     <div class="item">
-      <u-button circle @click="snippet.favorite = !snippet.favorite">
+      <u-button circle @click="snippet.favorite = Number(!snippet.favorite)">
         <u-icon :icon="snippet.favorite ? 'heart' : 'heart-empty'" />
       </u-button>
     </div>
@@ -40,7 +40,7 @@
   />
   <div class="status-bar">
     <u-button @click="modal.open()">
-      <strong>{{ snippet.language }}</strong>
+      {{ snippet.language }}
     </u-button>
     <code-editor-state
       :length="state.length"
@@ -161,5 +161,7 @@ export default {
   display: inline-flex;
   justify-content: space-between;
   padding: 0px 2px 0px 2px;
+  align-items: center;
+  height: 15px;
 }
 </style>

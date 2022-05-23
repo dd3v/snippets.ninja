@@ -96,6 +96,7 @@ export default {
   flex-direction: column;
   padding: 5px 5px 5px 5px;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .snippet-list {
