@@ -14,6 +14,7 @@
       ref="snippetList"
       :items="snippets"
       @snippets:more="loadMore"
+      @snippets:delete="deleteSnippet"
       v-model:selected="snippet"
     />
   </section>

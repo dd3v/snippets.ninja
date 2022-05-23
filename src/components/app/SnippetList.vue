@@ -9,10 +9,12 @@
         @leave="onLeave"
       >
         <li
+          tabindex="0"
           v-for="snippet in items"
           :id="`snippet-${snippet.id}`"
           :key="snippet.id"
           :class="{ active: selected?.id === snippet.id }"
+          @keydown.delete="$emit('snippets:delete', snippet)"
         >
           <snippet-item :snippet="snippet" @click="handleSelect(snippet)" />
         </li>
