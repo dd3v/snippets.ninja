@@ -5,6 +5,7 @@ import './assets/css/app.css';
 import './assets/css/fonts.css';
 import './assets/css/icons.css';
 
+
 const app = createApp(App);
 app.component('u-icon', UIcon);
 app.mount('#app');

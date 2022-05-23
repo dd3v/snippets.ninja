@@ -13,8 +13,11 @@
     "@codemirror/legacy-modes": "^0.20.0",
     "@faker-js/faker": "^6.3.1",
     "core-js": "^3.8.3",
+    "dayjs": "^1.11.2",
     "gsap": "^3.10.4",
+    "install": "^0.13.0",
     "jsstore": "^4.3.8",
+    "npm": "^8.10.0",
     "vue": "^3.2.13",
     "vue-codemirror": "^5.0.0"
   },

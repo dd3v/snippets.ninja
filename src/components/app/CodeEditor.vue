@@ -16,7 +16,7 @@
     </div>
     <div class="item">
       <u-button circle @click="snippet.favorite = !snippet.favorite">
-        <u-icon :icon="snippet.favorite ? 'heart' : 'heart-empty'" color="var(--color-red)" />
+        <u-icon :icon="snippet.favorite ? 'heart' : 'heart-empty'" />
       </u-button>
     </div>
     <div class="item">

@@ -33,15 +33,19 @@ const getDb = () => {
       },
       remote_id: {
         dataType: DATA_TYPE.Number,
+        default: null,
       },
       last_sync: {
         dataType: DATA_TYPE.String,
+        default: null,
       },
-      created: {
+      created_at: {
         dataType: DATA_TYPE.String,
+        notNull: true,
       },
-      updated: {
+      updated_at: {
         dataType: DATA_TYPE.String,
+        notNull: true,
       },
       deleted: {
         notNull: true,

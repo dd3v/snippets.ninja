@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 import connection from './db/connection';
 
 export default class SnippetStorage {
@@ -5,20 +6,8 @@ export default class SnippetStorage {
     this.tableName = 'snippets';
   }
 
-  get() {
-    return connection.select({
-      from: this.tableName,
-      distinct: true,
-      limit: 100,
-      skip: 0,
-      order: {
-        by: 'id',
-        type: 'desc',
-      },
-    });
-  }
 
-  search(conditions) {
+  search(conditions, limit = 100, skip = 0) {
     console.log(conditions.tags);
 
     const whereConditions = {};
@@ -38,15 +27,15 @@ export default class SnippetStorage {
       Object.assign(whereConditions, { title: { like: `%${conditions.term}%` } });
     }
 
-    console.warn(whereConditions);
+    console.warn(conditions);
 
     return connection.select({
       from: this.tableName,
       distinct: true,
-      limit: 100,
-      skip: 0,
+      limit: limit,
+      skip: skip,
       order: {
-        by: 'id',
+        by: 'created_at',
         type: conditions.sort,
       },
       where: whereConditions,
