@@ -106,19 +106,14 @@ export default {
 
 .snippet-list li:hover {
   border-radius: 5px;
-  background: var(--snippet-list-active-bg-color);
-  color: var(--snippet-list-active-color);
+  background: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
 
-.active {
+.snippet-list li.active {
   border-radius: 5px;
-  background: var(--snippet-list-active-bg-color);
-  color: var(--snippet-list-active-color);
-
-  box-shadow: var(--snippet-list-active-box-shadow)
-}
-
-.snippet-list li:last-child {
-  border-bottom: none;
+  background: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  box-shadow: var(--snippet-list-active-box-shadow);
 }
 </style>

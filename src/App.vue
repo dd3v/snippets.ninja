@@ -179,13 +179,13 @@ export default {
   max-width: 210px;
   min-width: 210px;
   height: 100%;
+  padding: 5px;
   transition: all 0.3s;
-  color: var(--aside-color);
   background: var(--aside-bg-color);
 }
 
 .left-block.active {
-  margin-left: -210px;
+  margin-left: -220px;
 }
 
 .middle-block {
@@ -194,10 +194,10 @@ export default {
   min-width: 300px;
   z-index: 1;
   height: 100%;
-  color: var(--aside-color);
-  background: var(--snippets-bg-color);
-  border-right: 1px solid #f1f1f1;
-  border-left: 1px solid #f1f1f1;
+  color: var(--default-text-color);
+  background: var(--body-bg);
+  border-right: var(--snippets-border-right);
+  border-left: var(--snippets-border-left);
 }
 .right-block {
   display: flex;
@@ -205,7 +205,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--code-editor-db-color);
+  background: var(--body-bg);
 }
 
 .m-button {
@@ -217,7 +217,7 @@ export default {
     margin-left: 0;
   }
   .left-block {
-    margin-left: -210px;
+    margin-left: -220px;
   }
 
   .hide {

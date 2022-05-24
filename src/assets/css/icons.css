@@ -126,5 +126,9 @@
 .icon-left-small:before {
   content: '\e80b';
 }
-.icon-sort-alt-up:before { content: '\f160'; } 
-.icon-sort-alt-down:before { content: '\f161'; }
+.icon-sort-alt-up:before {
+  content: '\f160';
+}
+.icon-sort-alt-down:before {
+  content: '\f161';
+}

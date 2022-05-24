@@ -1,21 +1,17 @@
 [data-theme='light'] {
-  --color-red: #ff6363cf;
+  --body-bg: hsl(0, 0%, 100%);
+  --default-text-color: hsl(264, 3%, 42%);
+  --like-color: hsl(0deg 45% 70%);
+
+  --primary-text-color: hsl(264, 6%, 17%);
+  --primary-bg-color: hsl(264deg 10% 14% / 12%);
 
   --aside-bg-color: hsl(264, 6%, 98.5%);
-  --aside-active-bg-color: hsl(264deg 10% 14% / 12%);
-  --aside-active-color: hsl(264, 6%, 17%);
-  --aside-color: hsl(264, 3%, 42%);
 
-  --snippet-list-active-bg-color: hsl(264deg 10% 14% / 12%);
-  --snippet-list-active-color: hsl(264, 6%, 17%);
-  --snipet-list-separator-color: hsl(0deg 15% 97%);
   --snippet-list-active-box-shadow: 0px 0px 4px 0rem rgb(0 0 0 / 10%);
 
-  --snippets-bg-color: #fff;
-  --code-editor-db-color: #fff;
-
-  --language-selector-li-hover-background: hsl(264deg 10% 14% / 12%);
-  --language-list-li-active-background: hsl(264deg 10% 14% / 12%);
+  --snippets-border-right: 1px solid hsl(240deg 2% 90%);
+  --snippets-border-left: 1px solid hsl(240deg 2% 90%);
 
   /* dropdown */
 
@@ -29,38 +25,38 @@
   --tag-input-tag-background-color: hsl(0deg 0% 98%);
 
   /* modal */
-
   --modal-backdrop-background-color: rgba(0, 0, 0, 0.5);
   --modal-box-shadow: 0px 8px 25px rgb(43 41 46 / 10%);
   --modal-background: hsl(264, 7%, 100%);
   --modal-border: 1px solid hsla(264, 15%, 10%, 9%);
 
-  /* u input */
-
+  /* input */
   --default-input-border: 1px solid hsl(240deg 2% 88%);
+  --default-input-background: transparent;
+  --default-input-text-color:hsl(264, 3%, 42%);
 
   /* button */
   --btn-color: hsl(0deg 0% 33%);
   --btn-circle-border: 1px solid hsl(240deg 2% 88%);
-  --btn-circle-hover-border: 1px solid hsl(240deg 2% 88%);
-  --btn-active-color: hsl(0deg 1% 19%);
+  --btn-circle-hover-border: 1px solid hsl(0deg 0% 73%);
+  --btn-active-color: hsl(0deg 0% 33%);
 }
-::-webkit-scrollbar {
+[data-theme='light'] ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-::-webkit-scrollbar-thumb {
+[data-theme='light'] ::-webkit-scrollbar-thumb {
   background: #e0e0e1;
   border-right: 0px white solid;
   background-clip: padding-box;
   border-radius: 5px;
 }
-::-webkit-scrollbar-track {
+[data-theme='light'] ::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::placeholder {
+[data-theme='light'] ::placeholder {
   color: hsl(264deg 10% 14% / 12%);
   font-size: 12px;
 }

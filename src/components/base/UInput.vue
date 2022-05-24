@@ -60,12 +60,13 @@ input[type='password'],
 input[type='search'] {
   width: 100%;
   box-sizing: border-box;
+  font-family: inherit;
 }
 
 .invisible-input {
   background: transparent;
   border: none;
-  font-family: inherit;
+  color: var(--default-input-text-color);
 }
 
 .invisible-input:focus-visible {
@@ -81,5 +82,7 @@ input[type='search'] {
   border: var(--default-input-border);
   transition: box-shadow 0.2s ease 0s;
   padding-left: 10px;
+  background: var(--default-input-background);
+  color: var(--default-text-color);
 }
 </style>

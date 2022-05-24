@@ -34,31 +34,25 @@ export default {
 };
 </script>
 <style scoped>
-.tag-navigation-wrapper {
-  padding: 5px;
-  height: 100%;
-}
 .tags-navigation {
   overflow-y: auto;
-  height: 80%;
+  height: 80vh;
   scroll-behavior: smooth;
 }
-
-ul.tags-navigation label {
+label {
   cursor: pointer;
 }
-
-ul.tags-navigation li label span {
+span {
   padding: 5px;
 }
 
-.tags-navigation label [type='checkbox'] {
+label [type='checkbox'] {
   display: none;
 }
 
 input[type='checkbox']:checked + span {
   border-radius: 5px;
-  background: var(--aside-active-bg-color);
-  color: var(--aside-active-color);
+  background: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
 </style>

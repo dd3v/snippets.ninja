@@ -14,6 +14,8 @@ body {
   margin: 0;
   height: 100%;
   overflow: hidden;
+  color: var(--default-text-color);
+  background: var(--body-bg);
 }
 
 ul {
@@ -28,4 +30,8 @@ ul li {
 
 :focus-visible {
   outline: none;
+}
+
+.small-text {
+  font-size: 12px;
 }

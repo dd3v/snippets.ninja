@@ -24,7 +24,7 @@
     </div>
     <div class="item">
       <u-button circle @click="$emit('snippet:delete', snippet)">
-        <u-icon icon="trash-empty" color="var(--color-red)" />
+        <u-icon icon="trash-empty" />
       </u-button>
     </div>
   </div>
@@ -35,37 +35,30 @@
     v-model="snippet.code"
     :extensions="extensions"
     :style="{ height: '100%', overflow: 'scroll' }"
-    theme="cobalt"
     @update="handleState"
   />
-  <div class="status-bar">
-    <u-button @click="modal.open()">
-      {{ snippet.language }}
-    </u-button>
-    <code-editor-state
-      :length="state.length"
-      :lines="state.lines"
-      :cursor="state.cursor"
-      :selected="state.selected"
-    />
-  </div>
-  <u-modal header="Language mode" ref="modal">
-    <language-selector :languages="languages" v-model="snippet.language" />
-  </u-modal>
+  <editor-status-bar :state="state">
+    <u-button @click="modal.open()"> <u-icon icon="code" />{{ snippet.language }} </u-button>
+    <u-modal header="Language mode" ref="modal">
+      <language-selector :languages="languages" v-model="snippet.language" />
+    </u-modal>
+  </editor-status-bar>
 </template>
 <script>
 import { Codemirror } from 'vue-codemirror';
 import { computed, ref, watch, shallowRef } from 'vue';
 import { languages } from '@codemirror/language-data';
-import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
+
+// import {githubLight} from '@ddietr/codemirror-themes/theme/github-light'
+import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
 
 import UDropdown from '../base/UDropdown.vue';
 import UButton from '../base/UButton.vue';
 import UTagInput from '../base/UTagInput.vue';
-import CodeEditorState from './CodeEditorState.vue';
 import UModal from '../base/UModal.vue';
 import LanguageSelector from './LanguageSelector.vue';
 import UInput from '../base/UInput.vue';
+import EditorStatusBar from './EditorStatusBar.vue';
 
 export default {
   name: 'CodeEditor',
@@ -76,9 +69,9 @@ export default {
     UButton,
     UTagInput,
     UModal,
-    CodeEditorState,
     LanguageSelector,
     UInput,
+    EditorStatusBar,
   },
   props: {
     modelValue: {
@@ -108,8 +101,9 @@ export default {
       if (mode === false) {
         mode = languages.find((item) => item.name === 'Markdown');
       }
+
       mode.load().then((extension) => {
-        extensions.value = [githubLight, extension];
+        extensions.value = [githubDark, extension];
       });
       snippet.value.language = mode.name;
       modal.value?.close();
@@ -138,6 +132,7 @@ export default {
 .editor-tools-container {
   display: flex;
   align-items: center;
+  background: transparent;
 }
 
 .tag-list-container {
@@ -155,13 +150,5 @@ export default {
 
 .editor-tools-container .item-center input[type='text'] {
   font-size: 16px;
-}
-
-.status-bar {
-  display: inline-flex;
-  justify-content: space-between;
-  padding: 0px 2px 0px 2px;
-  align-items: center;
-  height: 20px;
 }
 </style>

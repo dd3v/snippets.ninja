@@ -65,27 +65,23 @@ export default {
 };
 </script>
 <style scoped>
-ul {
-  overflow: scroll;
-}
 ul li {
   cursor: pointer;
   padding: 5px;
-  width: auto;
 }
 ul li label {
   cursor: pointer;
-  display: block;
+  display: flex;
   width: 100%;
 }
 
 ul li:hover {
   border-radius: 5px;
-  background: var(--language-selector-li-hover-background);
+  background: var(--primary-bg-color);
 }
 
 .language-selector {
-  height: 80%;
+  height: 80vh;
 }
 
 .language-list {
@@ -100,7 +96,7 @@ ul li:hover {
 
 .language-list li.active {
   border-radius: 5px;
-  background: var(--language-list-li-active-background);
-  color: #2b292e;
+  background: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
 </style>

@@ -81,6 +81,7 @@ export default {
   margin-right: 5px;
   border: var(--tag-input-tag-border);
   background-color: var(--tag-input-tag-background-color);
+  color: var(--primary-text-color);
 }
 
 .tag-input-tag > span {
@@ -95,6 +96,7 @@ export default {
   outline: none;
   font-size: inherit;
   background: none;
+  color: var(--invisible-input-color);
 }
 
 .list-enter-active,

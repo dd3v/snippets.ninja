@@ -1,11 +1,16 @@
 <template>
   <div class="snippet">
-    <div class="title">
-      <span><u-icon :icon="snippet.favorite ? 'heart' : 'heart-empty'" /> </span>
-      <span style="flex:1;">{{ title }}</span>
+    <div class="snippet-content">
+      <span>
+        <u-icon
+          :color="snippet.favorite ? 'var(--like-color)' : ''"
+          :icon="snippet.favorite ? 'heart' : 'heart-empty'"
+        />
+      </span>
+      <span style="flex: 1">{{ title }}</span>
       <span><u-icon icon="cloud" /></span>
     </div>
-    <div class="info">
+    <div class="snippet-content small-text">
       <span class="snippet-language"><u-icon icon="code" /> {{ snippet.language }}</span>
       <span class="snippet-date">{{ datetime }}</span>
     </div>
@@ -32,7 +37,9 @@ export default {
     });
     const datetime = computed(() => dayjs(props.snippet.updated_at).calendar());
     const title = computed(() =>
-      props.snippet.title.length >= 25 ? `${props.snippet.title.slice(0, 25)}...` : props.snippet.title
+      props.snippet.title.length >= 25
+        ? `${props.snippet.title.slice(0, 25)}...`
+        : props.snippet.title
     );
     return { title, datetime };
   },
@@ -46,14 +53,8 @@ export default {
   padding: 1px 5px 1px 5px;
 }
 
-.snippet .title {
+.snippet-content {
   display: flex;
   justify-content: space-between;
-}
-
-.snippet .info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
 }
 </style>

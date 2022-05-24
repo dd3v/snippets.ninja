@@ -38,21 +38,26 @@ export default {
 };
 </script>
 <style scoped>
-.main-navigation-wrapper {
-  padding: 5px;
-}
-ul.main-navigation li label {
-  cursor: pointer;
+
+
+span {
+  width: 100%;
 }
 
-.main-navigation label [type='radio'] {
+label {
+  display: inline-flex;
+  cursor: pointer;
+  width: 100%;
+}
+
+label [type='radio'] {
   display: none;
   cursor: pointer;
 }
 
-ul.main-navigation li.active {
+li.active {
   border-radius: 5px;
-  background: var(--aside-active-bg-color);
-  color: var(--aside-active-color);
+  background: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
 </style>

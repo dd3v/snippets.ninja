@@ -1,60 +1,64 @@
 [data-theme='dark'] {
-    --aside-bg-color: red;
-    --aside-active-bg-color: hsl(264deg 10% 14% / 12%);
-    --aside-active-color: hsl(264, 6%, 17%);
-    --aside-color: hsl(264, 3%, 42%);
-  
-    --snippet-list-active-bg-color: hsl(264deg 10% 14% / 12%);
-    --snippet-list-active-color: hsl(264, 6%, 17%);
-    --snipet-list-separator-color: hsl(0deg 15% 97%);
-    --snippet-list-active-box-shadow: 0px 0px 4px 0rem rgb(0 0 0 / 10%);
-  
-    --snippets-bg-color: #fff;
-    --code-editor-db-color: #fff;
-  
-    --language-selector-li-hover-background: hsl(264deg 10% 14% / 12%);
-    --language-list-li-active-background: hsl(264deg 10% 14% / 12%);
-  
-    /* dropdown */
-  
-    --dropdown-content-box-shadow: 0px 8px 25px rgba(43, 41, 46, 0.1);
-    --dropdown-content-background: hsl(264, 7%, 100%);
-    --dropdown-content-border: 1px solid hsla(264, 15%, 10%, 9%);
-  
-    /* input tag */
-  
-    --tag-input-tag-border: 1px solid hsl(240deg 2% 90%);
-    --tag-input-tag-background-color: hsl(0deg 0% 98%);
-  
-    /* modal */
-  
-    --modal-backdrop-background-color: rgba(0, 0, 0, 0.5);
-    --modal-box-shadow: 0px 8px 25px rgb(43 41 46 / 10%);
-    --modal-background: hsl(264, 7%, 100%);
-    --modal-border: 1px solid hsla(264, 15%, 10%, 9%);
-  
-    /* u input */
-  
-    --default-input-border: 1px solid hsl(240deg 2% 88%);
-  
-    /* button */
-    --btn-color: hsl(0deg 0% 33%);
-    --btn-circle-border: 1px solid hsl(240deg 2% 88%);
-    --btn-circle-hover-border: 1px solid hsl(240deg 2% 88%);
-    --btn-active-color: hsl(0deg 1% 19%);
-  }
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #e0e0e1;
-    border-right: 0px white solid;
-    background-clip: padding-box;
-    border-radius: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
+  --body-bg: hsl(210deg 12% 16%);
+  --default-text-color: hsl(0deg 0% 51%);
+  --like-color: hsl(0deg 19% 40%);
+
+  --primary-text-color: hsl(264, 6%, 17%);
+  --primary-bg-color: hsl(0deg 0% 48%);
+
+  --aside-bg-color: hsl(210deg 12% 16%);
+
+  --snippet-list-active-box-shadow: 0px 0px 4px 0rem rgb(0 0 0 / 10%);
+
+  --snippets-border-right: 1px solid hsl(210deg 13% 13% / 89%);
+  --snippets-border-left: 1px solid hsl(210deg 13% 13% / 89%);
+
+  /* dropdown */
+
+  --dropdown-content-box-shadow: 0px 8px 25px rgba(43, 41, 46, 0.1);
+  --dropdown-content-background: hsl(210deg 12% 16%);
+  --dropdown-content-border: 1px solid hsl(0deg 0% 48%);
+
+  /* input tag */
+
+  --tag-input-tag-border: 1px solid hsl(210deg 12% 12%);
+  --tag-input-tag-background-color: hsl(0deg 0% 48%);
+
+  /* modal */
+
+  --modal-backdrop-background-color: rgba(0, 0, 0, 0.5);
+  --modal-box-shadow: 0px 8px 25px rgb(43 41 46 / 10%);
+  --modal-background: hsl(210deg 12% 16%);
+  --modal-border: 1px solid hsla(264, 15%, 10%, 9%);
+
+  /* input */
+
+  --default-input-border: 1px solid hsl(210deg 12% 16%);
+  --default-input-background: hsl(0deg 0% 48% / 54%);
+  --default-input-text-color:hsl(0deg 0% 48%);
+
+  /* button */
+  --btn-color: hsl(0deg 0% 48%);
+  --btn-circle-border: 1px solid hsl(0, 0%, 48%);
+  --btn-circle-hover-border: 1px solid hsl(0, 0%, 48%);
+  --btn-active-color: hsl(0, 0%, 48%);
+}
+
+[data-theme='dark']::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-theme='dark']::-webkit-scrollbar-thumb {
+  background: hsl(210deg 12% 12%);
+  border-right: 0px rgb(0, 0, 0) solid;
+  background-clip: padding-box;
+  border-radius: 5px;
+}
+[data-theme='dark']::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tag-input-text::placeholder {
+  color: hsl(0deg 0% 48%);
+}
