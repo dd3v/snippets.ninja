@@ -38,6 +38,7 @@ export default {
   overflow-y: auto;
   height: 80vh;
   scroll-behavior: smooth;
+  margin: 20px 0;
 }
 label {
   cursor: pointer;

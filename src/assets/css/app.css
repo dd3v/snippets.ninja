@@ -38,3 +38,7 @@ ul li {
 .small-text {
   font-size: 12px;
 }
+
+.italic-text {
+  font-style: italic;
+}

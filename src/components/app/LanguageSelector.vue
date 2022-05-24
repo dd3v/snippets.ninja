@@ -65,9 +65,14 @@ export default {
 };
 </script>
 <style scoped>
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 ul li {
   cursor: pointer;
-  padding: 5px;
+  padding: 0px 5px 0px 5px;
 }
 ul li label {
   cursor: pointer;
@@ -78,6 +83,7 @@ ul li label {
 ul li:hover {
   border-radius: 5px;
   background: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
 
 .language-selector {

@@ -11,7 +11,8 @@
         v-model="snippet.title"
         variant="invisible"
         name="snippet-title"
-        placeholder="Snippet title"
+        placeholder="Untitled"
+        @blur="snippet.title = snippet.title.length === 0 ? 'Untitled' : snippet.title"
       />
     </div>
     <div class="item">
@@ -49,8 +50,8 @@ import { Codemirror } from 'vue-codemirror';
 import { computed, ref, watch, shallowRef } from 'vue';
 import { languages } from '@codemirror/language-data';
 
-// import {githubLight} from '@ddietr/codemirror-themes/theme/github-light'
-import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
+import {githubLight} from '@ddietr/codemirror-themes/theme/github-light'
+// import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
 
 import UDropdown from '../base/UDropdown.vue';
 import UButton from '../base/UButton.vue';
@@ -103,7 +104,7 @@ export default {
       }
 
       mode.load().then((extension) => {
-        extensions.value = [githubDark, extension];
+        extensions.value = [githubLight, extension];
       });
       snippet.value.language = mode.name;
       modal.value?.close();
@@ -148,7 +149,8 @@ export default {
   margin: 0px 2px 0px 2px;
 }
 
-.editor-tools-container .item-center input[type='text'] {
+input[type='text'],
+input[type='text']::placeholder {
   font-size: 16px;
 }
 </style>

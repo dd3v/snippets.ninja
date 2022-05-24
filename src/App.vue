@@ -118,7 +118,6 @@ export default {
         console.warn(current);
         console.warn(previous);
         if (current && previous && current.id === previous.id) {
-          snippet.value.title = snippet.value.title.length ? snippet.value.title : 'Untitled';
           snippetStorage.update(snippet.value).then(() => {
             tags.value.push(...snippet.value.tags.filter((item) => !tags.value.includes(item)));
             tags.value.sort();

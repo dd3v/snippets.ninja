@@ -7,7 +7,10 @@
           :icon="snippet.favorite ? 'heart' : 'heart-empty'"
         />
       </span>
-      <span style="flex: 1">{{ title }}</span>
+      <span style="flex: 1">
+        <span v-if="title">{{ title }}</span>
+        <span class="italic-text" v-else>Untitled</span>
+      </span>
       <span><u-icon icon="cloud" /></span>
     </div>
     <div class="snippet-content small-text">
@@ -35,12 +38,10 @@ export default {
       lastDay: '[Yesterday at] h:mm A',
       sameElse: 'DD/MM/YYYY',
     });
-    const datetime = computed(() => dayjs(props.snippet.updated_at).calendar());
-    const title = computed(() =>
-      props.snippet.title.length >= 25
-        ? `${props.snippet.title.slice(0, 25)}...`
-        : props.snippet.title
-    );
+    const datetime = computed(() => dayjs(props.snippet.created_at).calendar());
+    const title = computed(() => props.snippet.title.length >= 27
+        ? `${props.snippet.title.slice(0, 27)}..`
+        : props.snippet.title);
     return { title, datetime };
   },
 };
