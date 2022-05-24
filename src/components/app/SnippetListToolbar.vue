@@ -19,7 +19,7 @@
     </div>
     <div>
       <u-button circle @click="$emit('snippet:create')">
-        <u-icon icon="plus" />
+        <u-icon icon="list-add" />
       </u-button>
     </div>
   </div>
