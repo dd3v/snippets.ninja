@@ -47,6 +47,7 @@ export default {
       get: () => props.modelValue,
       set: (value) => {
         emit('update:modelValue', value);
+        keyword.value = '';
       },
     });
 

@@ -88,7 +88,7 @@ export default {
           favorite: 0,
           tags: [],
           code: '',
-          language: 'Markdown',
+          language: 'Text',
           deleted: 0,
           remote_id: null,
           last_sync: null,

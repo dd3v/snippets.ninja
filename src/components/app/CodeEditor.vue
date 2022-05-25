@@ -47,7 +47,7 @@
 </template>
 <script>
 import { Codemirror } from 'vue-codemirror';
-import { computed, ref, watch, shallowRef } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { languages } from '@codemirror/language-data';
 
 import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
@@ -69,11 +69,15 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    theme: {
+      type: Object,
+      default: () => githubLight,
+    },
   },
   setup(props, { emit }) {
     const state = ref({});
     const modal = ref(null);
-    const extensions = shallowRef([]);
+    const extensions = ref([props.theme]);
 
     const handleState = (e) => {
       const { ranges } = e.state.selection;
@@ -88,15 +92,16 @@ export default {
     });
 
     const handleLanguageUpdate = (language) => {
-      let mode = languages.find((item) => item.name === language) ?? false;
+      const mode = languages.find((item) => item.name === language) ?? false;
       if (mode === false) {
-        mode = languages.find((item) => item.name === 'Markdown');
+        snippet.value.language = 'Text';
+        return;
       }
-
       mode.load().then((extension) => {
-        extensions.value = [githubLight, extension];
+        extensions.value = [props.theme, extension];
+        snippet.value.language = mode.name;
       });
-      snippet.value.language = mode.name;
+
       modal.value?.close();
     };
 
