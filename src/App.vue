@@ -2,6 +2,11 @@
   <aside class="left-block" :class="{ active: sidebar }">
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
+    <section>
+      <u-button circle>
+        <u-icon icon="cloud" />
+      </u-button>
+    </section>
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">
     <snippet-list-toolbar
@@ -39,6 +44,8 @@ import TagNavigation from './components/app/TagNavigation.vue';
 import MainNavigation from './components/app/MainNavigation.vue';
 import SnippetListToolbar from './components/app/SnippetListToolbar.vue';
 import SnippetStorage from './storage/snippet';
+import UIcon from './components/base/UIcon.vue';
+import UButton from './components/base/UButton.vue';
 
 export default {
   name: 'App',
@@ -48,6 +55,8 @@ export default {
     SnippetList,
     SnippetListToolbar,
     CodeEditor,
+    UIcon,
+    UButton,
   },
   setup() {
     document.documentElement.setAttribute('data-theme', 'light');

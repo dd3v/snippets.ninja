@@ -31,10 +31,8 @@
 </template>
 <script>
 import { computed, ref } from 'vue';
-import UInput from '../base/UInput.vue';
 
 export default {
-  components: { UInput },
   props: {
     modelValue: {
       type: String,

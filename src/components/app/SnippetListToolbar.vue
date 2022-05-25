@@ -25,12 +25,9 @@
   </div>
 </template>
 <script>
-import UButton from '../base/UButton.vue';
-import UInput from '../base/UInput.vue';
 
 export default {
   name: 'SnippetListToolbar',
-  components: { UButton, UInput },
   props: {
     sort: {
       type: String,

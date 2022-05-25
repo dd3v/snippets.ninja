@@ -20,10 +20,7 @@
   </div>
 </template>
 <script>
-import dayjs from 'dayjs';
-import calendar from 'dayjs/plugin/calendar';
-
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 export default {
   props: {
@@ -32,16 +29,13 @@ export default {
     },
   },
   setup(props) {
-    dayjs.extend(calendar);
-    dayjs().calendar(null, {
-      sameDay: '[Today at] h:mm A',
-      lastDay: '[Yesterday at] h:mm A',
-      sameElse: 'DD/MM/YYYY',
-    });
+    const dayjs = inject('dayjs');
     const datetime = computed(() => dayjs(props.snippet.created_at).calendar());
-    const title = computed(() => props.snippet.title.length >= 27
+    const title = computed(() =>
+      props.snippet.title.length >= 27
         ? `${props.snippet.title.slice(0, 27)}..`
-        : props.snippet.title);
+        : props.snippet.title
+    );
     return { title, datetime };
   },
 };

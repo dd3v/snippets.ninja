@@ -50,28 +50,18 @@ import { Codemirror } from 'vue-codemirror';
 import { computed, ref, watch, shallowRef } from 'vue';
 import { languages } from '@codemirror/language-data';
 
-import {githubLight} from '@ddietr/codemirror-themes/theme/github-light'
+import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
 // import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
 
-import UDropdown from '../base/UDropdown.vue';
-import UButton from '../base/UButton.vue';
-import UTagInput from '../base/UTagInput.vue';
-import UModal from '../base/UModal.vue';
-import LanguageSelector from './LanguageSelector.vue';
-import UInput from '../base/UInput.vue';
 import EditorStatusBar from './EditorStatusBar.vue';
+import LanguageSelector from './LanguageSelector.vue';
 
 export default {
   name: 'CodeEditor',
   emits: ['update:modelValue', 'snippet:close', 'snippet:delete'],
   components: {
     Codemirror,
-    UDropdown,
-    UButton,
-    UTagInput,
-    UModal,
     LanguageSelector,
-    UInput,
     EditorStatusBar,
   },
   props: {
