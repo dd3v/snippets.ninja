@@ -33,7 +33,7 @@
   /* input */
   --default-input-border: 1px solid hsl(240deg 2% 88%);
   --default-input-background: transparent;
-  --default-input-text-color:hsl(264, 3%, 42%);
+  --default-input-text-color: hsl(264, 3%, 42%);
 
   /* button */
   --btn-color: hsl(0deg 0% 33%);
@@ -47,10 +47,10 @@
 }
 
 [data-theme='light'] ::-webkit-scrollbar-thumb {
-  background: #e0e0e1;
-  border-right: 0px white solid;
+  background: hsl(240, 2%, 88%);
+  border-right: 0px hsl(240, 2%, 88%) solid;
   background-clip: padding-box;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 [data-theme='light'] ::-webkit-scrollbar-track {
   background: transparent;
@@ -59,4 +59,9 @@
 [data-theme='light'] ::placeholder {
   color: hsl(264deg 10% 14% / 12%);
   font-size: 12px;
+}
+
+[data-theme='light'] ::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  border: 4px solid  hsl(262, 5%, 57%);
 }

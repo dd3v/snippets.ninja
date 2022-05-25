@@ -1,10 +1,10 @@
-<template>
+<template data-theme="light">
   <aside class="left-block" :class="{ active: sidebar }">
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
-    <section>
-      <u-button circle>
-        <u-icon icon="cloud" />
+    <section class="">
+      <u-button circle @click="toggleTheme">
+        <u-icon :icon="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
     </section>
   </aside>
@@ -26,6 +26,7 @@
   <section class="right-block" :class="{ hide: !snippet }">
     <code-editor
       v-model="snippet"
+      :theme="theme"
       @snippet:delete="deleteSnippet"
       @snippet:close="snippet = false"
       v-if="snippet"
@@ -59,7 +60,7 @@ export default {
     UButton,
   },
   setup() {
-    document.documentElement.setAttribute('data-theme', 'light');
+    const theme = ref('light');
     const sidebar = ref(false);
     const snippetList = ref('');
     const defaultConditions = {
@@ -121,12 +122,17 @@ export default {
       });
     };
 
+    const toggleTheme = () => {
+      theme.value = theme.value === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme.value);
+    };
+
     watch(
       snippet,
       (current, previous) => {
         console.warn(current);
         console.warn(previous);
-        if (current && previous && current.id === previous.id) {
+        if (Object.is(current, previous)) {
           snippetStorage.update(snippet.value).then(() => {
             tags.value.push(...snippet.value.tags.filter((item) => !tags.value.includes(item)));
             tags.value.sort();
@@ -160,6 +166,8 @@ export default {
     });
 
     return {
+      theme,
+      toggleTheme,
       snippetList,
       sidebar,
       conditions,
@@ -188,7 +196,7 @@ export default {
   min-width: 210px;
   height: 100%;
   padding: 5px;
-  transition: all 0.3s;
+  transition: margin 0.3s;
   background: var(--aside-bg-color);
 }
 

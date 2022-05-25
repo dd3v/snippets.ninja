@@ -42,3 +42,7 @@ ul li {
 .italic-text {
   font-style: italic;
 }
+
+::-webkit-scrollbar-button {
+  display:none;
+}

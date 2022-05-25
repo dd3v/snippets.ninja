@@ -29,7 +29,7 @@ import SnippetItem from './SnippetItem.vue';
 
 export default {
   name: 'SnippetList',
-  emits: ['update:selected', 'snippets:more'],
+  emits: ['update:selected', 'snippets:more','snippets:delete'],
   components: { SnippetItem },
   props: {
     items: {

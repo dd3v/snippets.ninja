@@ -35,7 +35,7 @@
 
   --default-input-border: 1px solid hsl(210deg 12% 16%);
   --default-input-background: hsl(0deg 0% 48% / 54%);
-  --default-input-text-color:hsl(0deg 0% 48%);
+  --default-input-text-color: hsl(0deg 0% 48%);
 
   /* button */
   --btn-color: hsl(0deg 0% 48%);
@@ -44,19 +44,24 @@
   --btn-active-color: hsl(0, 0%, 48%);
 }
 
-[data-theme='dark']::-webkit-scrollbar {
+[data-theme='dark'] ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-[data-theme='dark']::-webkit-scrollbar-thumb {
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
   background: hsl(210deg 12% 12%);
   border-right: 0px rgb(0, 0, 0) solid;
   background-clip: padding-box;
-  border-radius: 5px;
+  border-radius: 4px;
 }
-[data-theme='dark']::-webkit-scrollbar-track {
+[data-theme='dark'] ::-webkit-scrollbar-track {
   background: transparent;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  border: 4px solid rgb(21, 24, 27);
 }
 
 .tag-input-text::placeholder {

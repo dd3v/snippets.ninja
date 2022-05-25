@@ -36,7 +36,7 @@ export default {
 <style scoped>
 .tags-navigation {
   overflow-y: auto;
-  height: 80vh;
+  height: 81vh;
   scroll-behavior: smooth;
   margin: 20px 0;
 }
