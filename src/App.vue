@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, toRaw, watch } from 'vue';
 // import faker from '@faker-js/faker';
 import initStorage from './storage/db/idb';
 import menu from './data/menu';
@@ -89,7 +89,9 @@ export default {
           access_level: 0,
           favorite: 0,
           tags: [],
-          editor_options: {},
+          editor_options: {
+            indent_size: 2,
+          },
           code: '',
           language: 'Markdown',
           deleted: 0,
@@ -136,8 +138,9 @@ export default {
         console.warn(previous?.id);
         console.log(Object.is(current, previous));
         if (Object.is(current, previous) && current.id === previous.id) {
-          snippetStorage.update(snippet.value).then(() => {
-            tags.value.push(...snippet.value.tags.filter((item) => !tags.value.includes(item)));
+          const data = toRaw(snippet.value);
+          snippetStorage.update(data).then(() => {
+            tags.value.push(...data.tags.filter((item) => !tags.value.includes(item)));
             tags.value.sort();
           });
         }
@@ -150,7 +153,7 @@ export default {
       conditions,
       () => {
         skip = 0;
-        snippetStorage.search(conditions).then((response) => {
+        snippetStorage.search(toRaw(conditions)).then((response) => {
           snippets.value = response;
         });
       },

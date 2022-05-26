@@ -21,17 +21,15 @@ export default {
 <style scoped>
 .status-bar-wrapper {
   display: inline-flex;
-  justify-content: space-between;
-  padding: 0px 2px 0px 2px;
+  flex-direction: row;
   align-items: center;
-  height: 20px;
-  background: transparent;
+  gap: 10px;
+  font-size: 13px;
 }
+
 ul {
-  background: transparent;
-  font-size: 12px;
-}
-ul li {
-  float: left;
+  display: inline-flex;
+  flex-direction: row;
+  margin-left: auto;
 }
 </style>

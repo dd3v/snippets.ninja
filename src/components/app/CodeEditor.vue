@@ -36,7 +36,7 @@
     v-model="snippet.code"
     :extensions="extensions"
     :style="{ height: '100%', overflow: 'scroll' }"
-    :tabSize="indentSize"
+    :tabSize="snippet.editor_options.indent_size"
     @update="handleState"
   />
   <editor-status-bar :state="state">
@@ -44,6 +44,7 @@
     <u-modal header="Language mode" ref="modal">
       <language-selector :languages="languages" v-model="snippet.language" />
     </u-modal>
+    <editor-indent v-model="snippet.editor_options.indent_size" />
   </editor-status-bar>
 </template>
 <script>
@@ -57,6 +58,7 @@ import { markdown } from '@codemirror/lang-markdown';
 
 import EditorStatusBar from './EditorStatusBar.vue';
 import LanguageSelector from './LanguageSelector.vue';
+import EditorIndent from './EditorIndent.vue';
 
 export default {
   name: 'CodeEditor',
@@ -65,6 +67,7 @@ export default {
     Codemirror,
     LanguageSelector,
     EditorStatusBar,
+    EditorIndent,
   },
   props: {
     modelValue: {

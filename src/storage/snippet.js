@@ -14,7 +14,7 @@ export default class SnippetStorage {
     if (conditions.tags.length) {
       Object.assign(whereConditions, {
         tags: {
-          in: [...conditions.tags],
+          in: conditions.tags,
         },
       });
     }
@@ -68,10 +68,12 @@ export default class SnippetStorage {
       in: this.tableName,
       set: {
         title: entity.title,
+        access_level: entity.access_level,
         code: entity.code,
         language: entity.language,
         favorite: entity.favorite,
-        tags: [...entity.tags],
+        tags: entity.tags,
+        editor_options: entity.editor_options,
         updated_at: new Date().toISOString(),
       },
       where: {
