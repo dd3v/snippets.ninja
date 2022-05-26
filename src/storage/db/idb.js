@@ -8,15 +8,18 @@ const getDb = () => {
       id: {
         primaryKey: true,
         autoIncrement: true,
+        dataType: DATA_TYPE.Number,
       },
       title: {
         notNull: true,
         dataType: DATA_TYPE.String,
         default: 'Untitled',
+        enableSearch: true,
       },
       language: {
         notNull: true,
         dataType: DATA_TYPE.String,
+        enableSearch: true,
       },
       code: {
         dataType: DATA_TYPE.String,
@@ -43,10 +46,12 @@ const getDb = () => {
       created_at: {
         dataType: DATA_TYPE.String,
         notNull: true,
+        enableSearch: true,
       },
       updated_at: {
         dataType: DATA_TYPE.String,
         notNull: true,
+        enableSearch:true,
       },
       deleted: {
         notNull: true,

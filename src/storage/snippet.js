@@ -27,14 +27,15 @@ export default class SnippetStorage {
     }
 
     console.warn(conditions);
+    console.warn(limit + skip);
 
     return connection.select({
       from: this.tableName,
-      distinct: true,
+      // distinct: true,
       limit: limit,
       skip: skip,
       order: {
-        by: 'created_at',
+        by: 'id',
         type: conditions.sort,
       },
       where: whereConditions,
