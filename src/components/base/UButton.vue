@@ -30,7 +30,6 @@ export default {
   height: 24px;
   border-radius: 50%;
   border: var(--btn-circle-border);
-  /* box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%); */
 }
 
 .btn-circle:hover {

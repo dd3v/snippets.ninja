@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { computed } from 'vue';
+import modelWrapper from '@/composable/modelWrapper';
 
 export default {
   name: 'TagNavigation',
@@ -24,10 +24,7 @@ export default {
     },
   },
   setup(props, { emit }) {
-    const selected = computed({
-      get: () => props.modelValue,
-      set: (value) => emit('update:modelValue', value),
-    });
+    const selected = modelWrapper(props, emit);
 
     return { selected };
   },

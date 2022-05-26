@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { computed } from 'vue';
+import modelWrapper from '@/composable/modelWrapper';
 
 export default {
   name: 'MainNavigation',
@@ -28,18 +28,13 @@ export default {
     },
   },
   setup(props, { emit }) {
-    const selected = computed({
-      get: () => props.modelValue,
-      set: (value) => emit('update:modelValue', value),
-    });
+    const selected = modelWrapper(props, emit);
 
     return { selected };
   },
 };
 </script>
 <style scoped>
-
-
 span {
   width: 100%;
 }

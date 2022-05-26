@@ -31,7 +31,4 @@ export default {
 </script>
 
 <style scoped>
-.editor-indent-wrapper {
-
-}
 </style>

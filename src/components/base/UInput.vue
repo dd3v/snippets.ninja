@@ -10,6 +10,7 @@
 </template>
 <script>
 import { computed } from 'vue';
+import modelWrapper from '@/composable/modelWrapper';
 
 export default {
   name: 'UInput',
@@ -45,10 +46,7 @@ export default {
       }
     });
 
-    const inputValue = computed({
-      get: () => props.modelValue,
-      set: (value) => emit('update:modelValue', value),
-    });
+    const inputValue = modelWrapper(props, emit);
 
     return { css, inputValue };
   },

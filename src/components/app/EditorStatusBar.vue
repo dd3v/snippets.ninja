@@ -25,6 +25,7 @@ export default {
   align-items: center;
   gap: 10px;
   font-size: 13px;
+  height: 20px;
 }
 
 ul {

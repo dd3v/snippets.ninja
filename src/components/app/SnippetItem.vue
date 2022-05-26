@@ -8,7 +8,7 @@
         />
       </span>
       <span style="flex: 1">
-        <span v-if="title">{{snippet.id}}||||{{ title }}</span>
+        <span v-if="title">{{ title }}</span>
         <span class="italic-text" v-else>Untitled</span>
       </span>
       <span><u-icon icon="cloud" /></span>

@@ -56,9 +56,10 @@ import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
 import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
 import { markdown } from '@codemirror/lang-markdown';
 
-import EditorStatusBar from './EditorStatusBar.vue';
-import LanguageSelector from './LanguageSelector.vue';
-import EditorIndent from './EditorIndent.vue';
+import EditorStatusBar from '@/components/app/EditorStatusBar.vue';
+import LanguageSelector from '@/components/app/LanguageSelector.vue';
+import EditorIndent from '@/components/app/EditorIndent.vue';
+import modelWrapper from '@/composable/modelWrapper';
 
 export default {
   name: 'CodeEditor',
@@ -79,25 +80,18 @@ export default {
     },
   },
   setup(props, { emit }) {
-    const snippet = computed({
-      get: () => props.modelValue,
-      set: (value) => emit('update:modelValue', value),
-    });
+    const snippet = modelWrapper(props, emit);
     const themes = {
       light: githubLight,
       dark: githubDark,
     };
     const indentSize = ref(2);
     const defaultLanguage = markdown();
+    const state = ref({});
+    const modal = ref(null);
     const extensions = ref([]);
     const theme = computed(() => themes[props.theme]);
     const language = ref(defaultLanguage);
-
-    console.log(theme);
-    console.log(language);
-
-    const state = ref({});
-    const modal = ref(null);
 
     const handleState = (e) => {
       const { ranges } = e.state.selection;
@@ -130,7 +124,6 @@ export default {
     );
 
     watch([theme, language], () => {
-      console.warn('theme or lang changed');
       extensions.value = [theme.value, language.value];
     });
 

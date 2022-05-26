@@ -26,7 +26,7 @@
 <script>
 import { onMounted, onUnmounted, ref } from 'vue';
 import gsap from 'gsap';
-import SnippetItem from './SnippetItem.vue';
+import SnippetItem from '@/components/app/SnippetItem.vue';
 
 export default {
   name: 'SnippetList',
