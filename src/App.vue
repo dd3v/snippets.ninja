@@ -89,7 +89,7 @@ export default {
           favorite: 0,
           tags: [],
           code: '',
-          language: 'Text',
+          language: 'Markdown',
           deleted: 0,
           remote_id: null,
           last_sync: null,
@@ -130,9 +130,10 @@ export default {
     watch(
       snippet,
       (current, previous) => {
-        console.warn(current);
-        console.warn(previous);
-        if (Object.is(current, previous)) {
+        console.warn(current?.id);
+        console.warn(previous?.id);
+        console.log(Object.is(current, previous));
+        if (Object.is(current, previous) && current.id === previous.id) {
           snippetStorage.update(snippet.value).then(() => {
             tags.value.push(...snippet.value.tags.filter((item) => !tags.value.includes(item)));
             tags.value.sort();

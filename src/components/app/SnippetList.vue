@@ -15,8 +15,9 @@
           :key="snippet.id"
           :class="{ active: selected?.id === snippet.id }"
           @keydown.delete="$emit('snippets:delete', snippet)"
+          @click="handleSelect(snippet)"
         >
-          <snippet-item :snippet="snippet" @click="handleSelect(snippet)" />
+          <snippet-item :snippet="snippet"/>
         </li>
       </TransitionGroup>
     </div>

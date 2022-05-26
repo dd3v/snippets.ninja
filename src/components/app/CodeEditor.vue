@@ -52,6 +52,8 @@ import { languages } from '@codemirror/language-data';
 
 import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
 import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
+import { markdown } from '@codemirror/lang-markdown';
+
 import EditorStatusBar from './EditorStatusBar.vue';
 import LanguageSelector from './LanguageSelector.vue';
 
@@ -77,16 +79,17 @@ export default {
       get: () => props.modelValue,
       set: (value) => emit('update:modelValue', value),
     });
-    const extensions = ref([]);
     const themes = {
       light: githubLight,
       dark: githubDark,
     };
+    const defaultLanguage = markdown();
+    const extensions = ref([]);
+    const theme = computed(() => themes[props.theme]);
+    const language = ref(defaultLanguage);
 
-    const editorSettings = {
-      theme: themes[props.theme],
-      language: null,
-    };
+    console.log(theme);
+    console.log(language);
 
     const state = ref({});
     const modal = ref(null);
@@ -99,39 +102,32 @@ export default {
       state.value.lines = e.state.doc.lines;
     };
 
-    const handleLanguageUpdate = (language) => {
-      const mode = languages.find((item) => item.name === language) ?? false;
-
+    const loadLanguageMode = (value) => {
+      const mode = languages.find((item) => item.name === value) ?? false;
       if (mode === false) {
-        snippet.value.language = 'Text';
-        extensions.value = [themes[props.theme]];
+        snippet.value.language = 'Markdown';
+        language.value = defaultLanguage;
         return;
       }
       mode.load().then((extension) => {
-        editorSettings.language = extension;
-        extensions.value = Object.values(editorSettings);
         snippet.value.language = mode.name;
+        language.value = extension;
       });
-
       modal.value?.close();
     };
 
     watch(
       () => snippet.value.language,
       (value) => {
-        console.log(value);
-        handleLanguageUpdate(value);
+        loadLanguageMode(value);
       },
       { immediate: true }
     );
 
-    watch(
-      () => props.theme,
-      (value) => {
-        editorSettings.theme = themes[value];
-        extensions.value = Object.values(editorSettings);
-      }
-    );
+    watch([theme, language], () => {
+      console.warn('theme or lang changed');
+      extensions.value = [theme.value, language.value];
+    });
 
     return {
       snippet,
