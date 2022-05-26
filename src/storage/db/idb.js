@@ -10,6 +10,11 @@ const getDb = () => {
         autoIncrement: true,
         dataType: DATA_TYPE.Number,
       },
+      access_level: {
+        notNull: true,
+        dataType: DATA_TYPE.Number,
+        default: 0,
+      },
       title: {
         notNull: true,
         dataType: DATA_TYPE.String,
@@ -29,6 +34,10 @@ const getDb = () => {
         dataType: DATA_TYPE.Array,
         multiEntry: true,
         default: [],
+      },
+      editor_options: {
+        dataType: DATA_TYPE.Object,
+        default: {},
       },
       favorite: {
         notNull: true,
@@ -51,7 +60,7 @@ const getDb = () => {
       updated_at: {
         dataType: DATA_TYPE.String,
         notNull: true,
-        enableSearch:true,
+        enableSearch: true,
       },
       deleted: {
         notNull: true,

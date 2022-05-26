@@ -36,6 +36,7 @@
     v-model="snippet.code"
     :extensions="extensions"
     :style="{ height: '100%', overflow: 'scroll' }"
+    :tabSize="indentSize"
     @update="handleState"
   />
   <editor-status-bar :state="state">
@@ -83,6 +84,7 @@ export default {
       light: githubLight,
       dark: githubDark,
     };
+    const indentSize = ref(2);
     const defaultLanguage = markdown();
     const extensions = ref([]);
     const theme = computed(() => themes[props.theme]);
@@ -136,6 +138,7 @@ export default {
       handleState,
       modal,
       languages,
+      indentSize,
     };
   },
 };

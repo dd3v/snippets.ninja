@@ -86,8 +86,10 @@ export default {
       snippetStorage
         .create({
           title: 'Untitled',
+          access_level: 0,
           favorite: 0,
           tags: [],
+          editor_options: {},
           code: '',
           language: 'Markdown',
           deleted: 0,
