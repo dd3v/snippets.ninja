@@ -57,7 +57,6 @@ describe('UModal.vue', () => {
   });
 
   it('ESC close', () => {
-    const handleKeyup = jest.fn();
     const wrapper = mount(UModal, {
       props: {
         header: 'Modal header',

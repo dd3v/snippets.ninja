@@ -41,13 +41,13 @@ describe('UTagInput.vue', () => {
     const input = wrapper.find('input');
     input.setValue('enter');
     await input.trigger('keydown.enter');
-    expect(wrapper.findAll('span.tag').map((item) => item.text())).toContain('enter');
+    expect(tags).toContain('enter');
     input.setValue('comma');
     await input.trigger('keydown.,');
-    expect(wrapper.findAll('span.tag').map((item) => item.text())).toContain('comma');
+    expect(tags).toContain('comma');
     input.setValue('tab');
     await input.trigger('keydown.tab');
-    expect(wrapper.findAll('span.tag').map((item) => item.text())).toContain('tab');
+    expect(tags).toContain('tab');
   });
 
   it('Check tags limit', async () => {
