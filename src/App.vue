@@ -16,7 +16,7 @@
       @navigation:toggle="sidebar = !sidebar"
     />
     <snippet-list
-      ref="snippetList"
+      ref="snippetScroll"
       :items="snippets"
       @snippets:more="loadMore"
       @snippets:delete="deleteSnippet"
@@ -39,14 +39,13 @@ import { onMounted, reactive, ref, toRaw, watch } from 'vue';
 // import faker from '@faker-js/faker';
 import initStorage from './storage/db/idb';
 import menu from './data/menu';
+import snippetEntity from './data/snippetEntity';
 import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/editor/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
 import MainNavigation from './components/app/MainNavigation.vue';
 import SnippetListToolbar from './components/app/SnippetListToolbar.vue';
 import SnippetStorage from './storage/snippet';
-import UIcon from './components/base/UIcon.vue';
-import UButton from './components/base/UButton.vue';
 
 export default {
   name: 'App',
@@ -56,13 +55,11 @@ export default {
     SnippetList,
     SnippetListToolbar,
     CodeEditor,
-    UIcon,
-    UButton,
   },
   setup() {
     const theme = ref('light');
     const sidebar = ref(false);
-    const snippetList = ref('');
+    const snippetScroll = ref('');
     const defaultConditions = {
       snippets: 'all',
       tags: [],
@@ -82,34 +79,22 @@ export default {
       tags.value.sort();
     });
 
+    const toggleTheme = () => {
+      theme.value = theme.value === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme.value);
+    };
+
     const createSnippet = () => {
-      snippetStorage
-        .create({
-          title: 'Untitled',
-          access_level: 0,
-          favorite: 0,
-          tags: [],
-          editor_options: {
-            indent_size: 2,
-          },
-          code: '',
-          language: 'Markdown',
-          deleted: 0,
-          remote_id: null,
-          last_sync: null,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        })
-        .then((response) => {
-          Object.assign(conditions, defaultConditions);
-          snippets.value.unshift(...response);
-          // eslint-disable-next-line prefer-destructuring
-          snippet.value = snippets.value[0] ?? null;
-          snippetList.value.scroll.scrollTo({
-            top: 1,
-            behavior: 'smooth',
-          });
+      snippetStorage.create(snippetEntity).then((response) => {
+        Object.assign(conditions, defaultConditions);
+        snippets.value.unshift(...response);
+        // eslint-disable-next-line prefer-destructuring
+        snippet.value = snippets.value[0] ?? false;
+        snippetScroll.value.scroll.scrollTo({
+          top: 1,
+          behavior: 'smooth',
         });
+      });
     };
 
     const deleteSnippet = (value) => {
@@ -126,17 +111,9 @@ export default {
       });
     };
 
-    const toggleTheme = () => {
-      theme.value = theme.value === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', theme.value);
-    };
-
     watch(
       snippet,
       (current, previous) => {
-        console.warn(current?.id);
-        console.warn(previous?.id);
-        console.log(Object.is(current, previous));
         if (Object.is(current, previous) && current.id === previous.id) {
           const data = toRaw(snippet.value);
           snippetStorage.update(data).then(() => {
@@ -174,7 +151,7 @@ export default {
     return {
       theme,
       toggleTheme,
-      snippetList,
+      snippetScroll,
       sidebar,
       conditions,
       menu,

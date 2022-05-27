@@ -6,7 +6,7 @@ export default class SnippetStorage {
     this.tableName = 'snippets';
   }
 
-  search(conditions, limit = 100, skip = 0) {
+  search(conditions, skip = 0, limit = 100) {
     console.log(conditions);
 
     const whereConditions = {};
@@ -26,8 +26,6 @@ export default class SnippetStorage {
       Object.assign(whereConditions, { title: { like: `%${conditions.term}%` } });
     }
 
-    console.warn(conditions);
-    console.warn(limit + skip);
 
     return connection.select({
       from: this.tableName,
