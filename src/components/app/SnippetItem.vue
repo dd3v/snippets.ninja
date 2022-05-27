@@ -4,17 +4,17 @@
       <span>
         <u-icon
           :color="snippet.favorite ? 'var(--like-color)' : ''"
-          :icon="snippet.favorite ? 'heart' : 'heart-empty'"
+          :name="snippet.favorite ? 'heart' : 'heart-empty'"
         />
       </span>
       <span style="flex: 1">
         <span v-if="title">{{ title }}</span>
         <span class="italic-text" v-else>Untitled</span>
       </span>
-      <span><u-icon icon="cloud" /></span>
+      <span><u-icon name="cloud" /></span>
     </div>
     <div class="snippet-content small-text">
-      <span class="snippet-language"><u-icon icon="code" /> {{ snippet.language }}</span>
+      <span class="snippet-language"><u-icon name="code" /> {{ snippet.language }}</span>
       <span class="snippet-date">{{ datetime }}</span>
     </div>
   </div>
@@ -23,6 +23,7 @@
 import { computed, inject } from 'vue';
 
 export default {
+  name: 'SnippetItem',
   props: {
     snippet: {
       type: Object,

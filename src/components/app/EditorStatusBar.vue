@@ -3,7 +3,6 @@
     <slot />
     <ul>
       <li>Cursor: {{ state.cursor }}</li>
-      <li>Lines: {{ state.lines }}</li>
       <li>Length: {{ state.length }}</li>
       <li>Selected: {{ state.selected }}</li>
     </ul>
@@ -24,7 +23,7 @@ export default {
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
+  font-size: 12px;
   height: 20px;
 }
 

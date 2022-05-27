@@ -4,7 +4,7 @@
       <li v-for="(menu, key) in items" :key="key" :class="selected == menu.value ? 'active' : ''">
         <label :for="menu.value">
           <input type="radio" name="menu" :id="menu.value" :value="menu.value" v-model="selected" />
-          <span><u-icon :icon="menu.icon" /> {{ menu.label }}</span>
+          <span><u-icon :name="menu.icon" /> {{ menu.label }}</span>
         </label>
       </li>
     </ul>

@@ -33,6 +33,7 @@
 import { computed, ref } from 'vue';
 
 export default {
+  name: 'LanguageSelector',
   props: {
     modelValue: {
       type: String,

@@ -4,7 +4,7 @@
     <tag-navigation :items="tags" v-model="conditions.tags" />
     <section class="">
       <u-button circle @click="toggleTheme">
-        <u-icon :icon="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
+        <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
     </section>
   </aside>

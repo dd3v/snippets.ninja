@@ -1,12 +1,12 @@
 <template>
   <div class="editor-indent-wrapper">
-    Indent:
+    Tabs:
     <u-button @click="size--">
-      <u-icon icon="minus" />
+      <u-icon name="minus" />
     </u-button>
     <span>{{ size }}</span>
     <u-button @click="size++">
-      <u-icon icon="plus" />
+      <u-icon name="plus" />
     </u-button>
   </div>
 </template>
@@ -14,6 +14,7 @@
 import { computed } from 'vue';
 
 export default {
+  name: 'EditorIndent',
   props: {
     modelValue: {
       type: Number,

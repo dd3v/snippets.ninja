@@ -2,7 +2,10 @@
   <div class="tag-input-wrapper">
     <transition-group name="list" tag="ul">
       <li v-for="(tag, key) in tags" :key="key" class="tag-input-tag">
-        <span @click="remove(key)" @keypress="remove(key)">&times;</span>{{ tag }}
+        <span @click="remove(key)" @keypress="remove(key)" :data-tag="tag" class="remove"
+          >&times;</span
+        >
+        <span class="tag">{{ tag }}</span>
       </li>
     </transition-group>
     <input
@@ -19,10 +22,11 @@
   </div>
 </template>
 <script>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
+import modelWrapper from '@/composable/modelWrapper';
 
 export default {
-  emits: ['update:modelValue'],
+  name: 'UTagInput',
   props: {
     max: {
       type: Number,
@@ -37,12 +41,8 @@ export default {
     },
   },
   setup(props, { emit }) {
-    console.warn(props);
     const tag = ref('');
-    const tags = computed({
-      get: () => props.modelValue,
-      set: () => emit('update:modelValue', tags.value),
-    });
+    const tags = modelWrapper(props, emit);
     const remove = (index) => {
       tags.value.splice(index, 1);
     };
@@ -52,7 +52,11 @@ export default {
       }
     };
     const add = () => {
-      if (tag.value.length > 0 && tags.value.length < props.max) {
+      if (
+        !tags.value.includes(tag.value) &&
+        tag.value.length > 0 &&
+        tags.value.length < props.max
+      ) {
         tags.value.push(tag.value);
       }
       tag.value = '';
@@ -70,10 +74,10 @@ export default {
 }
 
 .tag-input-tag {
-  float: left;
+  display: inline-flex;
+  align-items: center;
   padding: 1px 8px;
   line-height: 1.5;
-  text-align: center;
   white-space: nowrap;
   border-radius: 4px;
   outline: 0;
@@ -84,7 +88,7 @@ export default {
   color: var(--primary-text-color);
 }
 
-.tag-input-tag > span {
+.tag-input-tag > span.remove {
   font-size: 10px;
   padding-right: 4px;
   margin: 0;

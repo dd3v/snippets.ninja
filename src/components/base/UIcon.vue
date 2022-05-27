@@ -1,11 +1,11 @@
 <template>
-  <span :class="`icon-${icon}`" :style="`color:${color};font-size:${fontSize};`"></span>
+  <span :class="`icon-${name}`" :style="`color:${color};font-size:${fontSize};`"></span>
 </template>
 <script>
 export default {
   name: 'UIcon',
   props: {
-    icon: {
+    name: {
       type: String,
       required: true,
     },

@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
-    <u-button ref="dropdownButton" @click="toggleDropdown()" :circle="circle" class="dropdown-btn">
-      <u-icon :icon="icon" />
+    <u-button ref="dropdownButton" @click="toggleDropdown" :circle="circle" class="dropdown-btn">
+      <u-icon :name="icon" />
     </u-button>
     <transition name="slide">
       <div class="dropdown-content" v-if="isOpen" :class="{ 'drop-left': dropleft }">
@@ -12,14 +12,14 @@
 </template>
 <script>
 import { ref } from 'vue';
-import UButton from './UButton.vue';
 
 export default {
   name: 'UDropdown',
-  components: { UButton },
+  components: {},
   props: {
     icon: {
       type: String,
+      required: true,
     },
     dropleft: {
       type: Boolean,

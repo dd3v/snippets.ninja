@@ -2,7 +2,7 @@
   <div class="editor-tools-container">
     <div class="item m-button">
       <u-button circle @click="$emit('snippet:close')">
-        <u-icon icon="left-small" />
+        <u-icon name="left-small" />
       </u-button>
     </div>
     <div class="item-center">
@@ -17,7 +17,7 @@
     </div>
     <div class="item">
       <u-button circle @click="snippet.favorite = Number(!snippet.favorite)">
-        <u-icon :icon="snippet.favorite ? 'heart' : 'heart-empty'" />
+        <u-icon :name="snippet.favorite ? 'heart' : 'heart-empty'" />
       </u-button>
     </div>
     <div class="item">
@@ -25,7 +25,7 @@
     </div>
     <div class="item">
       <u-button circle @click="$emit('snippet:delete', snippet)">
-        <u-icon icon="trash-empty" />
+        <u-icon name="trash-empty" />
       </u-button>
     </div>
   </div>
@@ -40,7 +40,7 @@
     @update="handleState"
   />
   <editor-status-bar :state="state">
-    <u-button @click="modal.open()"> <u-icon icon="code" />{{ snippet.language }} </u-button>
+    <u-button @click="modal.open()"> <u-icon name="code" />{{ snippet.language }} </u-button>
     <u-modal header="Language mode" ref="modal">
       <language-selector :languages="languages" v-model="snippet.language" />
     </u-modal>

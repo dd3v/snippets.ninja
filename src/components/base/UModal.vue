@@ -3,8 +3,8 @@
     <div class="modal-backdrop" v-show="show" @click.self="close" @keydown.self="close">
       <div class="modal">
         <header class="modal-header">
-          <div>{{ header }}</div>
-          <div><button class="close-btn" @click="close">&#x2715;</button></div>
+          <div class="modal-title">{{ header }}</div>
+          <div class="modal-close"><button class="close-btn" @click="close">&#x2715;</button></div>
         </header>
         <section class="modal-body">
           <slot />
@@ -25,16 +25,15 @@ export default {
   },
   setup() {
     const show = ref(false);
-
-    const close = () => {
-      show.value = false;
-    };
-
     const closeEventListener = (e) => {
       if (e.keyCode === 27) {
         show.value = false;
         window.removeEventListener('keyup', closeEventListener);
       }
+    };
+    const close = () => {
+      show.value = false;
+      window.removeEventListener('keyup', closeEventListener);
     };
 
     const open = () => {

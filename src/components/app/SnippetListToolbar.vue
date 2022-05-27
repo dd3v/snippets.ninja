@@ -2,7 +2,7 @@
   <div class="snippet-list-toolbar-wrapper">
     <div>
       <u-button circle @click="$emit('navigation:toggle')">
-        <u-icon icon="menu" />
+        <u-icon name="menu" />
       </u-button>
     </div>
     <div class="filter-group">
@@ -14,12 +14,12 @@
         placeholder="Search term"
       />
       <u-button @click="$emit('update:sort', sort === 'desc' ? 'asc' : 'desc')">
-        <u-icon :icon="sort === 'desc' ? 'sort-alt-down' : 'sort-alt-up'" />
+        <u-icon :name="sort === 'desc' ? 'sort-alt-down' : 'sort-alt-up'" />
       </u-button>
     </div>
     <div>
       <u-button circle @click="$emit('snippet:create')">
-        <u-icon icon="list-add" />
+        <u-icon name="list-add" />
       </u-button>
     </div>
   </div>
