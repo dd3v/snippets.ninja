@@ -40,7 +40,7 @@ import { onMounted, reactive, ref, toRaw, watch } from 'vue';
 import initStorage from './storage/db/idb';
 import menu from './data/menu';
 import SnippetList from './components/app/SnippetList.vue';
-import CodeEditor from './components/app/CodeEditor.vue';
+import CodeEditor from './components/app/editor/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
 import MainNavigation from './components/app/MainNavigation.vue';
 import SnippetListToolbar from './components/app/SnippetListToolbar.vue';

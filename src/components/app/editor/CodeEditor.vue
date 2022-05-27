@@ -56,9 +56,9 @@ import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
 import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
 import { markdown } from '@codemirror/lang-markdown';
 
-import EditorStatusBar from '@/components/app/EditorStatusBar.vue';
-import LanguageSelector from '@/components/app/LanguageSelector.vue';
-import EditorIndent from '@/components/app/EditorIndent.vue';
+import EditorStatusBar from '@/components/app/editor/EditorStatusBar.vue';
+import LanguageSelector from '@/components/app/editor/LanguageSelector.vue';
+import EditorIndent from '@/components/app/editor/EditorIndent.vue';
 import modelWrapper from '@/composable/modelWrapper';
 
 export default {
