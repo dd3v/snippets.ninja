@@ -10,6 +10,7 @@ import UTagInput from '@/components/base/UTagInput.vue';
 
 import App from '@/App.vue';
 import '@/assets/css/app.css';
+import './registerServiceWorker';
 
 dayjs.extend(calendar);
 dayjs().calendar(null, {
