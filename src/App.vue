@@ -136,7 +136,7 @@ export default {
     );
 
     onMounted(async () => {
-      theme.value = setupTheme(localStorage.getItem('theme'));
+      theme.value = setupTheme(localStorage.getItem('theme') ?? 'light');
       try {
         await initStorage();
       } catch (e) {
