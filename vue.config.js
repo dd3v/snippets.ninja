@@ -3,9 +3,10 @@ const { defineConfig } = require('@vue/cli-service');
 module.exports = defineConfig({
   transpileDependencies: true,
   pwa: {
-    name: 'My App',
-    themeColor: '#4DBA87',
-    msTileColor: '#000000',
+    name: 'Snippets >< Ninja',
+    themeColor: 'hsl(0, 0%, 100%)',
+    msTileColor: 'hsl(0, 4%, 26%)',
+    
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
 

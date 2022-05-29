@@ -3,7 +3,7 @@
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
     <section class="">
-      <u-button circle @click="toggleTheme">
+      <u-button circle @click="theme = setupTheme(theme === 'light' ? 'dark' : 'light')">
         <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
     </section>
@@ -37,6 +37,7 @@
 <script>
 import { onMounted, reactive, ref, toRaw, watch } from 'vue';
 // import faker from '@faker-js/faker';
+import setupTheme from '@/composable/themeSwitcher';
 import initStorage from './storage/db/idb';
 import menu from './data/menu';
 import snippetEntity from './data/snippetEntity';
@@ -57,7 +58,7 @@ export default {
     CodeEditor,
   },
   setup() {
-    const theme = ref('light');
+    const theme = ref('');
     const sidebar = ref(false);
     const snippetScroll = ref('');
     const defaultConditions = {
@@ -79,16 +80,10 @@ export default {
       tags.value.sort();
     });
 
-    const toggleTheme = () => {
-      theme.value = theme.value === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', theme.value);
-    };
-
     const createSnippet = () => {
       snippetStorage.create(snippetEntity).then((response) => {
         Object.assign(conditions, defaultConditions);
         snippets.value.unshift(...response);
-        // eslint-disable-next-line prefer-destructuring
         snippet.value = snippets.value[0] ?? false;
         snippetScroll.value.scroll.scrollTo({
           top: 1,
@@ -141,6 +136,7 @@ export default {
     );
 
     onMounted(async () => {
+      theme.value = setupTheme(localStorage.getItem('theme'));
       try {
         await initStorage();
       } catch (e) {
@@ -150,7 +146,7 @@ export default {
 
     return {
       theme,
-      toggleTheme,
+      setupTheme,
       snippetScroll,
       sidebar,
       conditions,

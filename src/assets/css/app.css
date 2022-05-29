@@ -4,10 +4,6 @@
 @import url('themes/light.css');
 @import url('themes/dark.css');
 
-.cm-focused {
-  outline: none !important;
-}
-
 html,
 body {
   font-family: 'Rubik', sans-serif;
@@ -44,5 +40,12 @@ ul li {
 }
 
 ::-webkit-scrollbar-button {
-  display:none;
+  display: none;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.cm-focused {
+  outline: none !important;
 }
