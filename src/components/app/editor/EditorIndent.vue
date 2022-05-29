@@ -1,11 +1,11 @@
 <template>
   <div class="editor-indent-wrapper">
     Tabs:
-    <u-button @click="size--">
+    <u-button @click="size--" ariaLabel="Increase indent">
       <u-icon name="minus" />
     </u-button>
     <span>{{ size }}</span>
-    <u-button @click="size++">
+    <u-button @click="size++" ariaLabel="Decrease indent">
       <u-icon name="plus" />
     </u-button>
   </div>

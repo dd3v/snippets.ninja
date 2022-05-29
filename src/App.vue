@@ -3,7 +3,7 @@
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
     <section class="">
-      <u-button circle @click="theme = setupTheme(theme === 'light' ? 'dark' : 'light')">
+      <u-button circle ariaLabel="Theme" @click="theme = setupTheme(theme === 'light' ? 'dark' : 'light')">
         <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
     </section>

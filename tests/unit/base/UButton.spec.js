@@ -18,8 +18,10 @@ describe('UButton.vue', () => {
       },
       props: {
         circle: true,
+        ariaLabel: 'test',
       },
     });
     expect(wrapper.classes()).toContain('btn-circle');
+    expect(wrapper.attributes('aria-label')).toBe('test');
   });
 });

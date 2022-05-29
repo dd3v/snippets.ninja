@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" :class="{ 'btn-circle': circle }">
+  <button class="btn" :class="{ 'btn-circle': circle }" :aria-label="ariaLabel">
     <slot />
   </button>
 </template>
@@ -9,6 +9,9 @@ export default {
   props: {
     circle: {
       type: Boolean,
+    },
+    ariaLabel: {
+      type: String,
     },
   },
   setup() {},

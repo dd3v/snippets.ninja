@@ -1,7 +1,7 @@
 <template>
   <div class="editor-tools-container">
     <div class="item m-button">
-      <u-button circle @click="$emit('snippet:close')">
+      <u-button circle @click="$emit('snippet:close')" ariaLabel="Close Snippet">
         <u-icon name="left-small" />
       </u-button>
     </div>
@@ -16,7 +16,11 @@
       />
     </div>
     <div class="item">
-      <u-button circle @click="snippet.favorite = Number(!snippet.favorite)">
+      <u-button
+        circle
+        @click="snippet.favorite = Number(!snippet.favorite)"
+        ariaLabel="Add to favorite"
+      >
         <u-icon :name="snippet.favorite ? 'heart' : 'heart-empty'" />
       </u-button>
     </div>
@@ -24,7 +28,7 @@
       <u-dropdown icon="cloud" dropleft circle> ... it's coming soon 🚀 </u-dropdown>
     </div>
     <div class="item">
-      <u-button circle @click="$emit('snippet:delete', snippet)">
+      <u-button circle @click="$emit('snippet:delete', snippet)" ariaLabel="Delete Snippet">
         <u-icon name="trash-empty" />
       </u-button>
     </div>
@@ -40,7 +44,9 @@
     @update="handleState"
   />
   <editor-status-bar :state="state">
-    <u-button @click="modal.open()"> <u-icon name="code" />{{ snippet.language }} </u-button>
+    <u-button @click="modal.open()" ariaLabel="Language mode">
+      <u-icon name="code" />{{ snippet.language }}
+    </u-button>
     <u-modal header="Language mode" ref="modal">
       <language-selector :languages="languages" v-model="snippet.language" />
     </u-modal>
