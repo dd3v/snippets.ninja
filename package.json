@@ -29,6 +29,7 @@
     "workbox-precaching": "^6.5.3"
   },
   "devDependencies": {
+    "webpack": "^5.72.1",
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
