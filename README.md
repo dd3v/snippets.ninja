@@ -1,4 +1,9 @@
-# ui.snippets.ninja
+# Snippets Ninja
+
+## About
+
+Snippets.Ninja is a snippet code manager. Offline first. PWA compliant. 
+It uses IndexedDB for local storage and our server or GitHub as cloud storage.
 
 ## Project setup
 ```
@@ -20,5 +25,7 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Run tests
+```
+npm run test:unit
+```
