@@ -16,7 +16,7 @@ module.exports = defineConfig({
   pwa: {
     name: 'Snippets >< Ninja',
     themeColor: 'hsl(0, 0%, 100%)',
-    msTileColor: 'hsl(0, 4%, 26%)',
+    msTileColor: 'hsl(0, 0%, 100%)',
 
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
