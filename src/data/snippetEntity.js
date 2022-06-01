@@ -15,4 +15,45 @@ const snippetEntity = {
   updated_at: new Date().toISOString(),
 };
 
-export default snippetEntity;
+const welcomeSnippet = {
+  ...snippetEntity,
+};
+
+const code = `                   
+                                                  ^?77.   :~^                                       
+                                                  Y~ ^J7 :5^??                                      
+                                                 .P.   !JP!  Y!                                     
+                                                 ^5     .?J  .5^                                    
+                                                 :P       7J  ^5.                                   
+                                                  J7       5^  7J                                   
+                                                   J7      Y~  .P                                   
+                                                    !Y:   .P~::~P..                                 
+                                                     :P.   ^^~~!7!!77!:                             
+                                                      5^             ^Y!                            
+                                                      P:        ~GB7   J7                           
+                                                     :P.        ~PBG.   ?J                          
+                                    .:^^~~~~^^::...:!J^                  !Y:                        
+                                :~!77!~~^^^^^~~!!!!!^.   Y:             .:.5~                       
+                             .!?7^.                      ~5:             ?YJ:                       
+                           .7?~.                          ^?7!~^:.   ..:^?7                         
+                          !J^                               .:^~!!7Y7!!!~.                          
+                         J?    .:~!!!!~~:                          P^                               
+                        J?    !?!^:...:^!?7.                       P:                               
+                       ~5     .           ^J!                     ^5                                
+                       Y~                   Y!                    5~                                
+                       P:                   :5                   J?                                 
+                       P:                   ^5                 :J7                                  
+                       ??                  .Y~               .7J^                                   
+                       .P.               .~J~                J?                                     
+                        ~Y:         ::^!??!.                 :77!:                                  
+                         :J7^.      ~!7?7!!!!!!!7~^~!777!^.     :!J:                                
+                           :!77!~^:...          ^G^::.  :!77~~~~^^Y^                                
+                               .^~!!!!!!!777777!J^         :^^^^^^.                                 
+                                               .                                                    
+`;
+
+console.log(code);
+
+console.log(welcomeSnippet);
+
+export { welcomeSnippet, snippetEntity };

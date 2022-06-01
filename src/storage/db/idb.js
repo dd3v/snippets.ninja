@@ -78,9 +78,8 @@ const getDb = () => {
 };
 
 const initStorage = async () => {
-  const config = getDb();
-  const db = await connection.initDb(config);
-  return db;
+  const newDb = await connection.initDb(getDb());
+  return newDb;
 };
 
 export default initStorage;

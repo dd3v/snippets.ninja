@@ -3,7 +3,11 @@
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
     <section class="">
-      <u-button circle ariaLabel="Theme" @click="theme = setupTheme(theme === 'light' ? 'dark' : 'light')">
+      <u-button
+        circle
+        ariaLabel="Theme"
+        @click="theme = setupTheme(theme === 'light' ? 'dark' : 'light')"
+      >
         <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
     </section>
@@ -40,7 +44,7 @@ import { onMounted, reactive, ref, toRaw, watch } from 'vue';
 import setupTheme from '@/composable/themeSwitcher';
 import initStorage from './storage/db/idb';
 import menu from './data/menu';
-import snippetEntity from './data/snippetEntity';
+import { snippetEntity, welcomeSnippet } from './data/snippetEntity';
 import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/editor/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
@@ -136,9 +140,15 @@ export default {
     );
 
     onMounted(async () => {
+      console.warn('onMount');
       theme.value = setupTheme(localStorage.getItem('theme') ?? 'light');
+      if (localStorage.getItem('welcome') === null) {
+        console.log('noooo');
+        localStorage.setItem('welcome', true);
+      }
       try {
         await initStorage();
+        snippetStorage.create(welcomeSnippet);
       } catch (e) {
         console.error(e);
       }
