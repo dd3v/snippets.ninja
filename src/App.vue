@@ -38,13 +38,13 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { onMounted, reactive, ref, toRaw, watch } from 'vue';
 // import faker from '@faker-js/faker';
 import setupTheme from '@/composable/themeSwitcher';
 import initStorage from './storage/db/idb';
 import menu from './data/menu';
-import { snippetEntity, welcomeSnippet } from './data/snippetEntity';
+import { snippetEntity } from './data/snippetEntity';
 import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/editor/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
@@ -52,124 +52,93 @@ import MainNavigation from './components/app/MainNavigation.vue';
 import SnippetListToolbar from './components/app/SnippetListToolbar.vue';
 import SnippetStorage from './storage/snippet';
 
-export default {
-  name: 'App',
-  components: {
-    MainNavigation,
-    TagNavigation,
-    SnippetList,
-    SnippetListToolbar,
-    CodeEditor,
-  },
-  setup() {
-    const theme = ref('');
-    const sidebar = ref(false);
-    const snippetScroll = ref('');
-    const defaultConditions = {
-      snippets: 'all',
-      tags: [],
-      sort: 'desc',
-      term: '',
-    };
-    const tags = ref([]);
-    const snippet = ref(false);
-    const snippets = ref([]);
-    const limit = 100;
-    let skip = 0;
-
-    const conditions = reactive({ ...defaultConditions });
-    const snippetStorage = new SnippetStorage();
-    snippetStorage.tags().then((response) => {
-      tags.value = response.map((item) => item.tags);
-      tags.value.sort();
-    });
-
-    const createSnippet = () => {
-      snippetStorage.create(snippetEntity).then((response) => {
-        Object.assign(conditions, defaultConditions);
-        snippets.value.unshift(...response);
-        snippet.value = snippets.value[0] ?? false;
-        snippetScroll.value.scroll.scrollTo({
-          top: 1,
-          behavior: 'smooth',
-        });
-      });
-    };
-
-    const deleteSnippet = (value) => {
-      snippetStorage.softDelete(value).then(() => {
-        snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
-        snippet.value = null;
-      });
-    };
-
-    const loadMore = () => {
-      skip += limit;
-      snippetStorage.search(conditions, limit, skip).then((response) => {
-        snippets.value.push(...response);
-      });
-    };
-
-    watch(
-      snippet,
-      (current, previous) => {
-        if (Object.is(current, previous) && current.id === previous.id) {
-          const data = toRaw(snippet.value);
-          snippetStorage.update(data).then(() => {
-            tags.value.push(...data.tags.filter((item) => !tags.value.includes(item)));
-            tags.value.sort();
-          });
-        }
-      },
-      {
-        deep: true,
-      }
-    );
-    watch(
-      conditions,
-      () => {
-        skip = 0;
-        snippetStorage.search(toRaw(conditions)).then((response) => {
-          snippets.value = response;
-        });
-      },
-      {
-        deep: true,
-        immediate: true,
-      }
-    );
-
-    onMounted(async () => {
-      console.warn('onMount');
-      theme.value = setupTheme(localStorage.getItem('theme') ?? 'light');
-      if (localStorage.getItem('welcome') === null) {
-        console.log('noooo');
-        localStorage.setItem('welcome', true);
-      }
-      try {
-        await initStorage();
-        snippetStorage.create(welcomeSnippet);
-      } catch (e) {
-        console.error(e);
-      }
-    });
-
-    return {
-      theme,
-      setupTheme,
-      snippetScroll,
-      sidebar,
-      conditions,
-      menu,
-      tags,
-      snippets,
-      snippet,
-      deleteSnippet,
-      createSnippet,
-      loadMore,
-    };
-  },
+const theme = ref('');
+const sidebar = ref(false);
+const snippetScroll = ref('');
+const defaultConditions = {
+  snippets: 'all',
+  tags: [],
+  sort: 'desc',
+  term: '',
 };
+const tags = ref([]);
+const snippet = ref(false);
+const snippets = ref([]);
+const limit = 100;
+let skip = 0;
+
+try {
+  await initStorage();
+} catch (e) {
+  console.error(e);
+}
+const snippetStorage = new SnippetStorage();
+
+const conditions = reactive({ ...defaultConditions });
+
+snippetStorage.tags().then((response) => {
+  tags.value = response.map((item) => item.tags);
+  tags.value.sort();
+});
+
+const createSnippet = () => {
+  snippetStorage.create(snippetEntity).then((response) => {
+    Object.assign(conditions, defaultConditions);
+    snippets.value.unshift(...response);
+    snippet.value = snippets.value[0] ?? false;
+    snippetScroll.value.scroll.scrollTo({
+      top: 1,
+      behavior: 'smooth',
+    });
+  });
+};
+
+const deleteSnippet = (value) => {
+  snippetStorage.softDelete(value).then(() => {
+    snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
+    snippet.value = null;
+  });
+};
+
+const loadMore = () => {
+  skip += limit;
+  snippetStorage.search(conditions, limit, skip).then((response) => {
+    snippets.value.push(...response);
+  });
+};
+
+watch(
+  snippet,
+  (current, previous) => {
+    if (Object.is(current, previous) && current.id === previous.id) {
+      const data = toRaw(snippet.value);
+      snippetStorage.update(data).then(() => {
+        tags.value.push(...data.tags.filter((item) => !tags.value.includes(item)));
+        tags.value.sort();
+      });
+    }
+  },
+  {
+    deep: true,
+  }
+);
+watch(
+  conditions,
+  () => {
+    skip = 0;
+    snippetStorage.search(toRaw(conditions)).then((response) => {
+      snippets.value = response;
+    });
+  },
+  {
+    deep: true,
+    immediate: true,
+  }
+);
+
+onMounted(() => {
+  theme.value = setupTheme(localStorage.getItem('theme') ?? 'light');
+});
 </script>
 
 <style>

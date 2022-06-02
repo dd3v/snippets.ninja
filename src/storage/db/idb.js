@@ -1,5 +1,6 @@
 import { DATA_TYPE } from 'jsstore';
 import connection from './connection';
+import { welcomeSnippet } from '../../data/snippetEntity';
 
 const getDb = () => {
   const tblSnippets = {
@@ -76,9 +77,22 @@ const getDb = () => {
   };
   return database;
 };
+function timeout(ms) {
+  // eslint-disable-next-line no-promise-executor-return
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 const initStorage = async () => {
   const newDb = await connection.initDb(getDb());
+  await timeout(3000);
+  if (newDb === true) {
+    await connection.insert({
+      into: 'snippets',
+      values: [welcomeSnippet],
+      return: true,
+    });
+  }
+
   return newDb;
 };
 

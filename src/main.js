@@ -8,7 +8,7 @@ import UInput from '@/components/base/UInput.vue';
 import UModal from '@/components/base/UModal.vue';
 import UTagInput from '@/components/base/UTagInput.vue';
 
-import App from '@/App.vue';
+import EntryPoint from '@/EntryPoint.vue';
 import '@/assets/css/app.css';
 import './registerServiceWorker';
 
@@ -19,7 +19,7 @@ dayjs().calendar(null, {
   sameElse: 'DD/MM/YYYY',
 });
 
-const app = createApp(App);
+const app = createApp(EntryPoint);
 app.provide('dayjs', dayjs);
 app.component('u-icon', UIcon);
 app.component('u-button', UButton);
