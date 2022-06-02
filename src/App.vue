@@ -67,55 +67,48 @@ const snippets = ref([]);
 const limit = 100;
 let skip = 0;
 
-try {
-  await initStorage();
-} catch (e) {
-  console.error(e);
-}
+await initStorage();
+
 const snippetStorage = new SnippetStorage();
 
 const conditions = reactive({ ...defaultConditions });
 
-snippetStorage.tags().then((response) => {
+const createSnippet = async () => {
+  const response = await snippetStorage.create(snippetEntity);
+  Object.assign(conditions, defaultConditions);
+  snippets.value.unshift(...response);
+  snippet.value = snippets.value[0] ?? false;
+  snippetScroll.value.scroll.scrollTo({
+    top: 1,
+    behavior: 'smooth',
+  });
+};
+
+const deleteSnippet = async (value) => {
+  await snippetStorage.softDelete(value);
+  snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
+  snippet.value = null;
+};
+
+const loadTags = async () => {
+  const response = await snippetStorage.tags();
   tags.value = response.map((item) => item.tags);
   tags.value.sort();
-});
-
-const createSnippet = () => {
-  snippetStorage.create(snippetEntity).then((response) => {
-    Object.assign(conditions, defaultConditions);
-    snippets.value.unshift(...response);
-    snippet.value = snippets.value[0] ?? false;
-    snippetScroll.value.scroll.scrollTo({
-      top: 1,
-      behavior: 'smooth',
-    });
-  });
 };
 
-const deleteSnippet = (value) => {
-  snippetStorage.softDelete(value).then(() => {
-    snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
-    snippet.value = null;
-  });
-};
-
-const loadMore = () => {
+const loadMore = async () => {
   skip += limit;
-  snippetStorage.search(conditions, limit, skip).then((response) => {
-    snippets.value.push(...response);
-  });
+  snippets.value.push(...(await snippetStorage.search(conditions, limit, skip)));
 };
 
 watch(
   snippet,
-  (current, previous) => {
+  async (current, previous) => {
     if (Object.is(current, previous) && current.id === previous.id) {
       const data = toRaw(snippet.value);
-      snippetStorage.update(data).then(() => {
-        tags.value.push(...data.tags.filter((item) => !tags.value.includes(item)));
-        tags.value.sort();
-      });
+      await snippetStorage.update(data);
+      tags.value.push(...data.tags.filter((item) => !tags.value.includes(item)));
+      tags.value.sort();
     }
   },
   {
@@ -124,11 +117,9 @@ watch(
 );
 watch(
   conditions,
-  () => {
+  async () => {
     skip = 0;
-    snippetStorage.search(toRaw(conditions)).then((response) => {
-      snippets.value = response;
-    });
+    snippets.value = await snippetStorage.search(toRaw(conditions));
   },
   {
     deep: true,
@@ -138,6 +129,7 @@ watch(
 
 onMounted(() => {
   theme.value = setupTheme(localStorage.getItem('theme') ?? 'light');
+  loadTags();
 });
 </script>
 
