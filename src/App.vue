@@ -39,9 +39,9 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, toRaw, watch } from 'vue';
+import { onMounted, reactive, ref, toRaw, watch, onErrorCaptured } from 'vue';
 // import faker from '@faker-js/faker';
-import setupTheme from '@/composable/themeSwitcher';
+import setupTheme from '@/helpers/themeSwitcher';
 import initStorage from './storage/db/idb';
 import menu from './data/menu';
 import { snippetEntity } from './data/snippetEntity';
@@ -67,12 +67,16 @@ const snippets = ref([]);
 const limit = 100;
 let skip = 0;
 
+onErrorCaptured((err, vm, info) => {
+  console.log(err);
+  console.log(vm);
+  console.log(info);
+});
+
 await initStorage();
-
 const snippetStorage = new SnippetStorage();
-
 const conditions = reactive({ ...defaultConditions });
-
+console.log(snippetEntity);
 const createSnippet = async () => {
   const response = await snippetStorage.create(snippetEntity);
   Object.assign(conditions, defaultConditions);

@@ -36,7 +36,7 @@ defineProps({
   },
 });
 
-defineEmits(['navigation:toggle', 'sippet:createp']);
+defineEmits(['navigation:toggle', 'sippet:create', 'update:update', 'update:sort']);
 </script>
 <style scoped>
 .snippet-list-toolbar-wrapper {
