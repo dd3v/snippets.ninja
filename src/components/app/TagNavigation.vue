@@ -10,25 +10,22 @@
     </ul>
   </div>
 </template>
-<script>
-import modelWrapper from '@/composable/modelWrapper';
+<script setup>
+import { computed } from 'vue';
 
-export default {
-  name: 'TagNavigation',
-  props: {
-    modelValue: {
-      type: Array,
-    },
-    items: {
-      type: Array,
-    },
+const props = defineProps({
+  modelValue: {
+    type: Array,
   },
-  setup(props, { emit }) {
-    const selected = modelWrapper(props, emit);
-
-    return { selected };
+  items: {
+    type: Array,
   },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const selected = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
+});
 </script>
 <style scoped>
 .tags-navigation {

@@ -29,40 +29,33 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { computed, ref } from 'vue';
 
-export default {
-  name: 'LanguageSelector',
-  props: {
-    modelValue: {
-      type: String,
-    },
-    languages: {
-      type: Array,
-    },
+const props = defineProps({
+  modelValue: {
+    type: String,
   },
-  setup(props, { emit }) {
-    const keyword = ref('');
-    const language = computed({
-      get: () => props.modelValue,
-      set: (value) => {
-        emit('update:modelValue', value);
-        keyword.value = '';
-      },
-    });
-
-    const filteredLanguages = computed(() =>
-      props.languages.filter(
-        (item) =>
-          item.name.toLowerCase().includes(keyword.value.toLowerCase()) ||
-          item.extensions.includes(keyword.value.toLowerCase())
-      )
-    );
-
-    return { language, keyword, filteredLanguages };
+  languages: {
+    type: Array,
   },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const keyword = ref('');
+const language = computed({
+  get: () => props.modelValue,
+  set: (value) => {
+    emit('update:modelValue', value);
+    keyword.value = '';
+  },
+});
+const filteredLanguages = computed(() =>
+  props.languages.filter(
+    (item) =>
+      item.name.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      item.extensions.includes(keyword.value.toLowerCase())
+  )
+);
 </script>
 <style scoped>
 ul {

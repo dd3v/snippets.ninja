@@ -21,49 +21,42 @@
     />
   </div>
 </template>
-<script>
-import { ref } from 'vue';
-import modelWrapper from '@/composable/modelWrapper';
+<script setup>
+import { ref, computed } from 'vue';
 
-export default {
-  name: 'UTagInput',
-  props: {
-    max: {
-      type: Number,
-      default: 5,
-    },
-    placeholder: {
-      type: String,
-      default: 'Enter a tag',
-    },
-    modelValue: {
-      type: Array,
-    },
+const props = defineProps({
+  max: {
+    type: Number,
+    default: 5,
   },
-  setup(props, { emit }) {
-    const tag = ref('');
-    const tags = modelWrapper(props, emit);
-    const remove = (index) => {
-      tags.value.splice(index, 1);
-    };
-    const removeLast = () => {
-      if (!tag.value.length) {
-        tags.value.pop();
-      }
-    };
-    const add = () => {
-      if (
-        !tags.value.includes(tag.value) &&
-        tag.value.length > 0 &&
-        tags.value.length < props.max
-      ) {
-        tags.value.push(tag.value);
-      }
-      tag.value = '';
-    };
+  placeholder: {
+    type: String,
+    default: 'Enter a tag',
+  },
+  modelValue: {
+    type: Array,
+  },
+});
+const emit = defineEmits(['update:modelValue']);
 
-    return { tag, tags, add, remove, removeLast };
-  },
+const tag = ref('');
+const tags = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
+});
+const remove = (index) => {
+  tags.value.splice(index, 1);
+};
+const removeLast = () => {
+  if (!tag.value.length) {
+    tags.value.pop();
+  }
+};
+const add = () => {
+  if (!tags.value.includes(tag.value) && tag.value.length > 0 && tags.value.length < props.max) {
+    tags.value.push(tag.value);
+  }
+  tag.value = '';
 };
 </script>
 <style scoped>

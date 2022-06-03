@@ -8,49 +8,44 @@
     :aria-label="name"
   />
 </template>
-<script>
+<script setup>
 import { computed } from 'vue';
-import modelWrapper from '@/composable/modelWrapper';
 
-export default {
-  name: 'UInput',
-  props: {
-    modelValue: {
-      type: String,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: String,
-      default: 'text',
-    },
-    variant: {
-      type: String,
-      default: 'default',
-    },
-    placeholder: {
-      type: String,
-    },
+const props = defineProps({
+  modelValue: {
+    type: String,
   },
-  setup(props, { emit }) {
-    const css = computed(() => {
-      switch (props.variant) {
-        case 'invisible':
-          return 'invisible-input';
-        case 'default':
-          return 'default-input';
-        default:
-          return 'default-input';
-      }
-    });
-
-    const inputValue = modelWrapper(props, emit);
-
-    return { css, inputValue };
+  name: {
+    type: String,
+    required: true,
   },
-};
+  type: {
+    type: String,
+    default: 'text',
+  },
+  variant: {
+    type: String,
+    default: 'default',
+  },
+  placeholder: {
+    type: String,
+  },
+});
+const emit = defineEmits(['update:modelValue']);
+const css = computed(() => {
+  switch (props.variant) {
+    case 'invisible':
+      return 'invisible-input';
+    case 'default':
+      return 'default-input';
+    default:
+      return 'default-input';
+  }
+});
+const inputValue = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
+});
 </script>
 <style scoped>
 input[type='text'],

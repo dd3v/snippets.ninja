@@ -4,13 +4,6 @@
     <template #fallback> Loading... </template>
   </suspense>
 </template>
-<script>
+<script setup>
 import App from '@/App.vue';
-
-export default {
-  components: { App },
-  setup() {
-    return { App };
-  },
-};
 </script>

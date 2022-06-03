@@ -24,32 +24,19 @@
     </div>
   </div>
 </template>
-<script>
-
-export default {
-  name: 'SnippetListToolbar',
-  props: {
-    sort: {
-      type: String,
-      default: 'desc',
-    },
-    term: {
-      type: String,
-      default: '',
-    },
+<script setup>
+defineProps({
+  sort: {
+    type: String,
+    default: 'desc',
   },
-  setup(_, { emit }) {
-    const toggle = () => {
-      emit('navigation');
-    };
-
-    const add = () => {
-      emit('snippet');
-    };
-
-    return { toggle, add };
+  term: {
+    type: String,
+    default: '',
   },
-};
+});
+
+defineEmits(['navigation:toggle', 'sippet:createp']);
 </script>
 <style scoped>
 .snippet-list-toolbar-wrapper {

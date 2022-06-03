@@ -53,7 +53,7 @@
     <editor-indent v-model="snippet.editor_options.indent_size" />
   </editor-status-bar>
 </template>
-<script>
+<script setup>
 import { Codemirror } from 'vue-codemirror';
 import { computed, ref, watch } from 'vue';
 import { languages } from '@codemirror/language-data';
@@ -65,85 +65,62 @@ import { markdown } from '@codemirror/lang-markdown';
 import EditorStatusBar from '@/components/app/editor/EditorStatusBar.vue';
 import LanguageSelector from '@/components/app/editor/LanguageSelector.vue';
 import EditorIndent from '@/components/app/editor/EditorIndent.vue';
-import modelWrapper from '@/composable/modelWrapper';
 
-export default {
-  name: 'CodeEditor',
-  emits: ['update:modelValue', 'snippet:close', 'snippet:delete'],
-  components: {
-    Codemirror,
-    LanguageSelector,
-    EditorStatusBar,
-    EditorIndent,
+const emit = defineEmits(['snippet:close', 'snippet:delete', 'update:modelValue']);
+const props = defineProps({
+  modelValue: {
+    type: Object,
+    default: () => ({}),
   },
-  props: {
-    modelValue: {
-      type: Object,
-      default: () => ({}),
-    },
-    theme: {
-      type: String,
-    },
+  theme: {
+    type: String,
   },
-  setup(props, { emit }) {
-    const snippet = modelWrapper(props, emit);
-    const themes = {
-      light: githubLight,
-      dark: githubDark,
-    };
-    const indentSize = ref(2);
-    const defaultLanguage = markdown();
-    const state = ref({});
-    const modal = ref(null);
-    const extensions = ref([]);
-    const theme = computed(() => themes[props.theme]);
-    const language = ref(defaultLanguage);
+});
 
-    const handleState = (e) => {
-      const { ranges } = e.state.selection;
-      state.value.selected = ranges.reduce((plus, range) => plus + range.to - range.from, 0);
-      state.value.cursor = ranges[0].anchor;
-      state.value.length = e.state.doc.length;
-      state.value.lines = e.state.doc.lines;
-    };
-
-    const loadLanguageMode = (value) => {
-      const mode = languages.find((item) => item.name === value) ?? false;
-      if (mode === false) {
-        snippet.value.language = 'Markdown';
-        language.value = defaultLanguage;
-        return;
-      }
-      mode.load().then((extension) => {
-        snippet.value.language = mode.name;
-        language.value = extension;
-      });
-      modal.value?.close();
-    };
-
-    watch(
-      () => snippet.value.language,
-      (value) => {
-        loadLanguageMode(value);
-      },
-      { immediate: true }
-    );
-
-    watch([theme, language], () => {
-      extensions.value = [theme.value, language.value];
-    });
-
-    return {
-      snippet,
-      extensions,
-      state,
-      handleState,
-      modal,
-      languages,
-      indentSize,
-    };
-  },
+const snippet = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
+});
+const themes = {
+  light: githubLight,
+  dark: githubDark,
 };
+
+const defaultLanguage = markdown();
+const state = ref({});
+const modal = ref(null);
+const extensions = ref([]);
+const theme = computed(() => themes[props.theme]);
+const language = ref(defaultLanguage);
+
+const handleState = (e) => {
+  const { ranges } = e.state.selection;
+  state.value.selected = ranges.reduce((plus, range) => plus + range.to - range.from, 0);
+  state.value.cursor = ranges[0].anchor;
+  state.value.length = e.state.doc.length;
+  state.value.lines = e.state.doc.lines;
+};
+
+watch(
+  () => snippet.value.language,
+  async (value) => {
+    const mode = languages.find((item) => item.name === value) ?? false;
+    if (mode === false) {
+      snippet.value.language = 'Markdown';
+      language.value = defaultLanguage;
+      return;
+    }
+    const extension = await mode.load();
+    snippet.value.language = mode.name;
+    language.value = extension;
+    modal.value?.close();
+  },
+  { immediate: true }
+);
+
+watch([theme, language], () => {
+  extensions.value = [theme.value, language.value];
+});
 </script>
 <style scoped>
 .editor-tools-container {

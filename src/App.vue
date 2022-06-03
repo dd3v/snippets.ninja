@@ -1,4 +1,4 @@
-<template data-theme="light">
+<template>
   <aside class="left-block" :class="{ active: sidebar }">
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />

@@ -10,25 +10,19 @@
     </u-button>
   </div>
 </template>
-<script>
+<script setup>
 import { computed } from 'vue';
 
-export default {
-  name: 'EditorIndent',
-  props: {
-    modelValue: {
-      type: Number,
-    },
+const props = defineProps({
+  modelValue: {
+    type: Number,
   },
-  setup(props, { emit }) {
-    const size = computed({
-      get: () => props.modelValue,
-      set: (value) => emit('update:modelValue', value),
-    });
-
-    return { size };
-  },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const size = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
+});
 </script>
 
 <style scoped>

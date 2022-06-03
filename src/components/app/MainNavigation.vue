@@ -10,29 +10,26 @@
     </ul>
   </div>
 </template>
-<script>
-import modelWrapper from '@/composable/modelWrapper';
+<script setup>
+import { computed } from 'vue';
 
-export default {
-  name: 'MainNavigation',
-  props: {
-    show: {
-      type: Boolean,
-      default: true,
-    },
-    modelValue: {
-      type: String,
-    },
-    items: {
-      type: Array,
-    },
+const props = defineProps({
+  show: {
+    type: Boolean,
+    default: true,
   },
-  setup(props, { emit }) {
-    const selected = modelWrapper(props, emit);
-
-    return { selected };
+  modelValue: {
+    type: String,
   },
-};
+  items: {
+    type: Array,
+  },
+});
+const emit = defineEmits(['update:modelValue']);
+const selected = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
+});
 </script>
 <style scoped>
 span {

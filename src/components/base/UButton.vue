@@ -3,19 +3,15 @@
     <slot />
   </button>
 </template>
-<script>
-export default {
-  name: 'UButton',
-  props: {
-    circle: {
-      type: Boolean,
-    },
-    ariaLabel: {
-      type: String,
-    },
+<script setup>
+defineProps({
+  circle: {
+    type: Boolean,
   },
-  setup() {},
-};
+  ariaLabel: {
+    type: String,
+  },
+});
 </script>
 <style scoped>
 .btn {

@@ -19,27 +19,19 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { computed, inject } from 'vue';
 
-export default {
-  name: 'SnippetItem',
-  props: {
-    snippet: {
-      type: Object,
-    },
+const props = defineProps({
+  snippet: {
+    type: Object,
   },
-  setup(props) {
-    const dayjs = inject('dayjs');
-    const datetime = computed(() => dayjs(props.snippet.created_at).calendar());
-    const title = computed(() =>
-      props.snippet.title.length >= 27
-        ? `${props.snippet.title.slice(0, 27)}..`
-        : props.snippet.title
-    );
-    return { title, datetime };
-  },
-};
+});
+const dayjs = inject('dayjs');
+const datetime = computed(() => dayjs(props.snippet.created_at).calendar());
+const title = computed(() =>
+  props.snippet.title.length >= 27 ? `${props.snippet.title.slice(0, 27)}..` : props.snippet.title
+);
 </script>
 <style scoped>
 .snippet {

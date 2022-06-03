@@ -13,37 +13,35 @@
     </div>
   </transition>
 </template>
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  name: 'UModal',
-  props: {
-    header: {
-      type: String,
-    },
+defineProps({
+  header: {
+    type: String,
   },
-  setup() {
-    const show = ref(false);
-    const closeEventListener = (e) => {
-      if (e.keyCode === 27) {
-        show.value = false;
-        window.removeEventListener('keyup', closeEventListener);
-      }
-    };
-    const close = () => {
-      show.value = false;
-      window.removeEventListener('keyup', closeEventListener);
-    };
+});
 
-    const open = () => {
-      show.value = true;
-      window.addEventListener('keyup', closeEventListener);
-    };
-
-    return { open, close, show };
-  },
+const show = ref(false);
+const closeEventListener = (e) => {
+  if (e.keyCode === 27) {
+    show.value = false;
+    window.removeEventListener('keyup', closeEventListener);
+  }
 };
+const close = () => {
+  show.value = false;
+  window.removeEventListener('keyup', closeEventListener);
+};
+
+const open = () => {
+  show.value = true;
+  window.addEventListener('keyup', closeEventListener);
+};
+
+defineExpose({
+  open, close
+});
 </script>
 <style scoped>
 .modal-backdrop {

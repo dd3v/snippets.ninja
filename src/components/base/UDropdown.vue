@@ -10,42 +10,35 @@
     </transition>
   </div>
 </template>
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  name: 'UDropdown',
-  components: {},
-  props: {
-    icon: {
-      type: String,
-      required: true,
-    },
-    dropleft: {
-      type: Boolean,
-    },
-    circle: {
-      type: Boolean,
-    },
+defineProps({
+  icon: {
+    type: String,
+    required: true,
   },
-  setup() {
-    const isOpen = ref(false);
-    const dropdownButton = ref(null);
-
-    const closeListerner = (event) => {
-      if (!event.target.parentNode.isSameNode(dropdownButton.value.$el)) {
-        isOpen.value = false;
-        window.removeEventListener('click', closeListerner);
-      }
-    };
-
-    const toggleDropdown = () => {
-      isOpen.value = !isOpen.value;
-      window.addEventListener('click', closeListerner);
-    };
-
-    return { isOpen, toggleDropdown, dropdownButton };
+  dropleft: {
+    type: Boolean,
   },
+  circle: {
+    type: Boolean,
+  },
+});
+
+const isOpen = ref(false);
+const dropdownButton = ref(null);
+
+const closeListerner = (event) => {
+  if (!event.target.parentNode.isSameNode(dropdownButton.value.$el)) {
+    isOpen.value = false;
+    window.removeEventListener('click', closeListerner);
+  }
+};
+
+const toggleDropdown = () => {
+  isOpen.value = !isOpen.value;
+  window.addEventListener('click', closeListerner);
 };
 </script>
 <style scoped>

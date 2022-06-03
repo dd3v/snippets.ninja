@@ -17,79 +17,73 @@
           @keydown.delete="$emit('snippets:delete', snippet)"
           @click="handleSelect(snippet)"
         >
-          <snippet-item :snippet="snippet"/>
+          <snippet-item :snippet="snippet" />
         </li>
       </TransitionGroup>
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import gsap from 'gsap';
 import SnippetItem from '@/components/app/SnippetItem.vue';
 
-export default {
-  name: 'SnippetList',
-  emits: ['update:selected', 'snippets:more','snippets:delete'],
-  components: { SnippetItem },
-  props: {
-    items: {
-      type: Array,
-    },
-    selected: {},
+defineProps({
+  items: {
+    type: Array,
   },
-  setup(props, { emit }) {
-    const scroll = ref(null);
-    const handleSelect = (snippet) => {
-      emit('update:selected', snippet);
-    };
-    // gsap animation stuff
-    const onBeforeEnter = (el) => {
-      // eslint-disable-next-line no-param-reassign
-      el.style.opacity = 0;
-      // eslint-disable-next-line no-param-reassign
-      el.style.height = '70px';
-    };
-    const onEnter = (el, done) => {
-      gsap.to(el, {
-        opacity: 1,
-        height: '70px',
-        delay: el.dataset.index * 0.15,
-        onComplete: done,
-      });
-    };
-    const onLeave = (el, done) => {
-      gsap.to(el, {
-        opacity: 0,
-        height: 0,
-        delay: el.dataset.index * 0.15,
-        onComplete: done,
-      });
-    };
+  selected: {},
+});
 
-    const handleScroll = () => {
-      const el = scroll.value;
-      console.log(el.offsetHeight);
-      console.log(el.scrollTop);
-      console.log(el.scrollHeight);
+const emit = defineEmits(['update:selected', 'snippets:more', 'snippets:delete']);
 
-      if (el.offsetHeight + el.scrollTop >= el.scrollHeight) {
-        console.warn('GO!');
-        emit('snippets:more');
-      }
-    };
-
-    onMounted(() => {
-      scroll.value.addEventListener('scroll', handleScroll);
-    });
-
-    onUnmounted(() => {
-      // scroll.value.removeEventListener('scroll', handleScroll);
-    });
-
-    return { handleSelect, scroll, onBeforeEnter, onEnter, onLeave };
-  },
+const scroll = ref(null);
+const handleSelect = (snippet) => {
+  emit('update:selected', snippet);
 };
+// gsap animation stuff
+const onBeforeEnter = (el) => {
+  // eslint-disable-next-line no-param-reassign
+  el.style.opacity = 0;
+  // eslint-disable-next-line no-param-reassign
+  el.style.height = '70px';
+};
+const onEnter = (el, done) => {
+  gsap.to(el, {
+    opacity: 1,
+    height: '70px',
+    delay: el.dataset.index * 0.15,
+    onComplete: done,
+  });
+};
+const onLeave = (el, done) => {
+  gsap.to(el, {
+    opacity: 0,
+    height: 0,
+    delay: el.dataset.index * 0.15,
+    onComplete: done,
+  });
+};
+
+const handleScroll = () => {
+  const el = scroll.value;
+  console.log(el.offsetHeight);
+  console.log(el.scrollTop);
+  console.log(el.scrollHeight);
+  if (el.offsetHeight + el.scrollTop >= el.scrollHeight) {
+    emit('snippets:more');
+  }
+};
+
+onMounted(() => {
+  scroll.value.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  // scroll.value.removeEventListener('scroll', handleScroll);
+});
+
+defineExpose({ scroll });
 </script>
 <style scoped>
 .snippet-list-wrapper {

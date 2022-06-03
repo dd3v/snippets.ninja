@@ -8,14 +8,10 @@
     </ul>
   </div>
 </template>
-<script>
-export default {
-  name: 'EditorStatusBar',
-  props: {
-    state: Object,
-  },
-  setup() {},
-};
+<script setup>
+defineProps({
+  state: Object,
+});
 </script>
 <style scoped>
 .status-bar-wrapper {
