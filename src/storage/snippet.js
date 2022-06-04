@@ -1,4 +1,3 @@
-/* eslint-disable object-shorthand */
 import connection from './db/connection';
 
 export default class SnippetStorage {
@@ -14,7 +13,7 @@ export default class SnippetStorage {
     if (conditions.tags.length) {
       Object.assign(whereConditions, {
         tags: {
-          in: conditions.tags,
+          in: [...conditions.tags],
         },
       });
     }
@@ -30,8 +29,8 @@ export default class SnippetStorage {
     return connection.select({
       from: this.tableName,
       // distinct: true,
-      limit: limit,
-      skip: skip,
+      limit,
+      skip,
       order: {
         by: 'id',
         type: conditions.sort,
