@@ -25,9 +25,6 @@
       </u-button>
     </div>
     <div class="item">
-      <u-dropdown icon="share" dropleft circle> ... coming soon 🚀 </u-dropdown>
-    </div>
-    <div class="item">
       <u-button circle @click="$emit('snippet:delete', snippet)" ariaLabel="Delete Snippet">
         <u-icon name="trash-empty" />
       </u-button>
