@@ -1,5 +1,5 @@
 <template>
-  <div v-if="idbError" class="container">IndexedDB is not supported.</div>
+  <div v-if="!indexedDBStatus()" class="container">IndexedDB is not supported.</div>
   <suspense v-else>
     <template #default><app /></template>
     <template #fallback>
@@ -11,15 +11,8 @@
 </template>
 <script setup>
 import App from '@/App.vue';
-import { ref, onErrorCaptured } from 'vue';
 
-const idbError = ref(false);
-
-onErrorCaptured((error) => {
-  console.warn('FROM ENTRY POINT');
-  console.log(error);
-  idbError.value = true;
-});
+const indexedDBStatus = () => !!window.indexedDB;
 </script>
 <style scoped>
 .container {
