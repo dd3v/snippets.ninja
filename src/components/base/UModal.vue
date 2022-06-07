@@ -1,17 +1,21 @@
 <template>
-  <transition name="slide">
-    <div class="modal-backdrop" v-show="show" @click.self="close" @keydown.self="close">
-      <div class="modal">
-        <header class="modal-header">
-          <div class="modal-title">{{ header }}</div>
-          <div class="modal-close"><button class="close-btn" @click="close">&#x2715;</button></div>
-        </header>
-        <section class="modal-body">
-          <slot />
-        </section>
+  <teleport to="body">
+    <transition name="slide">
+      <div class="modal-backdrop" v-show="show" @click.self="close" @keydown.self="close">
+        <div class="modal">
+          <header class="modal-header">
+            <div class="modal-title">{{ header }}</div>
+            <div class="modal-close">
+              <button class="close-btn" @click="close">&#x2715;</button>
+            </div>
+          </header>
+          <section class="modal-body">
+            <slot />
+          </section>
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </teleport>
 </template>
 <script setup>
 import { ref } from 'vue';
@@ -40,7 +44,8 @@ const open = () => {
 };
 
 defineExpose({
-  open, close
+  open,
+  close,
 });
 </script>
 <style scoped>
