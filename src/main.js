@@ -6,8 +6,9 @@ import UButton from '@/components/base/UButton.vue';
 import UInput from '@/components/base/UInput.vue';
 import UModal from '@/components/base/UModal.vue';
 import UTagInput from '@/components/base/UTagInput.vue';
-
 import EntryPoint from '@/EntryPoint.vue';
+
+import notify from '@/plugins/notify';
 import '@/assets/css/app.css';
 import './registerServiceWorker';
 
@@ -20,6 +21,7 @@ dayjs().calendar(null, {
 
 const app = createApp(EntryPoint);
 app.provide('dayjs', dayjs);
+app.use(notify);
 app.component('u-icon', UIcon);
 app.component('u-button', UButton);
 app.component('u-input', UInput);

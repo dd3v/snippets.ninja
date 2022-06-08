@@ -36,10 +36,11 @@
       v-if="snippet"
     />
   </section>
+  <u-notify />
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, toRaw, watch, onErrorCaptured } from 'vue';
+import { onMounted, reactive, ref, toRaw, watch, onErrorCaptured, inject } from 'vue';
 // import faker from '@faker-js/faker';
 import setupTheme from '@/helpers/themeSwitcher';
 import initStorage from './storage/db/idb';
@@ -52,6 +53,7 @@ import MainNavigation from './components/app/MainNavigation.vue';
 import SnippetListToolbar from './components/app/SnippetListToolbar.vue';
 import SnippetStorage from './storage/snippet';
 
+const notify = inject('notify');
 const theme = ref('');
 const sidebar = ref(false);
 const snippetScroll = ref('');
@@ -67,42 +69,52 @@ const snippets = ref([]);
 const limit = 100;
 let skip = 0;
 
-onErrorCaptured((err, vm, info) => {
-  console.log(err);
-  console.log(vm);
-  console.log(info);
-});
-
 await initStorage();
 const snippetStorage = new SnippetStorage();
 const conditions = reactive({ ...defaultConditions });
-console.log(snippetEntity);
+
 const createSnippet = async () => {
-  const response = await snippetStorage.create(snippetEntity);
-  Object.assign(conditions, defaultConditions);
-  snippets.value.unshift(...response);
-  snippet.value = snippets.value[0] ?? false;
-  snippetScroll.value.scroll.scrollTo({
-    top: 1,
-    behavior: 'smooth',
-  });
+  try {
+    const response = await snippetStorage.create(snippetEntity);
+    Object.assign(conditions, defaultConditions);
+    snippets.value.unshift(...response);
+    snippet.value = snippets.value[0] ?? false;
+    snippetScroll.value.scroll.scrollTo({
+      top: 1,
+      behavior: 'smooth',
+    });
+  } catch (e) {
+    notify.error(e);
+  }
 };
 
 const deleteSnippet = async (value) => {
-  await snippetStorage.softDelete(value);
-  snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
-  snippet.value = null;
+  try {
+    await snippetStorage.softDelete(value);
+    snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
+    snippet.value = null;
+  } catch (e) {
+    notify.error(e);
+  }
 };
 
 const loadTags = async () => {
-  const response = await snippetStorage.tags();
-  tags.value = response.map((item) => item.tags);
-  tags.value.sort();
+  try {
+    const response = await snippetStorage.tags();
+    tags.value = response.map((item) => item.tags);
+    tags.value.sort();
+  } catch (e) {
+    notify.error(e);
+  }
 };
 
 const loadMore = async () => {
-  skip += limit;
-  snippets.value.push(...(await snippetStorage.search(conditions, limit, skip)));
+  try {
+    skip += limit;
+    snippets.value.push(...(await snippetStorage.search(conditions, limit, skip)));
+  } catch (e) {
+    notify.error(e);
+  }
 };
 
 watch(
@@ -134,6 +146,10 @@ watch(
 onMounted(() => {
   theme.value = setupTheme(localStorage.getItem('theme') ?? 'light');
   loadTags();
+});
+
+onErrorCaptured((e) => {
+  notify.error(e);
 });
 </script>
 

@@ -1,3 +1,4 @@
+import faker from '@faker-js/faker';
 import connection from './db/connection';
 
 export default class SnippetStorage {
@@ -25,7 +26,6 @@ export default class SnippetStorage {
       Object.assign(whereConditions, { title: { like: `%${conditions.term}%` } });
     }
 
-
     return connection.select({
       from: this.tableName,
       // distinct: true,
@@ -39,12 +39,18 @@ export default class SnippetStorage {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   create(entity) {
-    return connection.insert({
-      into: this.tableName,
-      values: [entity],
-      return: true,
-    });
+    console.log(entity);
+
+    
+    // eslint-disable-next-line no-throw-literal
+    throw faker.address.city();
+    // return connection.insert({
+    //   into: this.tableName,
+    //   values: [entity],
+    //   return: true,
+    // });
   }
 
   softDelete(entity) {
