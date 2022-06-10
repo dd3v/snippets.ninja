@@ -1,17 +1,10 @@
 <template>
   <div class="snippet-list-wrapper" ref="scroll">
     <div class="snippet-list">
-      <TransitionGroup
-        tag="ul"
-        :css="false"
-        @before-enter="onBeforeEnter"
-        @enter="onEnter"
-        @leave="onLeave"
-      >
+      <transition-group tag="ul" name="fade">
         <li
           tabindex="0"
           v-for="snippet in items"
-          :id="`snippet-${snippet.id}`"
           :key="snippet.id"
           :class="{ active: selected?.id === snippet.id }"
           @keydown.delete="$emit('snippets:delete', snippet)"
@@ -19,13 +12,12 @@
         >
           <snippet-item :snippet="snippet" />
         </li>
-      </TransitionGroup>
+      </transition-group>
     </div>
   </div>
 </template>
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
-import gsap from 'gsap';
 import SnippetItem from '@/components/app/SnippetItem.vue';
 
 defineProps({
@@ -40,29 +32,6 @@ const emit = defineEmits(['update:selected', 'snippets:more', 'snippets:delete']
 const scroll = ref(null);
 const handleSelect = (snippet) => {
   emit('update:selected', snippet);
-};
-// gsap animation stuff
-const onBeforeEnter = (el) => {
-  // eslint-disable-next-line no-param-reassign
-  el.style.opacity = 0;
-  // eslint-disable-next-line no-param-reassign
-  el.style.height = '70px';
-};
-const onEnter = (el, done) => {
-  gsap.to(el, {
-    opacity: 1,
-    height: '70px',
-    delay: el.dataset.index * 0.15,
-    onComplete: done,
-  });
-};
-const onLeave = (el, done) => {
-  gsap.to(el, {
-    opacity: 0,
-    height: 0,
-    delay: el.dataset.index * 0.15,
-    onComplete: done,
-  });
 };
 
 const handleScroll = () => {
@@ -110,5 +79,21 @@ defineExpose({ scroll });
   background: var(--primary-bg-color);
   color: var(--primary-text-color);
   box-shadow: var(--snippet-list-active-box-shadow);
+}
+
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0.01);
+}
+
+.fade-leave-active {
+  position: absolute;
 }
 </style>
