@@ -1,4 +1,3 @@
-import faker from '@faker-js/faker';
 import connection from './db/connection';
 
 export default class SnippetStorage {
@@ -39,18 +38,12 @@ export default class SnippetStorage {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
   create(entity) {
-    console.log(entity);
-
-    
-    // eslint-disable-next-line no-throw-literal
-    throw faker.address.city();
-    // return connection.insert({
-    //   into: this.tableName,
-    //   values: [entity],
-    //   return: true,
-    // });
+    return connection.insert({
+      into: this.tableName,
+      values: [entity],
+      return: true,
+    });
   }
 
   softDelete(entity) {

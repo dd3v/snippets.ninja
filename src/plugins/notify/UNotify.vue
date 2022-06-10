@@ -1,23 +1,17 @@
 <template>
-  <teleport to="body">
-    <transition-group name="list" tag="ul">
-      <li v-for="(notification, key) in notifications" :key="key">
-        <div class="notify-wrapper" :class="notification.type">
-          {{ notification.message }}
-          <button @click="deleteNotification(key)">&#x2715;</button>
-        </div>
-      </li>
-    </transition-group>
-  </teleport>
+  <transition-group tag="ul">
+    <li v-for="(notification, key) in notifications" :key="key">
+      <div class="notify-wrapper" :class="notification.type">
+        {{ notification.message }}
+        <button @click="close(key)">&#x2715;</button>
+      </div>
+    </li>
+  </transition-group>
 </template>
 <script setup>
 import { notifications, deleteNotification } from './api';
 
-defineProps({
-  message: {
-    type: String,
-  },
-});
+const close = (index) => deleteNotification(index);
 </script>
 
 <style scoped>
@@ -35,13 +29,13 @@ ul {
 }
 
 .notify-wrapper {
-  box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
-    0 9px 28px 8px rgb(0 0 0 / 5%);
+  box-shadow: 0 3px 20px 0px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
   border-radius: 11px;
   line-height: 20px;
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  word-break: break-word;
 }
 
 .error {
@@ -59,15 +53,13 @@ button {
   cursor: pointer;
   outline: inherit;
 }
-
-.list-enter-active,
-.list-leave-active {
-  transition: all 1s ease;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
 }
 
-.list-enter-from,
-.list-leave-to {
+.v-enter-from,
+.v-leave-to {
   opacity: 0;
-  transform: translateY(30px);
 }
 </style>
