@@ -44,8 +44,11 @@
     <u-button @click="modal.open()" ariaLabel="Language mode">
       <u-icon name="code" />{{ snippet.language }}
     </u-button>
-    <u-modal header="Language mode" ref="modal">
-      <language-selector :languages="languages" v-model="snippet.language" />
+    <u-modal ref="modal">
+      <template #header> Language mode </template>
+      <template #body
+        ><language-selector :languages="languages" v-model="snippet.language"
+      /></template>
     </u-modal>
     <editor-indent v-model="snippet.editor_options.indent_size" />
   </editor-status-bar>

@@ -4,11 +4,14 @@ import UModal from '@/components/base/UModal.vue';
 describe('UModal.vue', () => {
   it('Modal props and slot', () => {
     const wrapper = mount(UModal, {
-      props: {
-        header: 'Modal header',
+      global: {
+        stubs: {
+          teleport: true,
+        },
       },
       slots: {
-        default: 'Modal content',
+        header: 'Modal header',
+        body: 'Modal content',
       },
     });
     expect(wrapper.find('.modal-title').text()).toEqual('Modal header');
@@ -17,11 +20,14 @@ describe('UModal.vue', () => {
 
   it('Open modal', () => {
     const wrapper = mount(UModal, {
-      props: {
-        header: 'Modal header',
+      global: {
+        stubs: {
+          teleport: true,
+        },
       },
       slots: {
-        default: 'Modal content',
+        header: 'Modal header',
+        body: 'Modal content',
       },
     });
     wrapper.vm.open();
@@ -30,11 +36,14 @@ describe('UModal.vue', () => {
 
   it('Close modal', () => {
     const wrapper = mount(UModal, {
-      props: {
-        header: 'Modal header',
+      global: {
+        stubs: {
+          teleport: true,
+        },
       },
       slots: {
-        default: 'Modal content',
+        header: 'Modal header',
+        body: 'Modal content',
       },
     });
     wrapper.vm.open();
@@ -44,11 +53,14 @@ describe('UModal.vue', () => {
 
   it('Backdrop close', () => {
     const wrapper = mount(UModal, {
-      props: {
-        header: 'Modal header',
+      global: {
+        stubs: {
+          teleport: true,
+        },
       },
       slots: {
-        default: 'Modal content',
+        header: 'Modal header',
+        body: 'Modal content',
       },
     });
     wrapper.vm.open();
@@ -58,11 +70,14 @@ describe('UModal.vue', () => {
 
   it('ESC close', () => {
     const wrapper = mount(UModal, {
-      props: {
-        header: 'Modal header',
+      global: {
+        stubs: {
+          teleport: true,
+        },
       },
       slots: {
-        default: 'Modal content',
+        header: 'Modal header',
+        body: 'Modal content',
       },
     });
     wrapper.vm.open();

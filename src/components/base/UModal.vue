@@ -1,16 +1,18 @@
 <template>
   <teleport to="body">
     <transition name="slide">
-      <div class="modal-backdrop" v-show="show" @click.self="close" @keydown.self="close">
+      <div class="modal-backdrop" v-show="show" @click.self="close" @keydown.esc="close">
         <div class="modal">
           <header class="modal-header">
-            <div class="modal-title">{{ header }}</div>
+            <div class="modal-title">
+              <slot name="header" />
+            </div>
             <div class="modal-close">
               <button class="close-btn" @click="close">&#x2715;</button>
             </div>
           </header>
           <section class="modal-body">
-            <slot />
+            <slot name="body" />
           </section>
         </div>
       </div>
@@ -20,27 +22,22 @@
 <script setup>
 import { ref } from 'vue';
 
-defineProps({
-  header: {
-    type: String,
-  },
-});
-
 const show = ref(false);
-const closeEventListener = (e) => {
-  if (e.keyCode === 27) {
+
+const onEsc = (event) => {
+  if (show.value === true && event.keyCode === 27) {
     show.value = false;
-    window.removeEventListener('keyup', closeEventListener);
   }
 };
+
 const close = () => {
   show.value = false;
-  window.removeEventListener('keyup', closeEventListener);
+  document.removeEventListener('keyup', onEsc);
 };
 
 const open = () => {
   show.value = true;
-  window.addEventListener('keyup', closeEventListener);
+  document.addEventListener('keyup', onEsc);
 };
 
 defineExpose({
@@ -53,7 +50,7 @@ defineExpose({
   display: flex;
   flex-direction: column;
   position: fixed;
-  z-index: 9998;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
@@ -73,16 +70,24 @@ defineExpose({
   border: var(--modal-border);
   border-radius: 5px;
   transition: all 0.3s ease;
-}
-
-.modal-body {
-  padding: 15px 0px 15px 0px;
+  padding: 10px;
 }
 
 .modal-header {
   display: flex;
   font-size: 16px;
   justify-content: space-between;
+  padding: 10px 0px 30px 0px;
+}
+
+.close-btn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 .slide-enter-from {
@@ -101,15 +106,5 @@ defineExpose({
   opacity: 0;
   transform: translateY(0px);
   transition: 0.5s all ease;
-}
-
-.close-btn {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
 }
 </style>
