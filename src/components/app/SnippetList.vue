@@ -26,19 +26,16 @@ defineProps({
   },
   selected: {},
 });
-
 const emit = defineEmits(['update:selected', 'snippets:more', 'snippets:delete']);
 
 const scroll = ref(null);
+
 const handleSelect = (snippet) => {
   emit('update:selected', snippet);
 };
 
 const handleScroll = () => {
   const el = scroll.value;
-  console.log(el.offsetHeight);
-  console.log(el.scrollTop);
-  console.log(el.scrollHeight);
   if (el.offsetHeight + el.scrollTop >= el.scrollHeight) {
     emit('snippets:more');
   }
@@ -84,16 +81,12 @@ defineExpose({ scroll });
 .fade-move,
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: all 0.2s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
   transform: scaleY(0.01);
-}
-
-.fade-leave-active {
-  position: absolute;
 }
 </style>
