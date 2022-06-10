@@ -1,11 +1,12 @@
+import { createApp } from 'vue';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-import { createApp } from 'vue';
 import UIcon from '@/components/base/UIcon.vue';
 import UButton from '@/components/base/UButton.vue';
 import UInput from '@/components/base/UInput.vue';
 import UModal from '@/components/base/UModal.vue';
 import UTagInput from '@/components/base/UTagInput.vue';
+import UScroll from '@/components/base/UScroll.vue';
 import EntryPoint from '@/EntryPoint.vue';
 
 import notify from '@/plugins/notify';
@@ -27,5 +28,6 @@ app.component('u-button', UButton);
 app.component('u-input', UInput);
 app.component('u-modal', UModal);
 app.component('u-tag-input', UTagInput);
+app.component('u-scroll', UScroll);
 
 app.mount('#app');

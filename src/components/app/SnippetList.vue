@@ -1,23 +1,20 @@
 <template>
-  <div class="snippet-list-wrapper" ref="scroll">
-    <div class="snippet-list">
-      <transition-group tag="ul" name="fade">
-        <li
-          tabindex="0"
-          v-for="snippet in items"
-          :key="snippet.id"
-          :class="{ active: selected?.id === snippet.id }"
-          @keydown.delete="$emit('snippets:delete', snippet)"
-          @click="handleSelect(snippet)"
-        >
-          <snippet-item :snippet="snippet" />
-        </li>
-      </transition-group>
-    </div>
+  <div class="snippet-list">
+    <transition-group tag="ul" name="fade" class="snippet-list">
+      <li
+        tabindex="0"
+        v-for="snippet in items"
+        :key="snippet.id"
+        :class="{ active: selected?.id === snippet.id }"
+        @keydown.delete="$emit('snippets:delete', snippet)"
+        @click="handleSelect(snippet)"
+      >
+        <snippet-item :snippet="snippet" />
+      </li>
+    </transition-group>
   </div>
 </template>
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue';
 import SnippetItem from '@/components/app/SnippetItem.vue';
 
 defineProps({
@@ -26,41 +23,14 @@ defineProps({
   },
   selected: {},
 });
-const emit = defineEmits(['update:selected', 'snippets:more', 'snippets:delete']);
-
-const scroll = ref(null);
+const emit = defineEmits(['update:selected', 'snippets:delete']);
 
 const handleSelect = (snippet) => {
   emit('update:selected', snippet);
 };
 
-const handleScroll = () => {
-  const el = scroll.value;
-  if (el.offsetHeight + el.scrollTop >= el.scrollHeight) {
-    emit('snippets:more');
-  }
-};
-
-onMounted(() => {
-  scroll.value.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-  // scroll.value.removeEventListener('scroll', handleScroll);
-});
-
-defineExpose({ scroll });
 </script>
 <style scoped>
-.snippet-list-wrapper {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 5px 5px 5px 5px;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-}
-
 .snippet-list {
   margin: 10px 0;
 }

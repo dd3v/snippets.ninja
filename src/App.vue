@@ -2,7 +2,7 @@
   <aside class="left-block" :class="{ active: sidebar }">
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
-    <section class="">
+    <section>
       <u-button
         circle
         ariaLabel="Theme"
@@ -19,13 +19,9 @@
       @snippet:create="createSnippet"
       @navigation:toggle="sidebar = !sidebar"
     />
-    <snippet-list
-      ref="snippetScroll"
-      :items="snippets"
-      @snippets:more="loadMore"
-      @snippets:delete="deleteSnippet"
-      v-model:selected="snippet"
-    />
+    <u-scroll @scroll:end="paginate" :limit="100" ref="scroll">
+      <snippet-list :items="snippets" @snippets:delete="deleteSnippet" v-model:selected="snippet" />
+    </u-scroll>
   </section>
   <section class="right-block" :class="{ hide: !snippet }">
     <code-editor
@@ -56,7 +52,6 @@ import SnippetStorage from './storage/snippet';
 const notify = inject('notify');
 const theme = ref('');
 const sidebar = ref(false);
-const snippetScroll = ref('');
 const defaultConditions = {
   snippets: 'all',
   tags: [],
@@ -66,8 +61,7 @@ const defaultConditions = {
 const tags = ref([]);
 const snippet = ref(false);
 const snippets = ref([]);
-const limit = 100;
-let skip = 0;
+const scroll = ref({});
 
 await initStorage();
 const snippetStorage = new SnippetStorage();
@@ -79,10 +73,7 @@ const createSnippet = async () => {
     Object.assign(conditions, defaultConditions);
     snippets.value.unshift(...response);
     snippet.value = snippets.value[0] ?? false;
-    snippetScroll.value.scroll.scrollTo({
-      top: 1,
-      behavior: 'smooth',
-    });
+    scroll.value.scrollUp();
   } catch (e) {
     notify.error(e);
   }
@@ -108,10 +99,9 @@ const loadTags = async () => {
   }
 };
 
-const loadMore = async () => {
+const paginate = async (skip) => {
   try {
-    skip += limit;
-    snippets.value.push(...(await snippetStorage.search(conditions, limit, skip)));
+    snippets.value.push(...(await snippetStorage.search(toRaw(conditions), skip, 100)));
   } catch (e) {
     notify.error(e);
   }
@@ -134,7 +124,6 @@ watch(
 watch(
   conditions,
   async () => {
-    skip = 0;
     snippets.value = await snippetStorage.search(toRaw(conditions));
   },
   {
@@ -193,6 +182,8 @@ onErrorCaptured((e) => {
   overflow: hidden;
   background: var(--body-bg);
 }
+
+/** responsive things **/
 
 .m-button {
   display: none;
