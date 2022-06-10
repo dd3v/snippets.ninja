@@ -1,12 +1,14 @@
 <template>
-  <transition-group tag="ul">
-    <li v-for="(notification, key) in notifications" :key="key">
-      <div class="notify-wrapper" :class="notification.type">
-        {{ notification.message }}
-        <button @click="close(key)">&#x2715;</button>
-      </div>
-    </li>
-  </transition-group>
+  <teleport to="body">
+    <transition-group tag="ul" class="notifications">
+      <li v-for="(notification, key) in notifications" :key="key">
+        <div class="notify-wrapper" :class="notification.type">
+          {{ notification.message }}
+          <button @click="close(key)">&#x2715;</button>
+        </div>
+      </li>
+    </transition-group>
+  </teleport>
 </template>
 <script setup>
 import { notifications, deleteNotification } from './api';
@@ -15,7 +17,7 @@ const close = (index) => deleteNotification(index);
 </script>
 
 <style scoped>
-ul {
+.notifications {
   display: flex;
   flex-direction: column;
   list-style: none;
