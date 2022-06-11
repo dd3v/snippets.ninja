@@ -3,11 +3,7 @@
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
     <section>
-      <u-button
-        circle
-        ariaLabel="Theme"
-        @click="theme = setupTheme(theme === 'light' ? 'dark' : 'light')"
-      >
+      <u-button circle ariaLabel="Theme" @click="theme = toggleTheme(theme)">
         <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
     </section>
@@ -37,7 +33,7 @@
 
 <script setup>
 import { onMounted, reactive, ref, toRaw, watch, onErrorCaptured, inject } from 'vue';
-import setupTheme from '@/helpers/themeSwitcher';
+import { installTheme, toggleTheme } from '@/helpers/themeSwitcher';
 import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/editor/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
@@ -137,7 +133,7 @@ watch(
 );
 
 onMounted(() => {
-  theme.value = setupTheme(localStorage.getItem('theme') ?? 'light');
+  theme.value = installTheme();
   getTags();
 });
 
