@@ -75,7 +75,7 @@ const createSnippet = async () => {
   try {
     const response = await snippetStorage.create(snippetEntity);
     snippets.value.unshift(...response);
-    snippet.value = snippets.value.pop();
+    snippet.value = snippets.value[0] ?? false;
     scroll.value.scrollUp();
     // reset filter conditions
     Object.assign(conditions, defaultConditions);

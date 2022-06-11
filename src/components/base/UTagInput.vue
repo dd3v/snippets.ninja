@@ -13,7 +13,6 @@
       maxlength="25"
       v-model="tag"
       :placeholder="placeholder"
-      class="tag-input-text"
       aria-label="Tag input"
       @keydown.enter="add"
       @keydown.,.prevent="add"
@@ -77,7 +76,7 @@ const add = () => {
 
 .tag {
   display: inline-flex;
-  gap:5px;
+  gap: 5px;
   align-items: center;
   padding: 1px 8px;
   line-height: 1.5;
@@ -89,12 +88,12 @@ const add = () => {
   color: var(--primary-text-color);
 }
 
-.tag-input-text {
+input {
   border: none;
   outline: none;
   font-size: inherit;
   background: none;
-  color: var(--invisible-input-color);
+  color: var(--default-text-color);
 }
 
 button {

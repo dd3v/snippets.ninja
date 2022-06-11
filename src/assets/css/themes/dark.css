@@ -33,8 +33,8 @@
 
   /* input */
 
-  --default-input-border: 1px solid hsl(210deg 12% 16%);
-  --default-input-background: hsl(0deg 0% 48% / 54%);
+  --default-input-border: none;
+  --default-input-background: hsl(206deg 11% 12%);
   --default-input-text-color: hsl(0deg 0% 48%);
 
   /* button */
@@ -63,7 +63,7 @@
   background: transparent;
   border: 4px solid rgb(21, 24, 27);
 }
-
-.tag-input-text::placeholder {
-  color: hsl(0deg 0% 48%);
+[data-theme='dark'] ::placeholder {
+  color: rgb(147, 147, 147);
+  font-size: 12px;
 }

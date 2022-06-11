@@ -72,9 +72,8 @@ input[type='search'] {
   overflow: hidden;
   height: 32px;
   border-radius: 10px;
-  border: var(--default-input-border);
-  transition: box-shadow 0.2s ease 0s;
   padding-left: 10px;
+  border: var(--default-input-border);
   background: var(--default-input-background);
   color: var(--default-text-color);
 }
