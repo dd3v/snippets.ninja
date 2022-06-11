@@ -78,11 +78,15 @@ export default class SnippetStorage {
     });
   }
 
-  tags() {
-    return connection.select({
+  async tags() {
+    const response = await connection.select({
       from: this.tableName,
       flatten: ['tags'],
       groupBy: 'tags',
     });
+
+    const tags = response.map((item) => item.tags);
+    tags.sort();
+    return tags;
   }
 }

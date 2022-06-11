@@ -6,16 +6,13 @@
           :color="snippet.favorite ? 'var(--like-color)' : ''"
           :name="snippet.favorite ? 'heart' : 'heart-empty'"
         />
-      </span>
-      <span style="flex: 1">
         <span v-if="title">{{ title }}</span>
         <span class="italic-text" v-else>Untitled</span>
       </span>
-      <span><u-icon name="cloud" /></span>
     </div>
-    <div class="snippet-content small-text">
-      <span class="snippet-language"><u-icon name="code" /> {{ snippet.language }}</span>
-      <span class="snippet-date">{{ datetime }}</span>
+    <div class="snippet-content text-small">
+      <span><u-icon name="code" /> {{ snippet.language }}</span>
+      <span>{{ datetime }}</span>
     </div>
   </div>
 </template>
@@ -30,7 +27,7 @@ const props = defineProps({
 const dayjs = inject('dayjs');
 const datetime = computed(() => dayjs(props.snippet.created_at).calendar());
 const title = computed(() =>
-  props.snippet.title.length >= 27 ? `${props.snippet.title.slice(0, 27)}..` : props.snippet.title
+  props.snippet.title.length >= 27 ? `${props.snippet.title.slice(0, 30)}..` : props.snippet.title
 );
 </script>
 <style scoped>
@@ -44,5 +41,13 @@ const title = computed(() =>
 .snippet-content {
   display: flex;
   justify-content: space-between;
+}
+
+.text-small {
+  font-size: 12px;
+}
+
+.italic-text {
+  font-style: italic;
 }
 </style>

@@ -25,8 +25,8 @@ defineProps({
 }
 
 .btn-circle {
-  width: 24px;
-  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
   border-radius: 50%;
   border: var(--btn-circle-border);
 }

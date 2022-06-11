@@ -1,14 +1,12 @@
 <template>
-  <div class="editor-indent-wrapper">
-    Tabs:
-    <u-button @click="size--" ariaLabel="Increase indent">
-      <u-icon name="minus" />
-    </u-button>
-    <span>{{ size }}</span>
-    <u-button @click="size++" ariaLabel="Decrease indent">
-      <u-icon name="plus" />
-    </u-button>
-  </div>
+  Tabs:
+  <u-button @click="size--" ariaLabel="Increase indent">
+    <u-icon name="minus" />
+  </u-button>
+  <span>{{ size }}</span>
+  <u-button @click="size++" ariaLabel="Decrease indent">
+    <u-icon name="plus" />
+  </u-button>
 </template>
 <script setup>
 import { computed } from 'vue';
@@ -24,6 +22,3 @@ const size = computed({
   set: (value) => emit('update:modelValue', value),
 });
 </script>
-
-<style scoped>
-</style>

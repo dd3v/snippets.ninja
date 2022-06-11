@@ -1,14 +1,12 @@
 <template>
-  <div class="tag-navigation-wrapper">
-    <ul class="tags-navigation">
-      <li v-for="(tag, key) in items" :key="key">
-        <label :for="`tag-${key}`">
-          <input type="checkbox" name="tag" :id="`tag-${key}`" v-model="selected" :value="tag" />
-          <span> # {{ tag }}</span>
-        </label>
-      </li>
-    </ul>
-  </div>
+  <ul class="tags-navigation">
+    <li v-for="(tag, key) in items" :key="key">
+      <label :for="`tag-${key}`">
+        <input type="checkbox" name="tag" :id="`tag-${key}`" v-model="selected" :value="tag" />
+        <span> # {{ tag }}</span>
+      </label>
+    </li>
+  </ul>
 </template>
 <script setup>
 import { computed } from 'vue';
@@ -29,6 +27,10 @@ const selected = computed({
 </script>
 <style scoped>
 .tags-navigation {
+  list-style-type: none;
+  padding: 0;
+  line-height: 30px;
+  word-break: break-all;
   overflow-y: auto;
   height: 81vh;
   scroll-behavior: smooth;
@@ -40,11 +42,9 @@ label {
 span {
   padding: 5px;
 }
-
 label [type='checkbox'] {
   display: none;
 }
-
 input[type='checkbox']:checked + span {
   border-radius: 5px;
   background: var(--primary-bg-color);

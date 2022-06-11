@@ -1,51 +1,5 @@
-@import url('reset.css');
 @import url('fonts.css');
 @import url('icons.css');
 @import url('themes/light.css');
 @import url('themes/dark.css');
 
-html,
-body {
-  font-family: 'Rubik', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-  color: var(--default-text-color);
-  background: var(--body-bg);
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-ul li {
-  line-height: 30px;
-  padding: 0px 3px 0px 3px;
-}
-
-:focus-visible {
-  outline: none;
-}
-
-.small-text {
-  font-size: 12px;
-}
-
-.italic-text {
-  font-style: italic;
-}
-
-::-webkit-scrollbar-button {
-  display: none;
-}
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
-
-.cm-focused {
-  outline: none !important;
-}

@@ -13,7 +13,7 @@
     </section>
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">
-    <snippet-list-toolbar
+    <snippet-tools
       v-model:sort="conditions.sort"
       v-model:term="conditions.term"
       @snippet:create="createSnippet"
@@ -37,63 +37,66 @@
 
 <script setup>
 import { onMounted, reactive, ref, toRaw, watch, onErrorCaptured, inject } from 'vue';
-// import faker from '@faker-js/faker';
 import setupTheme from '@/helpers/themeSwitcher';
-import initStorage from './storage/db/idb';
-import menu from './data/menu';
-import { snippetEntity } from './data/snippetEntity';
 import SnippetList from './components/app/SnippetList.vue';
 import CodeEditor from './components/app/editor/CodeEditor.vue';
 import TagNavigation from './components/app/TagNavigation.vue';
 import MainNavigation from './components/app/MainNavigation.vue';
-import SnippetListToolbar from './components/app/SnippetListToolbar.vue';
+import SnippetTools from './components/app/SnippetTools.vue';
+import initStorage from './storage/db/idb';
+import menu from './data/menu';
+import { snippetEntity } from './data/snippetEntity';
 import SnippetStorage from './storage/snippet';
 
 const notify = inject('notify');
-const theme = ref('');
 const sidebar = ref(false);
+const theme = ref('');
 const defaultConditions = {
   snippets: 'all',
   tags: [],
   sort: 'desc',
   term: '',
 };
+const conditions = reactive({ ...defaultConditions });
 const tags = ref([]);
 const snippet = ref(false);
 const snippets = ref([]);
 const scroll = ref({});
 
-await initStorage();
+try {
+  await initStorage();
+} catch (e) {
+  notify.error(e);
+}
+
 const snippetStorage = new SnippetStorage();
-const conditions = reactive({ ...defaultConditions });
 
 const createSnippet = async () => {
   try {
     const response = await snippetStorage.create(snippetEntity);
-    Object.assign(conditions, defaultConditions);
     snippets.value.unshift(...response);
-    snippet.value = snippets.value[0] ?? false;
+    snippet.value = snippets.value.pop();
     scroll.value.scrollUp();
+    // reset filter conditions
+    Object.assign(conditions, defaultConditions);
   } catch (e) {
     notify.error(e);
   }
 };
 
-const deleteSnippet = async (value) => {
+const deleteSnippet = async (entity) => {
   try {
-    await snippetStorage.softDelete(value);
-    snippets.value.splice(snippets.value.map((item) => item.id).indexOf(value.id), 1);
+    await snippetStorage.softDelete(entity);
+    snippets.value.splice(snippets.value.map((item) => item.id).indexOf(entity.id), 1);
     snippet.value = null;
   } catch (e) {
     notify.error(e);
   }
 };
 
-const loadTags = async () => {
+const getTags = async () => {
   try {
-    const response = await snippetStorage.tags();
-    tags.value = response.map((item) => item.tags);
-    tags.value.sort();
+    tags.value = await snippetStorage.tags();
   } catch (e) {
     notify.error(e);
   }
@@ -113,6 +116,7 @@ watch(
     if (Object.is(current, previous) && current.id === previous.id) {
       const data = toRaw(snippet.value);
       await snippetStorage.update(data);
+      // update list without db query
       tags.value.push(...data.tags.filter((item) => !tags.value.includes(item)));
       tags.value.sort();
     }
@@ -134,7 +138,7 @@ watch(
 
 onMounted(() => {
   theme.value = setupTheme(localStorage.getItem('theme') ?? 'light');
-  loadTags();
+  getTags();
 });
 
 onErrorCaptured((e) => {
@@ -143,9 +147,23 @@ onErrorCaptured((e) => {
 </script>
 
 <style>
+html,
+body {
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  color: var(--default-text-color);
+  background: var(--body-bg);
+}
+
 #app {
   display: flex;
   height: 100%;
+  width: 100%;
 }
 
 .left-block {
@@ -181,6 +199,23 @@ onErrorCaptured((e) => {
   height: 100%;
   overflow: hidden;
   background: var(--body-bg);
+}
+
+/** overwrite  **/
+
+:focus-visible {
+  outline: none;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.cm-focused {
+  outline: none !important;
 }
 
 /** responsive things **/

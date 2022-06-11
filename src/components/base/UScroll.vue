@@ -33,9 +33,7 @@ const scrollUp = () => {
   });
 };
 
-onMounted(() => {
-  scroll.value.addEventListener('scroll', onScroll);
-});
+onMounted(() => scroll.value.addEventListener('scroll', onScroll));
 
 defineExpose({ scroll, scrollUp });
 </script>

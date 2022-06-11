@@ -26,7 +26,7 @@ describe('UTagInput.vue', () => {
         placeholder: 'Tag input',
       },
     });
-    expect(tags).toEqual(wrapper.findAll('span.tag').map((item) => item.text()));
+    expect(tags).toEqual(wrapper.findAll('.tag span').map((item) => item.text()));
   });
 
   it('Add new hotkeys', async () => {
@@ -64,7 +64,7 @@ describe('UTagInput.vue', () => {
     const input = wrapper.find('input');
     input.setValue('new tag');
     await input.trigger('keydown.enter');
-    expect(wrapper.findAll('span.tag').length).toBe(5);
+    expect(wrapper.findAll('.tag span').length).toBe(5);
   });
 
   it('Delete tag hotkey', async () => {
@@ -92,7 +92,7 @@ describe('UTagInput.vue', () => {
         placeholder: 'Tag input',
       },
     });
-    const button = wrapper.find(`[data-tag="${toRemove}"]`);
+    const button = wrapper.find(`[data-tag="${toRemove}"]`).find('button');
     await button.trigger('click');
     expect(tags).not.toContain(toRemove);
   });

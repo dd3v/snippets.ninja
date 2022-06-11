@@ -1,36 +1,24 @@
 <template>
-  <div class="editor-tools-container">
-    <div class="item m-button">
+  <div class="editor-tools">
+    <div class="m-button">
       <u-button circle @click="$emit('snippet:close')" ariaLabel="Close Snippet">
         <u-icon name="left-small" />
       </u-button>
     </div>
-    <div class="item-center">
-      <u-input
-        type="text"
-        v-model="snippet.title"
-        variant="invisible"
-        name="snippet-title"
-        placeholder="Untitled"
-        @blur="snippet.title = snippet.title.length === 0 ? 'Untitled' : snippet.title"
-      />
-    </div>
-    <div class="item">
-      <u-button
-        circle
-        @click="snippet.favorite = Number(!snippet.favorite)"
-        ariaLabel="Add to favorite"
-      >
-        <u-icon :name="snippet.favorite ? 'heart' : 'heart-empty'" />
-      </u-button>
-    </div>
-    <div class="item">
-      <u-button circle @click="$emit('snippet:delete', snippet)" ariaLabel="Delete Snippet">
-        <u-icon name="trash-empty" />
-      </u-button>
-    </div>
+    <u-input
+      v-model="snippet.title"
+      variant="invisible"
+      name="title"
+      @blur="snippet.title = snippet.title.length === 0 ? 'Untitled' : snippet.title"
+    />
+    <u-button circle @click="snippet.favorite = Number(!snippet.favorite)" ariaLabel="Favorive">
+      <u-icon :name="snippet.favorite ? 'heart' : 'heart-empty'" />
+    </u-button>
+    <u-button circle @click="$emit('snippet:delete', snippet)" ariaLabel="Delete Snippet">
+      <u-icon name="trash-empty" />
+    </u-button>
   </div>
-  <div class="tag-list-container">
+  <div class="tag-list">
     <u-tag-input :max="5" placeholder="Enter a tag" v-model="snippet.tags" />
   </div>
   <codemirror
@@ -40,31 +28,33 @@
     :tabSize="snippet.editor_options.indent_size"
     @update="handleState"
   />
-  <editor-status-bar :state="state">
-    <u-button @click="modal.open()" ariaLabel="Language mode">
-      <u-icon name="code" />{{ snippet.language }}
-    </u-button>
-    <u-modal ref="modal">
-      <template #header> Language mode </template>
-      <template #body
-        ><language-selector :languages="languages" v-model="snippet.language"
-      /></template>
-    </u-modal>
-    <editor-indent v-model="snippet.editor_options.indent_size" />
-  </editor-status-bar>
+  <ul class="status-bar">
+    <li>
+      <u-button @click="modal.open()" ariaLabel="Language mode">
+        <u-icon name="code" /> {{ snippet.language }}
+      </u-button>
+    </li>
+    <li><editor-indent v-model="snippet.editor_options.indent_size" /></li>
+    <li>Cursor: {{ state.cursor }}</li>
+    <li>Length: {{ state.length }}</li>
+    <li>Selected: {{ state.selected }}</li>
+  </ul>
+  <u-modal ref="modal">
+    <template #header> Language mode </template>
+    <template #body>
+      <language-mode :items="languages" v-model="snippet.language" />
+    </template>
+  </u-modal>
 </template>
 <script setup>
-import { Codemirror } from 'vue-codemirror';
 import { computed, ref, watch } from 'vue';
+import { Codemirror } from 'vue-codemirror';
+import LanguageMode from '@/components/app/editor/LanguageMode.vue';
+import EditorIndent from '@/components/app/editor/EditorIndent.vue';
 import { languages } from '@codemirror/language-data';
-
 import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
 import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
 import { markdown } from '@codemirror/lang-markdown';
-
-import EditorStatusBar from '@/components/app/editor/EditorStatusBar.vue';
-import LanguageSelector from '@/components/app/editor/LanguageSelector.vue';
-import EditorIndent from '@/components/app/editor/EditorIndent.vue';
 
 const emit = defineEmits(['snippet:close', 'snippet:delete', 'update:modelValue']);
 const props = defineProps({
@@ -76,44 +66,40 @@ const props = defineProps({
     type: String,
   },
 });
+const themes = {
+  light: githubLight,
+  dark: githubDark,
+};
+const defaultLanguage = markdown();
+const theme = computed(() => themes[props.theme]);
+const language = ref(defaultLanguage);
+const state = ref({});
+const modal = ref(null);
+const extensions = ref([]);
 
 const snippet = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
-const themes = {
-  light: githubLight,
-  dark: githubDark,
-};
-
-const defaultLanguage = markdown();
-const state = ref({});
-const modal = ref(null);
-const extensions = ref([]);
-const theme = computed(() => themes[props.theme]);
-const language = ref(defaultLanguage);
 
 const handleState = (e) => {
   const { ranges } = e.state.selection;
   state.value.selected = ranges.reduce((plus, range) => plus + range.to - range.from, 0);
   state.value.cursor = ranges[0].anchor;
   state.value.length = e.state.doc.length;
-  state.value.lines = e.state.doc.lines;
 };
 
 watch(
   () => snippet.value.language,
-  async (value) => {
-    const mode = languages.find((item) => item.name === value) ?? false;
+  async (languageMode) => {
+    const mode = languages.find((item) => item.name === languageMode) ?? false;
     if (mode === false) {
       snippet.value.language = 'Markdown';
       language.value = defaultLanguage;
       return;
     }
-    const extension = await mode.load();
     snippet.value.language = mode.name;
-    language.value = extension;
-    modal.value?.close();
+    language.value = await mode.load();
   },
   { immediate: true }
 );
@@ -123,27 +109,30 @@ watch([theme, language], () => {
 });
 </script>
 <style scoped>
-.editor-tools-container {
-  display: flex;
+.status-bar {
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  background: transparent;
+  gap: 10px;
+  font-size: 12px;
+  height: 20px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-.tag-list-container {
+.editor-tools {
+  display: inline-flex;
+  gap: 10px;
   padding: 5px;
 }
-
-.editor-tools-container .item {
-  padding: 5px;
-}
-
-.editor-tools-container .item-center {
-  flex-grow: 1;
-  margin: 0px 2px 0px 2px;
-}
-
 input[type='text'],
 input[type='text']::placeholder {
   font-size: 16px;
+  width: 100%;
+}
+
+.tag-list {
+  padding: 5px;
 }
 </style>

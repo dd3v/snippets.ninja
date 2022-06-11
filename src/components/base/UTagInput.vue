@@ -1,15 +1,16 @@
 <template>
   <div class="tag-input-wrapper">
-    <transition-group name="list" tag="ul">
-      <li v-for="(tag, key) in tags" :key="key" class="tag-input-tag">
-        <span @click="remove(key)" @keypress="remove(key)" :data-tag="tag" class="remove"
-          >&times;</span
-        >
-        <span class="tag">{{ tag }}</span>
+    <transition-group name="list" tag="ul" class="tag-list">
+      <li v-for="(tag, key) in tags" :key="key">
+        <div class="tag" :data-tag="tag">
+          <button @click="remove(key)" @keypress="remove(key)">&times;</button>
+          <span>{{ tag }}</span>
+        </div>
       </li>
     </transition-group>
     <input
       type="text"
+      maxlength="25"
       v-model="tag"
       :placeholder="placeholder"
       class="tag-input-text"
@@ -63,29 +64,29 @@ const add = () => {
 .tag-input-wrapper {
   display: flex;
   align-items: center;
-  height: 23px;
+  height: 20px;
 }
 
-.tag-input-tag {
+.tag-list {
   display: inline-flex;
+  gap: 5px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag {
+  display: inline-flex;
+  gap:5px;
   align-items: center;
   padding: 1px 8px;
   line-height: 1.5;
   white-space: nowrap;
   border-radius: 4px;
-  outline: 0;
   font-size: 12px;
-  margin-right: 5px;
   border: var(--tag-input-tag-border);
   background-color: var(--tag-input-tag-background-color);
   color: var(--primary-text-color);
-}
-
-.tag-input-tag > span.remove {
-  font-size: 10px;
-  padding-right: 4px;
-  margin: 0;
-  cursor: pointer;
 }
 
 .tag-input-text {
@@ -94,6 +95,18 @@ const add = () => {
   font-size: inherit;
   background: none;
   color: var(--invisible-input-color);
+}
+
+button {
+  font-size: 10px;
+  padding-right: 4px;
+  margin: 0;
+  cursor: pointer;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  outline: inherit;
 }
 
 .list-enter-active,

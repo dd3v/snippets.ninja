@@ -1,10 +1,8 @@
 <template>
   <div class="snippet-list-toolbar-wrapper">
-    <div>
-      <u-button circle @click="$emit('navigation:toggle')" ariaLabel="Menu">
-        <u-icon name="menu" />
-      </u-button>
-    </div>
+    <u-button circle @click="$emit('navigation:toggle')" ariaLabel="Menu">
+      <u-icon name="menu" />
+    </u-button>
     <div class="filter-group">
       <u-input
         type="text"
@@ -17,11 +15,9 @@
         <u-icon :name="sort === 'desc' ? 'sort-alt-down' : 'sort-alt-up'" />
       </u-button>
     </div>
-    <div>
-      <u-button circle @click="$emit('snippet:create')" ariaLabel="New Snippet">
-        <u-icon name="list-add" />
-      </u-button>
-    </div>
+    <u-button circle @click="$emit('snippet:create')" ariaLabel="New Snippet">
+      <u-icon name="list-add" />
+    </u-button>
   </div>
 </template>
 <script setup>
@@ -40,14 +36,10 @@ defineEmits(['navigation:toggle', 'snippet:create', 'update:term', 'update:sort'
 </script>
 <style scoped>
 .snippet-list-toolbar-wrapper {
+  display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  display: inline-flex;
   padding: 5px;
-}
-
-.filter-group {
-  width: 70%;
 }
 
 .filter-group input {
