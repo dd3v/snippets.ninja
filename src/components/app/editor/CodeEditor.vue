@@ -42,7 +42,7 @@
   <u-modal ref="modal">
     <template #header> Language mode </template>
     <template #body>
-      <language-mode :items="languages" v-model="snippet.language" />
+      <language-mode :items="languages" v-model="snippet.language" @change="modal.close()"/>
     </template>
   </u-modal>
 </template>
