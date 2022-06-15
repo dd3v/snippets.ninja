@@ -172,7 +172,7 @@ body {
 }
 
 .left-block.active {
-  margin-left: -220px;
+  margin-left: -210px;
 }
 
 .middle-block {
@@ -227,7 +227,7 @@ body {
     margin-left: 0;
   }
   .left-block {
-    margin-left: -220px;
+    margin-left: -210px;
   }
 
   .hide {

@@ -1,12 +1,12 @@
 <template>
-  <ul class="tags-navigation">
+  <transition-group tag="ul" name="fade" class="tags-navigation">
     <li v-for="(tag, key) in items" :key="key">
       <label :for="`tag-${key}`">
         <input type="checkbox" name="tag" :id="`tag-${key}`" v-model="selected" :value="tag" />
         <span> # {{ tag }}</span>
       </label>
     </li>
-  </ul>
+  </transition-group>
 </template>
 <script setup>
 import { computed } from 'vue';
@@ -49,5 +49,16 @@ input[type='checkbox']:checked + span {
   border-radius: 5px;
   background: var(--primary-bg-color);
   color: var(--primary-text-color);
+}
+
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.2s cubic-bezier(0.55, 0, 0.1, 1);
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0.01);
 }
 </style>
