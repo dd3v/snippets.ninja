@@ -130,7 +130,7 @@ watch([theme, language], () => {
 .snippet-title {
   font-size: 16px;
   width: 100%;
-  color: var(--primary-text-color);
+  color: var(--editor-title-color);
 }
 
 .tag-list {
