@@ -40,7 +40,7 @@ defineExpose({ scroll, scrollUp });
 <style scoped>
 .scroll-wrapper {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   scroll-behavior: smooth;
 }
 </style>

@@ -10,5 +10,7 @@ const getWorkerPath = () => {
 };
 
 const connection = new Connection(new Worker(getWorkerPath().default));
-connection.logStatus = true;
+if (process.env.NODE_ENV !== 'production') {
+  connection.logStatus = true;
+}
 export default connection;

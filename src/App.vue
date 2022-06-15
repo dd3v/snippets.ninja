@@ -2,7 +2,7 @@
   <aside class="left-block" :class="{ active: sidebar }">
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
-    <section>
+    <section class="app-tools">
       <u-button circle ariaLabel="Theme" @click="theme = toggleTheme(theme)">
         <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
@@ -34,15 +34,15 @@
 <script setup>
 import { onMounted, reactive, ref, toRaw, watch, onErrorCaptured, inject } from 'vue';
 import { installTheme, toggleTheme } from '@/helpers/themeSwitcher';
-import SnippetList from './components/app/SnippetList.vue';
-import CodeEditor from './components/app/editor/CodeEditor.vue';
-import TagNavigation from './components/app/TagNavigation.vue';
-import MainNavigation from './components/app/MainNavigation.vue';
-import SnippetTools from './components/app/SnippetTools.vue';
-import initStorage from './storage/db/idb';
-import menu from './data/menu';
-import { snippetEntity } from './data/snippetEntity';
-import SnippetStorage from './storage/snippet';
+import SnippetList from '@/components/app/SnippetList.vue';
+import CodeEditor from '@/components/app/editor/CodeEditor.vue';
+import TagNavigation from '@/components/app/TagNavigation.vue';
+import MainNavigation from '@/components/app/MainNavigation.vue';
+import SnippetTools from '@/components/app/SnippetTools.vue';
+import initStorage from '@/storage/db/idb';
+import menu from '@/data/menu';
+import { snippetEntity } from '@/data/snippetEntity';
+import SnippetStorage from '@/storage/snippet';
 
 const notify = inject('notify');
 const sidebar = ref(false);
@@ -67,6 +67,14 @@ try {
 
 const snippetStorage = new SnippetStorage();
 
+const getTags = async () => {
+  try {
+    tags.value = await snippetStorage.tags();
+  } catch (e) {
+    notify.error(e);
+  }
+};
+
 const createSnippet = async () => {
   try {
     const response = await snippetStorage.create(snippetEntity);
@@ -85,14 +93,7 @@ const deleteSnippet = async (entity) => {
     await snippetStorage.softDelete(entity);
     snippets.value.splice(snippets.value.map((item) => item.id).indexOf(entity.id), 1);
     snippet.value = null;
-  } catch (e) {
-    notify.error(e);
-  }
-};
-
-const getTags = async () => {
-  try {
-    tags.value = await snippetStorage.tags();
+    getTags();
   } catch (e) {
     notify.error(e);
   }
@@ -112,9 +113,7 @@ watch(
     if (Object.is(current, previous) && current.id === previous.id) {
       const data = toRaw(snippet.value);
       await snippetStorage.update(data);
-      // update list without db query
-      tags.value.push(...data.tags.filter((item) => !tags.value.includes(item)));
-      tags.value.sort();
+      getTags();
     }
   },
   {
@@ -167,10 +166,9 @@ body {
   flex-direction: column;
   max-width: 210px;
   min-width: 210px;
-  height: 100%;
-  padding: 5px;
   transition: margin 0.3s;
   background: var(--aside-bg-color);
+  height: 100%;
 }
 
 .left-block.active {
@@ -195,6 +193,10 @@ body {
   height: 100%;
   overflow: hidden;
   background: var(--body-bg);
+}
+
+.app-tools {
+  padding: 5px;
 }
 
 /** overwrite  **/

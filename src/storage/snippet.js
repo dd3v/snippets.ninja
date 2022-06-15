@@ -6,10 +6,7 @@ export default class SnippetStorage {
   }
 
   search(conditions, skip = 0, limit = 100) {
-    console.log(conditions);
-
     const whereConditions = {};
-
     if (conditions.tags.length) {
       Object.assign(whereConditions, {
         tags: {
@@ -81,12 +78,16 @@ export default class SnippetStorage {
   async tags() {
     const response = await connection.select({
       from: this.tableName,
+      where: {
+        deleted: 0,
+      },
       flatten: ['tags'],
       groupBy: 'tags',
+      order: {
+        by: 'tags',
+        type: 'asc',
+      },
     });
-
-    const tags = response.map((item) => item.tags);
-    tags.sort();
-    return tags;
+    return response.map((item) => item.tags);
   }
 }

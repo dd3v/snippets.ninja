@@ -38,6 +38,7 @@ const selected = computed({
   line-height: 30px;
   padding: 0;
   margin: 0;
+  padding: 5px;
 }
 
 span {

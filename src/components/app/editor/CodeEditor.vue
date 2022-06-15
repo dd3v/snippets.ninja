@@ -9,6 +9,7 @@
       v-model="snippet.title"
       variant="invisible"
       name="title"
+      class="snippet-title"
       @blur="snippet.title = snippet.title.length === 0 ? 'Untitled' : snippet.title"
     />
     <u-button circle @click="snippet.favorite = Number(!snippet.favorite)" ariaLabel="Favorive">
@@ -42,7 +43,7 @@
   <u-modal ref="modal">
     <template #header> Language mode </template>
     <template #body>
-      <language-mode :items="languages" v-model="snippet.language" @change="modal.close()"/>
+      <language-mode :items="languages" v-model="snippet.language" @change="modal.close()" />
     </template>
   </u-modal>
 </template>
@@ -126,10 +127,10 @@ watch([theme, language], () => {
   gap: 10px;
   padding: 5px;
 }
-input[type='text'],
-input[type='text']::placeholder {
+.snippet-title {
   font-size: 16px;
   width: 100%;
+  color: var(--primary-text-color);
 }
 
 .tag-list {

@@ -32,9 +32,9 @@ const selected = computed({
   line-height: 30px;
   word-break: break-all;
   overflow-y: auto;
-  height: 81vh;
   scroll-behavior: smooth;
-  margin: 20px 0;
+  padding: 5px;
+  height: 100%;
 }
 label {
   cursor: pointer;
