@@ -35,7 +35,7 @@
 import { onMounted, reactive, ref, toRaw, watch, onErrorCaptured, inject } from 'vue';
 import { installTheme, toggleTheme } from '@/helpers/themeSwitcher';
 import SnippetList from '@/components/app/SnippetList.vue';
-import CodeEditor from '@/components/app/editor/CodeEditor.vue';
+import CodeEditor from '@/components/app/CodeEditor.vue';
 import TagNavigation from '@/components/app/TagNavigation.vue';
 import MainNavigation from '@/components/app/MainNavigation.vue';
 import SnippetTools from '@/components/app/SnippetTools.vue';

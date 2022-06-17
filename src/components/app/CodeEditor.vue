@@ -22,20 +22,13 @@
   <div class="tag-list">
     <u-tag-input :max="5" placeholder="Enter a tag" v-model="snippet.tags" />
   </div>
-  <codemirror
-    v-model="snippet.code"
-    :extensions="extensions"
-    :style="{ height: '100%', overflow: 'scroll' }"
-    :tabSize="snippet.editor_options.indent_size"
-    @update="handleState"
-  />
+  <code-mirror v-model="snippet.code" :language="language" :theme="theme" @state="handleState" />
   <ul class="status-bar">
     <li>
       <u-button @click="modal.open()" ariaLabel="Language mode">
         <u-icon name="code" /> {{ snippet.language }}
       </u-button>
     </li>
-    <li><editor-indent v-model="snippet.editor_options.indent_size" /></li>
     <li>Cursor: {{ state.cursor }}</li>
     <li>Length: {{ state.length }}</li>
     <li>Selected: {{ state.selected }}</li>
@@ -49,19 +42,17 @@
 </template>
 <script setup>
 import { computed, ref, watch } from 'vue';
-import { Codemirror } from 'vue-codemirror';
+import CodeMirror from '@/components/app/editor/CodeMirror.vue';
 import LanguageMode from '@/components/app/editor/LanguageMode.vue';
-import EditorIndent from '@/components/app/editor/EditorIndent.vue';
-import { languages } from '@codemirror/language-data';
+import { languages } from '@/helpers/languages';
 import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
 import { githubDark } from '@ddietr/codemirror-themes/theme/github-dark';
-import { markdown } from '@codemirror/lang-markdown';
 
 const emit = defineEmits(['snippet:close', 'snippet:delete', 'update:modelValue']);
 const props = defineProps({
   modelValue: {
     type: Object,
-    default: () => ({}),
+    default: () => {},
   },
   theme: {
     type: String,
@@ -71,43 +62,28 @@ const themes = {
   light: githubLight,
   dark: githubDark,
 };
-const defaultLanguage = markdown();
 const theme = computed(() => themes[props.theme]);
-const language = ref(defaultLanguage);
+const language = ref(null);
 const state = ref({});
 const modal = ref(null);
-const extensions = ref([]);
 
 const snippet = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
 
-const handleState = (e) => {
-  const { ranges } = e.state.selection;
-  state.value.selected = ranges.reduce((plus, range) => plus + range.to - range.from, 0);
-  state.value.cursor = ranges[0].anchor;
-  state.value.length = e.state.doc.length;
+const handleState = (stateEvent) => {
+  state.value = stateEvent;
 };
 
 watch(
   () => snippet.value.language,
   async (languageMode) => {
     const mode = languages.find((item) => item.name === languageMode) ?? false;
-    if (mode === false) {
-      snippet.value.language = 'Markdown';
-      language.value = defaultLanguage;
-      return;
-    }
-    snippet.value.language = mode.name;
-    language.value = await mode.load();
+    language.value = mode === false ? [] : await mode.load();
   },
   { immediate: true }
 );
-
-watch([theme, language], () => {
-  extensions.value = [theme.value, language.value];
-});
 </script>
 <style scoped>
 .status-bar {
@@ -120,6 +96,7 @@ watch([theme, language], () => {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  background: transparent;
 }
 
 .editor-tools {

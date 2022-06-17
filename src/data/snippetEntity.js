@@ -7,7 +7,7 @@ const snippetEntity = {
     indent_size: 2,
   },
   code: '',
-  language: 'Markdown',
+  language: 'Plain Text',
   deleted: 0,
   remote_id: null,
   last_sync: null,
