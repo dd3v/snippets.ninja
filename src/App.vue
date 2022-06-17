@@ -6,6 +6,7 @@
       <u-button circle ariaLabel="Theme" @click="theme = toggleTheme(theme)">
         <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
+      <u-button circle @click="github"><u-icon name="github" /></u-button>
     </section>
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">
@@ -70,6 +71,8 @@ const snippetStorage = new SnippetStorage();
 const getTags = async () => {
   try {
     tags.value = await snippetStorage.tags();
+    // refresh conditions 
+    conditions.tags = conditions.tags.filter((value) => tags.value.includes(value));
   } catch (e) {
     notify.error(e);
   }
@@ -106,6 +109,8 @@ const paginate = async (skip) => {
     notify.error(e);
   }
 };
+
+const github = () => window.open('https://github.com/dd3v/snippets.ninja', '_blank');
 
 watch(
   snippet,
@@ -197,6 +202,9 @@ body {
 
 .app-tools {
   padding: 5px;
+  display: inline-flex;
+  justify-content: right;
+  gap: 5px;
 }
 
 /** overwrite  **/

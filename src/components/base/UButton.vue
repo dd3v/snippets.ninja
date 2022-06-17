@@ -1,5 +1,10 @@
 <template>
-  <button class="btn" :class="{ 'btn-circle': circle }" :aria-label="ariaLabel">
+  <button
+    class="btn"
+    :class="{ 'btn-circle': circle }"
+    :aria-label="ariaLabel"
+    :disabled="disabled"
+  >
     <slot />
   </button>
 </template>
@@ -11,10 +16,14 @@ defineProps({
   ariaLabel: {
     type: String,
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 <style scoped>
-.btn {
+button {
   border: none;
   background-color: inherit;
   cursor: pointer;
@@ -23,20 +32,22 @@ defineProps({
   font-size: inherit;
   color: var(--btn-color);
 }
-
-.btn-circle {
+button:active {
+  transform: scale(0.98);
+  color: var(--btn-active-color);
+}
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+button.btn-circle {
   min-width: 24px;
   min-height: 24px;
   border-radius: 50%;
   border: var(--btn-circle-border);
 }
 
-.btn-circle:hover {
+button.btn-circle:hover {
   border: var(--btn-circle-hover-border);
-}
-
-.btn:active {
-  transform: scale(0.98);
-  color: var(--btn-active-color);
 }
 </style>
