@@ -208,6 +208,9 @@ body {
 }
 
 /** overwrite  **/
+.ͼ1.cm-editor {
+  height: 100%;
+}
 
 :focus-visible {
   outline: none;
