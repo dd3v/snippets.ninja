@@ -42,6 +42,7 @@ button:disabled {
 }
 button.btn-circle {
   display: flex;
+  align-items: center;
   justify-content: center;
   width: 24px;
   height: 24px;
