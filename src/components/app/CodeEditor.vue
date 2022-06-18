@@ -106,7 +106,7 @@ watch(
 }
 .snippet-title {
   font-size: 16px;
-  width: 100%;
+  width: 75%;
   color: var(--editor-title-color);
 }
 
