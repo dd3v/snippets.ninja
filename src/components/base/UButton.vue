@@ -41,9 +41,12 @@ button:disabled {
   cursor: not-allowed;
 }
 button.btn-circle {
-  min-width: 24px;
-  min-height: 24px;
+  display: flex;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
+  padding: 3px;
   border: var(--btn-circle-border);
 }
 
