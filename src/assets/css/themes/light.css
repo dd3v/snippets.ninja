@@ -58,7 +58,7 @@
 }
 
 [data-theme='light'] ::placeholder {
-  color: hsl(264deg 10% 14% / 12%);
+  color: hsl(264, 3%, 42%);
   font-size: 12px;
 }
 
