@@ -44,7 +44,6 @@ import initStorage from '@/storage/db/idb';
 import menu from '@/data/menu';
 import { snippetEntity } from '@/data/snippetEntity';
 import SnippetStorage from '@/storage/snippet';
-import installPWA from '@/helpers/pwa';
 
 const notify = inject('notify');
 const sidebar = ref(false);
@@ -138,8 +137,8 @@ watch(
 );
 
 onMounted(() => {
-  getTags();
   theme.value = installTheme();
+  getTags();
 });
 
 onErrorCaptured((e) => {
