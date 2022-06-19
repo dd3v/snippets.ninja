@@ -44,6 +44,7 @@ import initStorage from '@/storage/db/idb';
 import menu from '@/data/menu';
 import { snippetEntity } from '@/data/snippetEntity';
 import SnippetStorage from '@/storage/snippet';
+import installPWA from '@/helpers/pwa';
 
 const notify = inject('notify');
 const sidebar = ref(false);
@@ -71,7 +72,7 @@ const snippetStorage = new SnippetStorage();
 const getTags = async () => {
   try {
     tags.value = await snippetStorage.tags();
-    // refresh conditions 
+    // refresh conditions
     conditions.tags = conditions.tags.filter((value) => tags.value.includes(value));
   } catch (e) {
     notify.error(e);
@@ -137,8 +138,8 @@ watch(
 );
 
 onMounted(() => {
-  theme.value = installTheme();
   getTags();
+  theme.value = installTheme();
 });
 
 onErrorCaptured((e) => {
