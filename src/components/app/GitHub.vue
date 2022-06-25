@@ -1,6 +1,6 @@
 <template>
   <u-modal ref="modal">
-    <template #header>GitHub Sync</template>
+    <template #header>GitHub Gist integration</template>
     <template #body>
       <div class="github-sync">
         <ul class="github-features">
@@ -10,7 +10,7 @@
         </ul>
         <div class="github-button">
           <u-button @click="github" variant="default">
-            <u-icon name="github" /> Sign In with GitHub
+            <u-icon name="github" /> Setup GitHub connection
           </u-button>
         </div>
       </div>

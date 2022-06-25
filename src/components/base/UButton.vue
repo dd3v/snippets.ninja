@@ -38,7 +38,7 @@ button:disabled {
 button.default {
   border-radius: 5px;
   border: var(--btn-border);
-  padding: 5px;
+  padding: 8px;
 }
 button.default:hover {
   border: var(--btn-hover-border);
