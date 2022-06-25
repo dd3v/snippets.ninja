@@ -146,11 +146,10 @@ watch(
 
 if (window.location.toString().includes('code')) {
   try {
-    const response = await getAccessToken(
+    await getAccessToken(
       new URLSearchParams(window.location.search).get('code'),
       process.env.VUE_APP_GITHUB_OAUTH_URL
     );
-    console.warn(response);
   } catch (e) {
     console.warn(e);
   }
@@ -158,7 +157,7 @@ if (window.location.toString().includes('code')) {
 }
 
 onMounted(() => {
-  github.value.modal.open();
+  // github.value.modal.open();
   getTags();
 });
 

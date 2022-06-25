@@ -4,6 +4,7 @@ const getAccessToken = async (code, url) => {
     cache: 'no-cache',
     body: JSON.stringify({ code }),
   });
+  console.warn(response);
   if (!response.ok) {
     const err = new Error(`HTTP status code: ${response.status}`);
     err.response = response;
