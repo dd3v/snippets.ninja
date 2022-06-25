@@ -158,7 +158,7 @@ if (window.location.toString().includes('code')) {
 }
 
 onMounted(() => {
-  // github.value.modal.open();
+  github.value.modal.open();
   getTags();
 });
 

@@ -67,7 +67,6 @@ defineExpose({
   padding: 5px 10px;
   box-shadow: var(--modal-box-shadow);
   background: var(--modal-background);
-  border: var(--modal-border);
   border-radius: 5px;
   transition: all 0.3s ease;
   padding: 10px;
@@ -78,7 +77,7 @@ defineExpose({
   font-size: 16px;
   justify-content: space-between;
   padding: 0px 0px 30px 0px;
-  color: var(--primary-text-color);
+  color: var(--modal-header-color);
 }
 
 .close-btn {
