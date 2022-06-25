@@ -6,7 +6,7 @@ function extractCode(event) {
   return data?.code;
 }
 
-const cors = ['http://localhost:8080', 'https://snippets.ninha'];
+const cors = ['http://localhost:8080', 'https://snippets.ninja'];
 
 const generateResponse = (event, data, status = 200) => {
   const response = {
