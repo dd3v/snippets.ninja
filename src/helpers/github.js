@@ -1,5 +1,5 @@
-const getAccessToken = async (code, proxyUrl) => {
-  const response = await fetch(proxyUrl, {
+const getAccessToken = async (code, url) => {
+  const response = await fetch(url, {
     method: 'POST',
     cache: 'no-cache',
     body: JSON.stringify({ code }),
