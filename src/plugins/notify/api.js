@@ -13,6 +13,9 @@ const methods = {
   error: (message) => {
     addNotification({ message, type: 'error' });
   },
+  info: (message) => {
+    addNotification({ message, type: 'info' });
+  },
 };
 
 export { notifications, deleteNotification, methods };

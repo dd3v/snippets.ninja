@@ -31,8 +31,8 @@ const close = (index) => deleteNotification(index);
 }
 
 .notify-wrapper {
-  box-shadow: 0 3px 20px 0px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
-  border-radius: 11px;
+  box-shadow: 0 0 12px #999;
+  border-radius: 6px;
   line-height: 20px;
   padding: 10px;
   display: flex;
@@ -44,6 +44,12 @@ const close = (index) => deleteNotification(index);
   color: hsl(0deg 56% 30%);
   border: 1px solid hsl(0deg 28% 62%);
   background-color: hsl(0deg 46% 70% / 78%);
+}
+
+.info {
+  color: hsl(264deg 5% 20%);
+  border: 1px solid hsl(0deg 0% 65%);
+  background-color: hsl(0deg 0% 100%);
 }
 
 button {

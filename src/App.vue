@@ -6,7 +6,7 @@
       <u-button circle ariaLabel="Theme" @click="theme = toggleTheme(theme)">
         <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
-      <u-button circle @click="github"><u-icon name="github" /></u-button>
+      <u-button circle @click="github.modal.open()"><u-icon name="github" /></u-button>
     </section>
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">
@@ -30,6 +30,7 @@
     />
   </section>
   <u-notify />
+  <git-hub ref="github" />
 </template>
 
 <script setup>
@@ -44,6 +45,8 @@ import initStorage from '@/storage/db/idb';
 import menu from '@/data/menu';
 import { snippetEntity } from '@/data/snippetEntity';
 import SnippetStorage from '@/storage/snippet';
+import GitHub from '@/components/app/GitHub.vue';
+import { getAccessToken } from '@/helpers/github';
 
 const notify = inject('notify');
 const sidebar = ref(false);
@@ -59,6 +62,7 @@ const tags = ref([]);
 const snippet = ref(false);
 const snippets = ref([]);
 const scroll = ref({});
+const github = ref({});
 
 try {
   await initStorage();
@@ -110,8 +114,6 @@ const paginate = async (skip) => {
   }
 };
 
-const github = () => window.open('https://github.com/dd3v/snippets.ninja', '_blank');
-
 watch(
   snippet,
   async (current, previous) => {
@@ -136,7 +138,21 @@ watch(
   }
 );
 
+if (window.location.toString().includes('code')) {
+  try {
+    const response = await getAccessToken(
+      new URLSearchParams(window.location.search).get('code'),
+      'https://qpak7xpyolu5ddkcshjofstodu0mbuil.lambda-url.eu-west-2.on.aws/'
+    );
+    console.warn(response);
+  } catch (e) {
+    console.warn(e);
+  }
+  window.history.pushState({}, null, '/');
+}
+
 onMounted(() => {
+  github.value.modal.open();
   theme.value = installTheme();
   getTags();
 });
