@@ -77,7 +77,7 @@ defineExpose({
   display: flex;
   font-size: 16px;
   justify-content: space-between;
-  padding: 10px 0px 30px 0px;
+  padding: 0px 0px 30px 0px;
 }
 
 .close-btn {
