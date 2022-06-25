@@ -6,14 +6,23 @@ function extractCode(event) {
   return data?.code;
 }
 
-const generateResponse = (data, status = 200) => ({
-  statusCode: status,
-  body: JSON.stringify(data),
-  headers: {
-    'Access-Control-Allow-Origin': 'http://localhost:8080',
-    'Content-Type': 'application/json',
-  },
-});
+const cors = ['http://localhost:8080', 'https://snippets.ninha'];
+
+const generateResponse = (event, data, status = 200) => {
+  const response = {
+    statusCode: status,
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  if (cors.indexOf(event.headers.origin) !== -1) {
+    response.headers['Access-Control-Allow-Origin'] = event.headers.origin;
+  }
+
+  return response;
+};
 
 async function asyncHttpsPostRequest(url) {
   return new Promise((resolve, reject) => {
@@ -60,16 +69,16 @@ exports.handler = async (event) => {
   const code = extractCode(event);
   let response;
   if (!code) {
-    return generateResponse({ message: 'Did not get auth code' }, 400);
+    return generateResponse(event, { message: 'Did not get auth code' }, 400);
   }
   try {
     response = await exchangeCodeForToken(code);
   } catch (e) {
-    return generateResponse({ message: 'Failed to exchange code for access_token' }, 400);
+    return generateResponse(event, { message: 'Failed to exchange code for access_token' }, 400);
   }
   if (!response || !response.access_token) {
-    return generateResponse({ message: 'GitHub error' }, 400);
+    return generateResponse(event, { message: 'GitHub error' }, 400);
   }
-  
-  return generateResponse({ access_token: response.access_token }, 200);
+
+  return generateResponse(event, { access_token: response.access_token }, 200);
 };
