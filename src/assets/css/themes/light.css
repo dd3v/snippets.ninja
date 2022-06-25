@@ -38,8 +38,8 @@
 
   /* button */
   --btn-color: hsl(0deg 0% 33%);
-  --btn-circle-border: 1px solid hsl(240deg 2% 88%);
-  --btn-circle-hover-border: 1px solid hsl(0deg 0% 73%);
+  --btn-border: 1px solid hsl(240deg 2% 88%);
+  --btn-hover-border: 1px solid hsl(0deg 0% 73%);
   --btn-active-color: hsl(0deg 0% 33%);
 }
 [data-theme='light'] ::-webkit-scrollbar {

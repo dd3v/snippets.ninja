@@ -40,8 +40,8 @@
 
   /* button */
   --btn-color: hsl(0deg 0% 48%);
-  --btn-circle-border: 1px solid hsl(0, 0%, 48%);
-  --btn-circle-hover-border: 1px solid hsl(0, 0%, 48%);
+  --btn-border: 1px solid hsl(0, 0%, 48%);
+  --btn-hover-border: 1px solid hsl(0, 0%, 48%);
   --btn-active-color: hsl(0, 0%, 48%);
 }
 

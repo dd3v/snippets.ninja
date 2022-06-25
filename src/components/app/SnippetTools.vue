@@ -1,6 +1,6 @@
 <template>
   <div class="snippet-list-toolbar-wrapper">
-    <u-button circle @click="$emit('navigation:toggle')" ariaLabel="Menu">
+    <u-button variant="circle" @click="$emit('navigation:toggle')" ariaLabel="Menu">
       <u-icon name="menu" />
     </u-button>
     <div class="filter-group">
@@ -15,7 +15,7 @@
         <u-icon :name="sort === 'desc' ? 'sort-alt-down' : 'sort-alt-up'" />
       </u-button>
     </div>
-    <u-button circle @click="$emit('snippet:create')" ariaLabel="New Snippet">
+    <u-button variant="circle" @click="$emit('snippet:create')" ariaLabel="New Snippet">
       <u-icon name="list-add" />
     </u-button>
   </div>

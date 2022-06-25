@@ -9,7 +9,9 @@
           <li><u-icon name="download" /> import your gists to Snippets Ninja</li>
         </ul>
         <div class="github-button">
-          <u-button @click="github"><u-icon name="github" /> Sign In with GitHub</u-button>
+          <u-button @click="github" variant="default">
+            <u-icon name="github" /> Sign In with GitHub
+          </u-button>
         </div>
       </div>
     </template>
