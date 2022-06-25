@@ -21,7 +21,7 @@
 import { ref } from 'vue';
 import { authorize } from '@/helpers/github';
 
-const github = () => authorize('6c5de81a10e73c55388a');
+const github = () => authorize(process.env.VUE_APP_GITHUB_CLIENT_ID);
 
 const modal = ref(null);
 

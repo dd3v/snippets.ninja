@@ -142,7 +142,7 @@ if (window.location.toString().includes('code')) {
   try {
     const response = await getAccessToken(
       new URLSearchParams(window.location.search).get('code'),
-      'https://qpak7xpyolu5ddkcshjofstodu0mbuil.lambda-url.eu-west-2.on.aws/'
+      process.env.VUE_APP_GITHUB_OAUTH_URL
     );
     console.warn(response);
   } catch (e) {
