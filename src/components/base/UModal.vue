@@ -78,6 +78,7 @@ defineExpose({
   font-size: 16px;
   justify-content: space-between;
   padding: 0px 0px 30px 0px;
+  color: var(--primary-text-color);
 }
 
 .close-btn {

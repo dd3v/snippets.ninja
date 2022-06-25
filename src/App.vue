@@ -3,8 +3,8 @@
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
     <section class="app-tools">
-      <u-button variant="circle" ariaLabel="Theme" @click="theme = toggleTheme(theme)">
-        <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
+      <u-button variant="circle" ariaLabel="Theme" @click="globalState.toggleTheme()">
+        <u-icon :name="globalState.getThemeIcon()" />
       </u-button>
       <u-button variant="circle" @click="github.modal.open()"><u-icon name="github" /></u-button>
     </section>
@@ -23,7 +23,7 @@
   <section class="right-block" :class="{ hide: !snippet }">
     <code-editor
       v-model="snippet"
-      :theme="theme"
+      :theme="globalState.getTheme()"
       @snippet:delete="deleteSnippet"
       @snippet:close="snippet = false"
       v-if="snippet"
@@ -35,7 +35,7 @@
 
 <script setup>
 import { onMounted, reactive, ref, toRaw, watch, onErrorCaptured, inject } from 'vue';
-import { installTheme, toggleTheme } from '@/helpers/themeSwitcher';
+import setupTheme from '@/helpers/themeSwitcher';
 import SnippetList from '@/components/app/SnippetList.vue';
 import CodeEditor from '@/components/app/CodeEditor.vue';
 import TagNavigation from '@/components/app/TagNavigation.vue';
@@ -47,10 +47,10 @@ import { snippetEntity } from '@/data/snippetEntity';
 import SnippetStorage from '@/storage/snippet';
 import GitHub from '@/components/app/GitHub.vue';
 import { getAccessToken } from '@/helpers/github';
+import globalState from '@/globalState';
 
 const notify = inject('notify');
 const sidebar = ref(false);
-const theme = ref('');
 const defaultConditions = {
   snippets: 'all',
   tags: [],
@@ -138,6 +138,12 @@ watch(
   }
 );
 
+watch(
+  () => globalState.getTheme(),
+  (value) => setupTheme(value),
+  { immediate: true }
+);
+
 if (window.location.toString().includes('code')) {
   try {
     const response = await getAccessToken(
@@ -152,8 +158,7 @@ if (window.location.toString().includes('code')) {
 }
 
 onMounted(() => {
-  github.value.modal.open();
-  theme.value = installTheme();
+  // github.value.modal.open();
   getTags();
 });
 
