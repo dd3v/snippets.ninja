@@ -3,10 +3,10 @@
     <main-navigation :items="menu" v-model="conditions.snippets" />
     <tag-navigation :items="tags" v-model="conditions.tags" />
     <section class="app-tools">
-      <u-button circle ariaLabel="Theme" @click="theme = toggleTheme(theme)">
+      <u-button variant="circle" ariaLabel="Theme" @click="theme = toggleTheme(theme)">
         <u-icon :name="theme == 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
-      <u-button circle @click="github.modal.open()"><u-icon name="github" /></u-button>
+      <u-button variant="circle" @click="github.modal.open()"><u-icon name="github" /></u-button>
     </section>
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">

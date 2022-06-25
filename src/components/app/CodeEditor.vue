@@ -1,7 +1,7 @@
 <template>
   <div class="editor-tools">
     <div class="m-button">
-      <u-button circle @click="$emit('snippet:close')" ariaLabel="Close Snippet">
+      <u-button variant="circle" @click="$emit('snippet:close')" ariaLabel="Close Snippet">
         <u-icon name="left-small" />
       </u-button>
     </div>
@@ -12,10 +12,14 @@
       class="snippet-title"
       @blur="snippet.title = snippet.title.length === 0 ? 'Untitled' : snippet.title"
     />
-    <u-button circle @click="snippet.favorite = Number(!snippet.favorite)" ariaLabel="Favorive">
+    <u-button
+      variant="circle"
+      @click="snippet.favorite = Number(!snippet.favorite)"
+      ariaLabel="Favorive"
+    >
       <u-icon :name="snippet.favorite ? 'heart' : 'heart-empty'" />
     </u-button>
-    <u-button circle @click="$emit('snippet:delete', snippet)" ariaLabel="Delete Snippet">
+    <u-button variant="circle" @click="$emit('snippet:delete', snippet)" ariaLabel="Delete Snippet">
       <u-icon name="trash-empty" />
     </u-button>
   </div>

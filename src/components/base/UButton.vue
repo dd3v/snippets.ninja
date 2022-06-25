@@ -1,17 +1,12 @@
 <template>
-  <button
-    class="btn"
-    :class="{ 'btn-circle': circle }"
-    :aria-label="ariaLabel"
-    :disabled="disabled"
-  >
+  <button :class="variant" :aria-label="ariaLabel" :disabled="disabled">
     <slot />
   </button>
 </template>
 <script setup>
 defineProps({
-  circle: {
-    type: Boolean,
+  variant: {
+    type: String,
   },
   ariaLabel: {
     type: String,
@@ -40,7 +35,15 @@ button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
-button.btn-circle {
+button.default {
+  border-radius: 5px;
+  border: var(--btn-border);
+  padding: 5px;
+}
+button.default:hover {
+  border: var(--btn-hover-border);
+}
+button.circle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,10 +51,10 @@ button.btn-circle {
   height: 24px;
   border-radius: 50%;
   padding: 3px;
-  border: var(--btn-circle-border);
+  border: var(--btn-border);
 }
 
-button.btn-circle:hover {
-  border: var(--btn-circle-hover-border);
+button.circle:hover {
+  border: var(--btn-hover-border);
 }
 </style>
