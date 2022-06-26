@@ -144,20 +144,23 @@ watch(
   { immediate: true }
 );
 
+// handle auth code after redirect
 if (window.location.toString().includes('code')) {
   try {
-    await getAccessToken(
+    const response = await getAccessToken(
       new URLSearchParams(window.location.search).get('code'),
       process.env.VUE_APP_GITHUB_OAUTH_URL
     );
+    globalState.setGitHubToken(response.access_token);
+    notify.info('GitHub successfully connected.');
   } catch (e) {
-    console.warn(e);
+    notify.error(e);
   }
   window.history.pushState({}, null, '/');
 }
 
 onMounted(() => {
-  // github.value.modal.open();
+  github.value.modal.open();
   getTags();
 });
 

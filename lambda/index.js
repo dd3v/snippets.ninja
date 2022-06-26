@@ -69,7 +69,7 @@ exports.handler = async (event) => {
   const code = extractCode(event);
   let response;
   if (!code) {
-    return generateResponse(event, { message: 'Auth code not found.' }, 400);
+    return generateResponse(event, { message: 'Auth code not found.' }, 422);
   }
   try {
     response = await exchangeCodeForToken(code);
@@ -77,7 +77,11 @@ exports.handler = async (event) => {
     return generateResponse(event, { message: `GitHub error. ${e}` }, 400);
   }
   if (!response || !response.access_token) {
-    return generateResponse(event, { message: 'GitHub error. Please, try again later.' }, 400);
+    return generateResponse(
+      event,
+      { message: 'GitHub auth code error. Please, try again later.' },
+      400
+    );
   }
 
   return generateResponse(event, { access_token: response.access_token }, 200);

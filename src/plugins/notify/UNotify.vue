@@ -22,8 +22,8 @@ const close = (index) => deleteNotification(index);
   flex-direction: column;
   list-style: none;
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
   z-index: 5;
   margin: 0;
   width: 250px;
@@ -31,7 +31,7 @@ const close = (index) => deleteNotification(index);
 }
 
 .notify-wrapper {
-  box-shadow: 0 0 12px #999;
+  box-shadow: 0 0 5px #999;
   border-radius: 6px;
   line-height: 20px;
   padding: 10px;
@@ -46,11 +46,7 @@ const close = (index) => deleteNotification(index);
   background-color: hsl(0deg 46% 70% / 78%);
 }
 
-.info {
-  color: hsl(264deg 5% 20%);
-  border: 1px solid hsl(0deg 0% 65%);
-  background-color: hsl(0deg 0% 100%);
-}
+.info {}
 
 button {
   background: none;
