@@ -1,9 +1,18 @@
 import { reactive, readonly } from 'vue';
 
-const state = reactive({ theme: 'light', github: {}, githubAccessToken: '' });
+const state = reactive({
+  theme: 'light',
+  profile: {},
+  token: '',
+});
 
 const globalState = {
   data: readonly(state),
+  setGitHubToken: (token) => {
+    state.token = token;
+    localStorage.setItem('token', token);
+  },
+  getGitHubToken: () => localStorage.getItem('token'),
   setTheme: (theme) => {
     state.theme = theme;
     localStorage.setItem('theme', theme);

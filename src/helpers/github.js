@@ -4,14 +4,14 @@ const getAccessToken = async (code, url) => {
     cache: 'no-cache',
     body: JSON.stringify({ code }),
   });
-  console.warn(response);
+  const data = await response.json();
   if (!response.ok) {
-    const err = new Error(`HTTP status code: ${response.status}`);
+    const err = new Error(`HTTP ${response.status}. ${data.message}`);
     err.response = response;
     err.status = response.status;
     throw err;
   }
-  return response;
+  return data;
 };
 
 const authorize = (clientId, scope = 'read:user, gist') => {
@@ -20,6 +20,4 @@ const authorize = (clientId, scope = 'read:user, gist') => {
   window.location.href = authUrl;
 };
 
-const profile = () => localStorage.getItem('github');
-
-export { getAccessToken, authorize, profile };
+export { getAccessToken, authorize };
