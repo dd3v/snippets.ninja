@@ -6,7 +6,7 @@
       <u-button variant="circle" ariaLabel="Theme" @click="globalState.toggleTheme()">
         <u-icon :name="globalState.getThemeIcon()" />
       </u-button>
-      <u-button variant="circle" @click="github.modal.open()"><u-icon name="github" /></u-button>
+      <u-button variant="circle"><u-icon name="github" /></u-button>
     </section>
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">
@@ -30,7 +30,6 @@
     />
   </section>
   <u-notify />
-  <git-hub ref="github" />
 </template>
 
 <script setup>
@@ -45,8 +44,6 @@ import initStorage from '@/storage/db/idb';
 import menu from '@/data/menu';
 import { snippetEntity } from '@/data/snippetEntity';
 import SnippetStorage from '@/storage/snippet';
-import GitHub from '@/components/app/GitHub.vue';
-import { GitHubService, OctokitInstance } from '@/helpers/github';
 import globalState from '@/globalState';
 
 const notify = inject('notify');
@@ -62,7 +59,6 @@ const tags = ref([]);
 const snippet = ref(false);
 const snippets = ref([]);
 const scroll = ref({});
-const github = ref({});
 
 try {
   await initStorage();
@@ -144,33 +140,7 @@ watch(
   { immediate: true }
 );
 
-// handle auth code after redirect
-if (window.location.toString().includes('code')) {
-  try {
-    const response = await GitHubService.getAccessToken(
-      new URLSearchParams(window.location.search).get('code'),
-      process.env.VUE_APP_GITHUB_OAUTH_URL
-    );
-    globalState.setGitHubToken(response.access_token);
-    notify.info('GitHub successfully connected.');
-  } catch (e) {
-    notify.error(e);
-  }
-  window.history.pushState({}, null, '/');
-}
-
-if (globalState.getGitHubToken()) {
-  try {
-    const githubClient = new OctokitInstance({ auth: globalState.getGitHubToken() });
-    const response = await githubClient.rest.users.getAuthenticated();
-    globalState.setProfile(JSON.stringify(response.data));
-  } catch (e) {
-    notify.error(e);
-  }
-}
-
 onMounted(() => {
-  github.value.modal.open();
   getTags();
 });
 
