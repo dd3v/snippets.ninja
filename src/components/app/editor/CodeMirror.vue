@@ -19,9 +19,6 @@ const props = defineProps({
   theme: {
     type: Object,
   },
-  tabSize: {
-    type: Number,
-  },
 });
 const emit = defineEmits(['update:modelValue', 'state']);
 

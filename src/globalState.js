@@ -8,16 +8,6 @@ const state = reactive({
 
 const globalState = {
   storage: readonly(state),
-  setProfile: (profile) => {
-    state.profile = profile;
-    localStorage.setItem('profile', profile);
-  },
-  getProfile: () => JSON.parse(localStorage.getItem('profile')),
-  setGitHubToken: (token) => {
-    state.token = token;
-    localStorage.setItem('token', token);
-  },
-  getGitHubToken: () => localStorage.getItem('token'),
   setTheme: (theme) => {
     state.theme = theme;
     localStorage.setItem('theme', theme);
@@ -30,16 +20,6 @@ const globalState = {
     const theme = globalState.getTheme() === 'light' ? 'dark' : 'light';
     globalState.setTheme(theme);
     return theme;
-  },
-  getThemeIcon: () => {
-    switch (state.theme) {
-      case 'light':
-        return 'moon-inv';
-      case 'dark':
-        return 'sun-inv';
-      default:
-        return 'sun-inv';
-    }
   },
 };
 
