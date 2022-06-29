@@ -7,7 +7,12 @@ const state = reactive({
 });
 
 const globalState = {
-  data: readonly(state),
+  storage: readonly(state),
+  setProfile: (profile) => {
+    state.profile = profile;
+    localStorage.setItem('profile', profile);
+  },
+  getProfile: () => JSON.parse(localStorage.getItem('profile')),
   setGitHubToken: (token) => {
     state.token = token;
     localStorage.setItem('token', token);
