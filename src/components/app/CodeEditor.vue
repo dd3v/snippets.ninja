@@ -12,6 +12,9 @@
       class="snippet-title"
       @blur="snippet.title = snippet.title.length === 0 ? 'Untitled' : snippet.title"
     />
+    <u-button variant="circle" @click="preview = !preview" v-if="isMarkdown">
+      <u-icon :name="preview ? 'eye-off' : 'eye'" />
+    </u-button>
     <u-button
       variant="circle"
       @click="snippet.favorite = Number(!snippet.favorite)"
@@ -26,7 +29,14 @@
   <div class="tag-list">
     <u-tag-input :max="5" placeholder="Enter a tag" v-model="snippet.tags" />
   </div>
-  <code-mirror v-model="snippet.code" :language="language" :theme="theme" @state="handleState" />
+  <markdown-preview :source="snippet.code" v-if="isMarkdown && preview" />
+  <code-mirror
+    v-model="snippet.code"
+    :language="language"
+    :theme="theme"
+    @state="handleState"
+    v-else
+  />
   <ul class="status-bar">
     <li>
       <u-button @click="modal.open()" ariaLabel="Language mode">
@@ -47,6 +57,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import CodeMirror from '@/components/app/editor/CodeMirror.vue';
+import MarkdownPreview from '@/components/app/editor/MarkdownPreview.vue';
 import LanguageMode from '@/components/app/editor/LanguageMode.vue';
 import { languages } from '@/helpers/languages';
 import { githubLight } from '@ddietr/codemirror-themes/theme/github-light';
@@ -70,15 +81,17 @@ const theme = computed(() => themes[props.theme]);
 const language = ref(null);
 const state = ref({});
 const modal = ref(null);
-
+const preview = ref(false);
 const snippet = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
-
 const handleState = (stateEvent) => {
   state.value = stateEvent;
 };
+const isMarkdown = computed({
+  get: () => snippet.value.language.toLowerCase() === 'markdown',
+});
 
 watch(
   () => snippet.value.language,

@@ -4,9 +4,9 @@
     <tag-navigation :items="tags" v-model="conditions.tags" />
     <section class="app-tools">
       <u-button variant="circle" ariaLabel="Theme" @click="globalState.toggleTheme()">
-        <u-icon :name="globalState.getThemeIcon()" />
+        <u-icon :name="globalState.getTheme() === 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
-      <u-button variant="circle"><u-icon name="github" /></u-button>
+      <u-button variant="circle" @click="openGitHub()"><u-icon name="github" /></u-button>
     </section>
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">
@@ -109,6 +109,8 @@ const paginate = async (skip) => {
     notify.error(e);
   }
 };
+
+const openGitHub = () =>  window.open('https://github.com/dd3v/snippets.ninja', '_blank');
 
 watch(
   snippet,

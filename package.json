@@ -37,6 +37,7 @@
     "dayjs": "^1.11.3",
     "install": "^0.13.0",
     "jsstore": "^4.3.8",
+    "marked": "^4.0.17",
     "npm": "^8.12.2",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.37",
