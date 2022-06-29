@@ -46,7 +46,7 @@ import menu from '@/data/menu';
 import { snippetEntity } from '@/data/snippetEntity';
 import SnippetStorage from '@/storage/snippet';
 import GitHub from '@/components/app/GitHub.vue';
-import { getAccessToken } from '@/helpers/github';
+import { GitHubService, OctokitInstance } from '@/helpers/github';
 import globalState from '@/globalState';
 
 const notify = inject('notify');
@@ -147,7 +147,7 @@ watch(
 // handle auth code after redirect
 if (window.location.toString().includes('code')) {
   try {
-    const response = await getAccessToken(
+    const response = await GitHubService.getAccessToken(
       new URLSearchParams(window.location.search).get('code'),
       process.env.VUE_APP_GITHUB_OAUTH_URL
     );
@@ -157,6 +157,16 @@ if (window.location.toString().includes('code')) {
     notify.error(e);
   }
   window.history.pushState({}, null, '/');
+}
+
+if (globalState.getGitHubToken()) {
+  try {
+    const githubClient = new OctokitInstance({ auth: globalState.getGitHubToken() });
+    const response = await githubClient.rest.users.getAuthenticated();
+    globalState.setProfile(JSON.stringify(response.data));
+  } catch (e) {
+    notify.error(e);
+  }
 }
 
 onMounted(() => {
