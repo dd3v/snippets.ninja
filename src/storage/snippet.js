@@ -24,7 +24,7 @@ export default class SnippetStorage {
 
     return connection.select({
       from: this.tableName,
-      // distinct: true,
+      distinct: true,
       limit,
       skip,
       order: {
