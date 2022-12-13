@@ -85,5 +85,6 @@ const languages = computed(() =>
   cursor: pointer;
   display: flex;
   width: 100%;
+  padding: 5px;
 }
 </style>

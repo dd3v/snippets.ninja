@@ -1,13 +1,13 @@
 [data-theme='light'] {
   --body-bg: hsl(0, 0%, 100%);
-  --primary-bg-color: hsl(264deg 10% 14% / 12%);
+  --primary-bg-color: #e4e4e6;
 
   --editor-title-color: #2b292e;
   --primary-text-color: #2b292e;
   --default-text-color: #6a686e;
   --like-color: #d59090;
 
-  --aside-bg-color: hsl(264, 6%, 98.5%);
+  --aside-bg-color: hsl(0, 0%, 96%);
 
   --snippet-list-active-box-shadow: 0px 0px 4px 0rem rgb(0 0 0 / 10%);
 
