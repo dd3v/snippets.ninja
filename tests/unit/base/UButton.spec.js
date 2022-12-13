@@ -21,7 +21,6 @@ describe('UButton.vue', () => {
         ariaLabel: 'test',
       },
     });
-    expect(wrapper.classes()).toContain('btn-circle');
     expect(wrapper.attributes('aria-label')).toBe('test');
   });
 });

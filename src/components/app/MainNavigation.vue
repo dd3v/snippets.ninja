@@ -49,6 +49,7 @@ label {
   display: inline-flex;
   cursor: pointer;
   width: 100%;
+  padding: 1px 3px 1px 3px;
 }
 
 label [type='radio'] {

@@ -18,7 +18,7 @@ const markdown = computed({
 </script>
 <style scoped>
 .markdown-preview {
-  padding: 5px;
+  padding: 0px 10px 0px 10px;
   overflow: auto;
   height: 100%;
 }
