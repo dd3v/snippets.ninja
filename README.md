@@ -4,7 +4,7 @@
 
 ## About
 
-Snippets.Ninja is a progressive web application for code snippet management. Offline first. Open Source. App uses IndexedDB for local storage. 
+Snippets.Ninja is a progressive web application for managing code snippets. It is open source and works offline first. The app uses IndexedDB for local storage. It was created for fun 🙃
 
 https://snippets.ninja/
 
@@ -15,11 +15,6 @@ https://snippets.ninja/
 - tags and favorites;
 - supports a lot of language modes and preview for markdown;
 - minimalistic and clear UI with dark mode;
-
-## To Do
-
-- Cloud backup
-- Sharing
 
 ## Available commands
 ```
