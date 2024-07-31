@@ -19,6 +19,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  class: {
+    type: String,
+    required: false,
+  },
   type: {
     type: String,
     default: 'text',

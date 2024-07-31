@@ -42,11 +42,17 @@ defineEmits(['navigation:toggle', 'snippet:create', 'update:term', 'update:sort'
   padding: 5px;
 }
 
+.filter-group {
+  align-items: center;
+}
+
 .filter-group input {
+  flex: 1;
   padding-right: 25px;
 }
 
 .filter-group button {
   margin-left: -25px;
+  z-index: 1;
 }
 </style>

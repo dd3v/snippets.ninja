@@ -53,6 +53,7 @@ const languages = computed(() =>
 .language-list {
   display: flex;
   overflow: scroll;
+  font-size: 12px;
   height: 90%;
   flex-direction: column;
   list-style-type: none;
@@ -62,7 +63,7 @@ const languages = computed(() =>
 }
 
 .language-list li {
-  padding: 5px;
+  padding: 3px;
 }
 
 .language-list li:hover {
