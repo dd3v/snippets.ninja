@@ -26,35 +26,41 @@ button {
   padding: 0;
   font-size: inherit;
   color: var(--btn-color);
+  transition: transform 0.1s, color 0.1s, border-color 0.1s;
 }
+
 button:active {
   transform: scale(0.98);
   color: var(--btn-active-color);
 }
+
 button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
+
 button.default {
   border-radius: 5px;
   border: var(--btn-border);
   padding: 8px;
 }
+
 button.default:hover {
-  border: var(--btn-hover-border);
+  border-color: var(--btn-hover-border);
 }
+
 button.circle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  padding: 3px;
+  padding: 0;
   border: var(--btn-border);
 }
 
 button.circle:hover {
-  border: var(--btn-hover-border);
+  border-color: var(--btn-hover-border);
 }
 </style>

@@ -6,7 +6,9 @@
       <u-button variant="circle" ariaLabel="Theme" @click="globalState.toggleTheme()">
         <u-icon :name="globalState.getTheme() === 'light' ? 'moon-inv' : 'sun-inv'" />
       </u-button>
-      <u-button variant="circle" @click="openGitHub()"><u-icon name="github" /></u-button>
+      <u-button variant="circle" ariaLabel="GitHub" @click="openGitHub()">
+        <u-icon name="github" />
+      </u-button>
     </section>
   </aside>
   <section class="middle-block" :class="{ hide: snippet }">
@@ -110,7 +112,7 @@ const paginate = async (skip) => {
   }
 };
 
-const openGitHub = () =>  window.open('https://github.com/dd3v/snippets.ninja', '_blank');
+const openGitHub = () => window.open('https://github.com/dd3v/snippets.ninja', '_blank');
 
 watch(
   snippet,

@@ -5,26 +5,33 @@
         <u-icon name="left-small" />
       </u-button>
     </div>
-    <u-input
-      v-model="snippet.title"
-      variant="invisible"
-      name="title"
-      class="snippet-title"
-      @blur="snippet.title = snippet.title.length === 0 ? 'Untitled' : snippet.title"
-    />
-    <u-button variant="circle" @click="preview = !preview" v-if="isMarkdown">
-      <u-icon :name="preview ? 'eye-off' : 'eye'" />
-    </u-button>
-    <u-button
-      variant="circle"
-      @click="snippet.favorite = Number(!snippet.favorite)"
-      ariaLabel="Favorive"
-    >
-      <u-icon :name="snippet.favorite ? 'heart' : 'heart-empty'" />
-    </u-button>
-    <u-button variant="circle" @click="$emit('snippet:delete', snippet)" ariaLabel="Delete Snippet">
-      <u-icon name="trash-empty" />
-    </u-button>
+    <div class="snippet-title">
+      <u-input
+        v-model="snippet.title"
+        variant="invisible"
+        name="title"
+        @blur="snippet.title = snippet.title.length === 0 ? 'Untitled' : snippet.title"
+      />
+    </div>
+    <div class="snippet-toolbar">
+      <u-button variant="circle" @click="preview = !preview" v-if="isMarkdown">
+        <u-icon :name="preview ? 'eye-off' : 'eye'" />
+      </u-button>
+      <u-button
+        variant="circle"
+        @click="snippet.favorite = Number(!snippet.favorite)"
+        ariaLabel="Favorive"
+      >
+        <u-icon :name="snippet.favorite ? 'heart' : 'heart-empty'" />
+      </u-button>
+      <u-button
+        variant="circle"
+        @click="$emit('snippet:delete', snippet)"
+        ariaLabel="Delete Snippet"
+      >
+        <u-icon name="trash-empty" />
+      </u-button>
+    </div>
   </div>
   <div class="tag-list">
     <u-tag-input :max="5" placeholder="Enter a tag" v-model="snippet.tags" />
@@ -117,13 +124,23 @@ watch(
 }
 
 .editor-tools {
-  display: inline-flex;
-  gap: 10px;
+  display: flex;
+  align-items: center;
   padding: 5px;
 }
+
+.snippet-toolbar {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
 .snippet-title {
-  font-size: 16px;
-  width: 75%;
+  flex-grow: 1;
+}
+
+.snippet-title input {
+  font-size: 18px;
   color: var(--editor-title-color);
 }
 

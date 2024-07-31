@@ -76,7 +76,7 @@ defineExpose({
   display: flex;
   font-size: 16px;
   justify-content: space-between;
-  padding: 0px 0px 30px 0px;
+  padding: 10px 0px 20px 0px;
   color: var(--modal-header-color);
 }
 
